@@ -7,4 +7,4 @@ Twitterbot v2
  
 ## License
 
-This repository is under [GNU GPL3 License](https://github.com/edoardottt/twitterbot2/blob/main/LICENSE)
+This repository is under [GPL-3 License](https://github.com/edoardottt/twitterbot2/blob/main/LICENSE)
