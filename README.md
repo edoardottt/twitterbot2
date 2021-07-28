@@ -1,6 +1,8 @@
 # twitterbot2
 Twitterbot v2
 
+**Say hi to [Son of Anton](https://twitter.com/ai_testing)**
+
 ## Installation
 
 - `git clone https://github.com/edoardottt/twitterbot2`
