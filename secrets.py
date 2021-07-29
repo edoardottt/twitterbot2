@@ -5,6 +5,14 @@ def read_secrets():
     """
     With this function we can read secrets
     from the configuration file.
+    @return:
+        {
+            api_key
+            api_secret_key
+            bearer_token
+            access_token
+            access_token_secret
+        }
     """
     with open("config.yaml", "r") as stream:
         try:

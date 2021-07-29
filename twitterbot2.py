@@ -14,6 +14,10 @@ import twitter
 def auth(token, token_secret, consumer_key, consumer_secret):
     """
     This function provides the authentication to twitter.
+    token = access token
+    token_secret = access secret token
+    consumer_key = Api key
+    consumer_secret = Api Secret key
     """
     t = twitter.Twitter(
         auth=twitter.OAuth(token, token_secret, consumer_key, consumer_secret)
