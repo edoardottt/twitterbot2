@@ -22,7 +22,7 @@ Usage 🚀
 
 usage
 
-Contributing
+Contributing 🤝
 --------
 
 Just open an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull request](https://github.com/edoardottt/twitterbot2/pulls).
