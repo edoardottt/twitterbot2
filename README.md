@@ -30,5 +30,5 @@ Just open an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull req
 License 📝
 --------
 
-This repository is under [GPLv3 License](https://github.com/edoardottt/twitterbot2/blob/main/LICENSE)
+This repository is under [GPLv3 License](https://github.com/edoardottt/twitterbot2/blob/main/LICENSE).  
 [edoardoottavianelli.it](https://www.edoardoottavianelli.it) to contact me.
