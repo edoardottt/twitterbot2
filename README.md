@@ -6,7 +6,7 @@ Twitterbot v2
 Description 🔦 
 --------
 
-description
+Simple bot for Twitter. 2nd version of [twitterbot](https://github.com/edoardottt/twitterbot).
 
 Installation 📡
 -------
