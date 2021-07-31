@@ -1,5 +1,4 @@
 # twitterbot2
-Twitterbot v2
 
 **Follow me [edoardottt](https://twitter.com/edoardottt2)**
 
