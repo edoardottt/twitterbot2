@@ -1,6 +1,8 @@
 # twitterbot2
 Twitterbot v2
 
+**Follow me [edoardottt](https://twitter.com/edoardottt2)**
+
 **Say hi to [Son of Anton](https://twitter.com/ai_testing)**
 
 Description 🔦 
