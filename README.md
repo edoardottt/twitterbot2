@@ -4,6 +4,11 @@
 
 **Say hi to [Son of Anton](https://twitter.com/ai_testing)**
 
+Useful notes/links
+--------
+
+- https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
+
 Description 🔦 
 --------
 
