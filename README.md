@@ -7,6 +7,7 @@
 Useful notes/links
 --------
 
+- https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api
 - https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
 
 Description 🔦 
