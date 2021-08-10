@@ -9,3 +9,4 @@
 #
 
 month_tweet_cap = 500000
+daily_tweet_cap = 400
