@@ -90,10 +90,10 @@ while True:
     logging.info("Likes count: " + str(tweet_count))
     try:
         home = get_home(bot)
+        tweet_count += len(home)
     except Exception:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
-    tweet_count += len(home)
     for tweet_home in home:
         if tweet_home["user"]["screen_name"] == globals.user:
             put_like(bot, tweet_home)
@@ -101,10 +101,10 @@ while True:
 
     try:
         home = get_friend_home(bot, globals.user)
+        tweet_count += len(home)
     except Exception:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
-    tweet_count += len(home)
     for tweet_home in home:
         if tweet_home["user"]["screen_name"] == globals.user:
             put_like(bot, tweet_home)
