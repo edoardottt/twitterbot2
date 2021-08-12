@@ -27,7 +27,7 @@ Installation 📡
 Usage 🚀
 -------
 
-usage
+`python3 twitterbo2.py`
 
 Contributing 🤝
 --------
