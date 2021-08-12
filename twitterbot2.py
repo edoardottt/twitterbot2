@@ -10,6 +10,15 @@
 
 import twitter
 import secrets
+import time
+import globals
+from datetime import datetime
+
+# ----------- global vars -------------
+retweet_count = 0
+tweet_count = 0
+likes_count = 0
+# -------------------------------------
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):
@@ -47,6 +56,13 @@ def put_like(t, status):
         t.favorites.create(_id=status["id"])
 
 
+def retweet_tweet(t, status):
+    # retweet a status
+    if not status["retweeted"]:
+        # t.favorites.
+        t.favorites.create(_id=status["id"])
+
+
 def search(t, term):
     # Search for the latest tweets about <term>
     return t.search.tweets(q=term)
@@ -61,4 +77,28 @@ bot = auth(
     secretss["api_secret_key"],
 )
 
-print(get_home(bot))
+
+while True:
+    print("Tweet count: " + str(tweet_count))
+    print("Likes count: " + str(tweet_count))
+    try:
+        home = get_home(bot)
+    except Exception:
+        print("Rate limit exceeded")
+        time.sleep(15 * 60)
+    tweet_count += len(home)
+    for tweet_home in home:
+        if tweet_home["user"]["screen_name"] == globals.user:
+            put_like(bot, tweet_home)
+            likes_count += 1
+
+    try:
+        home = get_friend_home(bot, globals.user)
+    except Exception:
+        print("Rate limit exceeded")
+        time.sleep(15 * 60)
+    tweet_count += len(home)
+    for tweet_home in home:
+        if tweet_home["user"]["screen_name"] == globals.user:
+            put_like(bot, tweet_home)
+            likes_count += 1

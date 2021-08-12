@@ -11,3 +11,4 @@
 month_tweet_cap = 500000
 daily_tweet_cap = 2000
 quarter_hour_cap = 300
+user = "edoardottt2"
