@@ -7,3 +7,10 @@
 #
 #   This repository is under GPL-3 License.
 #
+
+
+def usage():
+    """
+    to do
+    """
+    print()

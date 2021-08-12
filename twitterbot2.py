@@ -9,6 +9,7 @@
 #
 
 import twitter
+import secrets
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):
@@ -49,3 +50,15 @@ def put_like(t, status):
 def search(t, term):
     # Search for the latest tweets about <term>
     return t.search.tweets(q=term)
+
+
+secretss = secrets.read_secrets()
+
+bot = auth(
+    secretss["access_token"],
+    secretss["access_token_secret"],
+    secretss["api_key"],
+    secretss["api_secret_key"],
+)
+
+print(get_home(bot))
