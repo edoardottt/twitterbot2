@@ -12,7 +12,10 @@ import twitter
 import secrets
 import time
 import globals
-from datetime import datetime
+import logging
+
+# from datetime import datetime
+
 
 # ----------- global vars -------------
 retweet_count = 0
@@ -78,13 +81,17 @@ bot = auth(
 )
 
 
+logging.basicConfig(
+    encoding="utf-8", level=logging.DEBUG, format="%(asctime)s %(message)s"
+)
+
 while True:
-    print("Tweet count: " + str(tweet_count))
-    print("Likes count: " + str(tweet_count))
+    logging.info("Tweet count: " + str(tweet_count))
+    logging.info("Likes count: " + str(tweet_count))
     try:
         home = get_home(bot)
     except Exception:
-        print("Rate limit exceeded")
+        logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     tweet_count += len(home)
     for tweet_home in home:
@@ -95,7 +102,7 @@ while True:
     try:
         home = get_friend_home(bot, globals.user)
     except Exception:
-        print("Rate limit exceeded")
+        logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     tweet_count += len(home)
     for tweet_home in home:
