@@ -56,6 +56,7 @@ def tweet(t, message):
 def put_like(t, status):
     # Favorite/like a status
     if not status["favorited"]:
+        logging.info("Put like on a tweet by {}".format(status["user"]["screen_name"]))
         t.favorites.create(_id=status["id"])
 
 
@@ -91,9 +92,6 @@ while True:
     for tweet_home in home:
         # if tweet_home["user"]["screen_name"] == globals.user:
         put_like(bot, tweet_home)
-        logging.info(
-            "Put like on a tweet by {}".format(tweet_home["user"]["screen_name"])
-        )
         likes_count += 1
         time.sleep(2)
 
@@ -101,8 +99,6 @@ while True:
     time.sleep(60)
 
     home = get_friend_home(bot, globals.user)
-    print(home)
-    print(len(home))
     if home is not None:
         tweet_count += len(home)
     else:
@@ -111,9 +107,6 @@ while True:
     for tweet_home in home:
         # if tweet_home["user"]["screen_name"] == globals.user:
         put_like(bot, tweet_home)
-        logging.info(
-            "Put like on a tweet by {}".format(tweet_home["user"]["screen_name"])
-        )
         likes_count += 1
         time.sleep(2)
 
