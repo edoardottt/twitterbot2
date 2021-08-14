@@ -113,5 +113,5 @@ while True:
         likes_count += 1
         time.sleep(2)
 
-    logging.info("Sleeping for 5 minutes.")
-    time.sleep(5 * 60)
+    logging.info("Sleeping for 15 minutes.")
+    time.sleep(15 * 60)
