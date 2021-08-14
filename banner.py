@@ -25,6 +25,3 @@ def print_banner():
     print("       > edoardottt, https://www.edoardoottavianelli.it")
     print("       > https://github.com/edoardottt/twitterbot2")
     print("")
-
-
-print_banner()

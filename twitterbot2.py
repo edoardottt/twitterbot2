@@ -13,6 +13,7 @@ import secrets
 import time
 import globals
 import logging
+import banner
 
 # from datetime import datetime
 
@@ -64,6 +65,8 @@ def search(t, term):
     # Search for the latest tweets about <term>
     return t.search.tweets(q=term)
 
+
+banner.print_banner()
 
 secretss = secrets.read_secrets()
 
