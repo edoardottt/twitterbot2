@@ -93,6 +93,11 @@ logging.basicConfig(
 while True:
     logging.info("Tweet count: " + str(tweet_count))
     logging.info("Likes count: " + str(tweet_count))
+    logging.info("Retweets count: " + str(retweet_count))
+
+    tweet(bot, banner.tweet_banner())
+    logging.info("Tweeted the banner.")
+
     home = get_home(bot)
     if home is not None:
         tweet_count += len(home)
@@ -100,12 +105,12 @@ while True:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
-        # if tweet_home["user"]["screen_name"] == globals.user:
-        put_like(bot, tweet_home)
-        likes_count += 1
-        retweet_tweet(bot, tweet_home)
-        retweet_count += 1
-        time.sleep(2)
+        if tweet_home["user"]["screen_name"] != globals.bot_user:
+            put_like(bot, tweet_home)
+            likes_count += 1
+            retweet_tweet(bot, tweet_home)
+            retweet_count += 1
+            time.sleep(2)
 
     logging.info("Sleeping for one minute.")
     time.sleep(60)
@@ -117,12 +122,12 @@ while True:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
-        # if tweet_home["user"]["screen_name"] == globals.user:
-        put_like(bot, tweet_home)
-        likes_count += 1
-        retweet_tweet(bot, tweet_home)
-        retweet_count += 1
-        time.sleep(2)
+        if tweet_home["user"]["screen_name"] != globals.bot_user:
+            put_like(bot, tweet_home)
+            likes_count += 1
+            retweet_tweet(bot, tweet_home)
+            retweet_count += 1
+            time.sleep(2)
 
     logging.info("Sleeping for 15 minutes.")
     time.sleep(15 * 60)

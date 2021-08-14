@@ -10,6 +10,7 @@
 
 
 import version
+import datetime
 
 
 def print_banner():
@@ -25,3 +26,12 @@ def print_banner():
     print("       > edoardottt, https://www.edoardoottavianelli.it")
     print("       > https://github.com/edoardottt/twitterbot2")
     print("")
+
+
+def tweet_banner():
+    tweet = str(datetime.datetime.now()) + "\n"
+    tweet += "This is a bot at the service of the only almighty God @edoardottt2.\n"
+    tweet += "https://www.edoardoottavianelli.it\n"
+    tweet += "https://github.com/edoardottt\n"
+    tweet += "https://twitter.com/edoardottt2"
+    return tweet
