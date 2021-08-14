@@ -61,6 +61,13 @@ def put_like(t, status):
         t.favorites.create(_id=status["id"])
 
 
+def retweet_tweet(t, status):
+    # Retweet a status
+    if not status["retweeted"]:
+        logging.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
+        t.statuses.retweet._id(_id=status["id"])
+
+
 def search(t, term):
     # Search for the latest tweets about <term>
     return t.search.tweets(q=term)
@@ -96,6 +103,8 @@ while True:
         # if tweet_home["user"]["screen_name"] == globals.user:
         put_like(bot, tweet_home)
         likes_count += 1
+        retweet_tweet(bot, tweet_home)
+        retweet_count += 1
         time.sleep(2)
 
     logging.info("Sleeping for one minute.")
@@ -111,6 +120,8 @@ while True:
         # if tweet_home["user"]["screen_name"] == globals.user:
         put_like(bot, tweet_home)
         likes_count += 1
+        retweet_tweet(bot, tweet_home)
+        retweet_count += 1
         time.sleep(2)
 
     logging.info("Sleeping for 15 minutes.")
