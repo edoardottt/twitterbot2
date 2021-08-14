@@ -85,13 +85,14 @@ logging.basicConfig(
     encoding="utf-8", level=logging.DEBUG, format="%(asctime)s %(message)s"
 )
 
+
 while True:
     logging.info("Tweet count: " + str(tweet_count))
     logging.info("Likes count: " + str(tweet_count))
-    try:
-        home = get_home(bot)
+    home = get_home(bot)
+    if home is not None:
         tweet_count += len(home)
-    except Exception:
+    else:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
@@ -99,13 +100,17 @@ while True:
             put_like(bot, tweet_home)
             likes_count += 1
 
-    try:
-        home = get_friend_home(bot, globals.user)
+    time.sleep(60)
+
+    home = get_friend_home(bot, globals.user)
+    if home is not None:
         tweet_count += len(home)
-    except Exception:
+    else:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
         if tweet_home["user"]["screen_name"] == globals.user:
             put_like(bot, tweet_home)
             likes_count += 1
+
+    time.sleep(600)
