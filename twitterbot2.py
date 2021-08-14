@@ -45,7 +45,7 @@ def get_home(t):
 
 def get_friend_home(t, name):
     # Get a particular friend's timeline
-    t.statuses.user_timeline(screen_name=name)
+    return t.statuses.user_timeline(screen_name=name)
 
 
 def tweet(t, message):
@@ -56,13 +56,6 @@ def tweet(t, message):
 def put_like(t, status):
     # Favorite/like a status
     if not status["favorited"]:
-        t.favorites.create(_id=status["id"])
-
-
-def retweet_tweet(t, status):
-    # retweet a status
-    if not status["retweeted"]:
-        # t.favorites.
         t.favorites.create(_id=status["id"])
 
 
@@ -96,21 +89,33 @@ while True:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
-        if tweet_home["user"]["screen_name"] == globals.user:
-            put_like(bot, tweet_home)
-            likes_count += 1
+        # if tweet_home["user"]["screen_name"] == globals.user:
+        put_like(bot, tweet_home)
+        logging.info(
+            "Put like on a tweet by {}".format(tweet_home["user"]["screen_name"])
+        )
+        likes_count += 1
+        time.sleep(2)
 
+    logging.info("Sleeping for one minute.")
     time.sleep(60)
 
     home = get_friend_home(bot, globals.user)
+    print(home)
+    print(len(home))
     if home is not None:
         tweet_count += len(home)
     else:
         logging.warning("Rate limit exceeded")
         time.sleep(15 * 60)
     for tweet_home in home:
-        if tweet_home["user"]["screen_name"] == globals.user:
-            put_like(bot, tweet_home)
-            likes_count += 1
+        # if tweet_home["user"]["screen_name"] == globals.user:
+        put_like(bot, tweet_home)
+        logging.info(
+            "Put like on a tweet by {}".format(tweet_home["user"]["screen_name"])
+        )
+        likes_count += 1
+        time.sleep(2)
 
-    time.sleep(600)
+    logging.info("Sleeping for 5 minutes.")
+    time.sleep(5 * 60)
