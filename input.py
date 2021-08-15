@@ -12,13 +12,27 @@
 import argparse
 
 
-def get_parser():
-    """Create and return a parser (argparse.ArgumentParser instance) for main()
-    to use"""
+def get_args():
+    """
+    Return the arguments provided by the user.
+    """
     parser = argparse.ArgumentParser(description="Twitterbot v2")
-    group = parser.add_mutually_exclusive_group(required=False)
-    group.add_argument(
-        "-v", "--version", action="store_true", help="Show the version of this program"
+
+    parser.add_argument(
+        "-v", "--version", action="store_true", help="Show the version of this program."
     )
 
-    return parser
+    parser.add_argument(
+        "-k",
+        "--keyword",
+        action="store_true",
+        help="Search for tweets with a defined keyword.",
+    )
+
+    parser.add_argument(
+        "-s", "--stats", action="store_true", help="Show the statistics of the bot."
+    )
+
+    args = parser.parse_args()
+
+    return args
