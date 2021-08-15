@@ -1,3 +1,4 @@
 twitter
 matplotlib
 argparse
+sqlite3
