@@ -25,6 +25,13 @@ def get_args():
     )
 
     group.add_argument(
+        "-h",
+        "--home",
+        action="store_true",
+        help="Search for tweets in the bot and user's home.",
+    )
+
+    group.add_argument(
         "-k",
         "--keyword",
         action="store_true",
