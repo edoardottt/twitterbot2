@@ -19,7 +19,7 @@ db_is_new = not os.path.exists(db_filename)
 conn = sqlite3.connect(db_filename)  # connect to the database or create it
 
 
-# ctreate table with the sql code input
+# create table with the sql code
 def create_table(conn, create_table_sql):
     try:
         c = conn.cursor()
@@ -28,7 +28,7 @@ def create_table(conn, create_table_sql):
         print(e)
 
 
-sql_create_analytics_table = """CREATE TABLE IF NOT EXISTS analytics (
+sql_create_statistics_table = """CREATE TABLE IF NOT EXISTS statistics (
                                     username text NOT NULL,
                                     date date NOT NULL,
                                     likes integer NOT NULL,
@@ -37,5 +37,5 @@ sql_create_analytics_table = """CREATE TABLE IF NOT EXISTS analytics (
                                     PRIMARY KEY (username,date)
                                 );"""
 if conn is not None:
-    create_table(conn, sql_create_analytics_table)
+    create_table(conn, sql_create_statistics_table)
 conn.close()
