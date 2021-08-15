@@ -16,6 +16,7 @@ import logging
 import banner
 import input
 import version
+import sys
 
 # from datetime import datetime
 
@@ -80,6 +81,10 @@ def create_bot():
     This function returns the authenticated Bot object.
     """
     secretss = secrets.read_secrets()
+
+    if secretss["access_token"] is None or secretss["access_token_secret"] is None:
+        logging.error("You must modify properly the config.yaml file.")
+        sys.exit(1)
 
     bot = auth(
         secretss["access_token"],
@@ -151,7 +156,7 @@ def main():
 
     banner.print_banner()
 
-    ## -- VERSION --
+    # -- VERSION --
     if args.version:
         version.print_version()
 
