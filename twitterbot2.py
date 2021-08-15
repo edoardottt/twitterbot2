@@ -86,7 +86,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-"""
+
 banner.print_banner()
 
 secretss = secrets.read_secrets()
@@ -145,4 +145,3 @@ while True:
 
     logging.info("Sleeping for 15 minutes.")
     time.sleep(15 * 60)
-"""
