@@ -16,20 +16,22 @@ def get_args():
     """
     Return the arguments provided by the user.
     """
-    parser = argparse.ArgumentParser(description="Twitterbot v2")
 
-    parser.add_argument(
+    parser = argparse.ArgumentParser(description="Twitterbot v2")
+    group = parser.add_mutually_exclusive_group(required=False)
+
+    group.add_argument(
         "-v", "--version", action="store_true", help="Show the version of this program."
     )
 
-    parser.add_argument(
+    group.add_argument(
         "-k",
         "--keyword",
         action="store_true",
         help="Search for tweets with a defined keyword.",
     )
 
-    parser.add_argument(
+    group.add_argument(
         "-s", "--stats", action="store_true", help="Show the statistics of the bot."
     )
 
