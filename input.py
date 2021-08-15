@@ -34,7 +34,7 @@ def get_args():
     group.add_argument(
         "-k",
         "--keyword",
-        action="store_true",
+        type=str,
         help="Search for tweets with a defined keyword.",
     )
 

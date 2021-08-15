@@ -15,6 +15,7 @@ import globals
 import logging
 import banner
 import input
+import version
 
 # from datetime import datetime
 
@@ -74,74 +75,101 @@ def search(t, term):
     return t.search.tweets(q=term)
 
 
+def create_bot():
+    """
+    This function returns the authenticated Bot object.
+    """
+    secretss = secrets.read_secrets()
+
+    bot = auth(
+        secretss["access_token"],
+        secretss["access_token_secret"],
+        secretss["api_key"],
+        secretss["api_secret_key"],
+    )
+    return bot
+
+
+def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
+    """
+    This is the handler of the -t or --timeline option.
+
+    """
+    while True:
+        logging.info("Tweet count: " + str(tweet_count))
+        logging.info("Likes count: " + str(tweet_count))
+        logging.info("Retweets count: " + str(retweet_count))
+
+        tweet(bot, banner.tweet_banner())
+        logging.info("Tweeted the banner.")
+
+        home = get_home(bot)
+        if home is not None:
+            tweet_count += len(home)
+        else:
+            logging.warning("Rate limit exceeded")
+            time.sleep(15 * 60)
+        for tweet_home in home:
+            if tweet_home["user"]["screen_name"] != globals.bot_user:
+                put_like(bot, tweet_home)
+                likes_count += 1
+                retweet_tweet(bot, tweet_home)
+                retweet_count += 1
+                time.sleep(2)
+
+        logging.info("Sleeping for one minute.")
+        time.sleep(60)
+
+        home = get_friend_home(bot, globals.user)
+        if home is not None:
+            tweet_count += len(home)
+        else:
+            logging.warning("Rate limit exceeded")
+            time.sleep(15 * 60)
+        for tweet_home in home:
+            if tweet_home["user"]["screen_name"] != globals.bot_user:
+                put_like(bot, tweet_home)
+                likes_count += 1
+                retweet_tweet(bot, tweet_home)
+                retweet_count += 1
+                time.sleep(2)
+
+        logging.info("Sleeping for 15 minutes.")
+        time.sleep(15 * 60)
+
+
 def main():
     """
     Main function
     """
+
+    logging.basicConfig(
+        encoding="utf-8", level=logging.DEBUG, format="%(asctime)s %(message)s"
+    )
+
     args = input.get_args()
 
-    print(args)
+    banner.print_banner()
+
+    ## -- VERSION --
+    if args.version:
+        version.print_version()
+
+    # -- TIMELINE --
+    if args.timeline:
+        bot = create_bot()
+        crawl_timeline(bot)
+
+    # -- KEYWORD --
+    if args.keyword:
+        bot = create_bot()
+        ts = search(bot, args.keyword)
+        print(ts)
+
+    # -- STATS --
+    if args.stats:
+        print("STATISTICS.")
 
 
 if __name__ == "__main__":
     main()
-
-
-banner.print_banner()
-
-secretss = secrets.read_secrets()
-
-bot = auth(
-    secretss["access_token"],
-    secretss["access_token_secret"],
-    secretss["api_key"],
-    secretss["api_secret_key"],
-)
-
-
-logging.basicConfig(
-    encoding="utf-8", level=logging.DEBUG, format="%(asctime)s %(message)s"
-)
-
-
-while True:
-    logging.info("Tweet count: " + str(tweet_count))
-    logging.info("Likes count: " + str(tweet_count))
-    logging.info("Retweets count: " + str(retweet_count))
-
-    tweet(bot, banner.tweet_banner())
-    logging.info("Tweeted the banner.")
-
-    home = get_home(bot)
-    if home is not None:
-        tweet_count += len(home)
-    else:
-        logging.warning("Rate limit exceeded")
-        time.sleep(15 * 60)
-    for tweet_home in home:
-        if tweet_home["user"]["screen_name"] != globals.bot_user:
-            put_like(bot, tweet_home)
-            likes_count += 1
-            retweet_tweet(bot, tweet_home)
-            retweet_count += 1
-            time.sleep(2)
-
-    logging.info("Sleeping for one minute.")
-    time.sleep(60)
-
-    home = get_friend_home(bot, globals.user)
-    if home is not None:
-        tweet_count += len(home)
-    else:
-        logging.warning("Rate limit exceeded")
-        time.sleep(15 * 60)
-    for tweet_home in home:
-        if tweet_home["user"]["screen_name"] != globals.bot_user:
-            put_like(bot, tweet_home)
-            likes_count += 1
-            retweet_tweet(bot, tweet_home)
-            retweet_count += 1
-            time.sleep(2)
-
-    logging.info("Sleeping for 15 minutes.")
-    time.sleep(15 * 60)
