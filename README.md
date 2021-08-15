@@ -1,4 +1,4 @@
-# twitterbot2
+# twitterbot2 🤖
 
 **Follow me [edoardottt](https://twitter.com/edoardottt2)**
 
