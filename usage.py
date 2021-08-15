@@ -11,18 +11,19 @@
 
 def usage():
     """
-    usage: twitterbot2.py [-h] [-v | -t | -k | -s]
+    usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s]
 
     Twitterbot v2
 
     optional arguments:
-      -h, --help      show this help message and exit
-      -v, --version   Show the version of this program.
-      -t, --timeline  Search for tweets in the bot and user's timeline.
-      -k, --keyword   Search for tweets with a defined keyword.
-      -s, --stats     Show the statistics of the bot.
+      -h, --help            show this help message and exit
+      -v, --version         Show the version of this program.
+      -t, --timeline        Search for tweets in the bot and user's timeline.
+      -k KEYWORD, --keyword KEYWORD
+                            Search for tweets with a defined keyword.
+      -s, --stats           Show the statistics of the bot.
     """
-    print("usage: twitterbot2.py [-h] [-v | -t | -k | -s]")
+    print("usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s]")
     print("")
     print("Twitterbot v2")
     print("")
@@ -30,5 +31,6 @@ def usage():
     print("  -h, --help     show this help message and exit")
     print("  -v, --version  Show the version of this program.")
     print("  -t, --timeline  Search for tweets in the bot and user's timeline.")
-    print("  -k, --keyword  Search for tweets with a defined keyword.")
+    print("  -k KEYWORD, --keyword KEYWORD")
+    print("                      Search for tweets with a defined keyword.")
     print("  -s, --stats    Show the statistics of the bot.")
