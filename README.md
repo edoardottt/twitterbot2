@@ -31,7 +31,19 @@ Installation 📡
 Usage 🚀
 -------
 
-`python3 twitterbo2.py`
+```
+usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s]
+
+Twitterbot v2
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -v, --version         Show the version of this program.
+  -t, --timeline        Search for tweets in the bot and user's timeline.
+  -k KEYWORD, --keyword KEYWORD
+                        Search for tweets with a defined keyword.
+  -s, --stats           Show the statistics of the bot.
+```
 
 Contributing 🤝
 --------
