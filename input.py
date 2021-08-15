@@ -25,10 +25,10 @@ def get_args():
     )
 
     group.add_argument(
-        "-h",
-        "--home",
+        "-t",
+        "--timeline",
         action="store_true",
-        help="Search for tweets in the bot and user's home.",
+        help="Search for tweets in the bot and user's timeline.",
     )
 
     group.add_argument(
