@@ -4,9 +4,9 @@
 
 **Say hi to [Son of Anton](https://twitter.com/ai_testing)**
 
-![version](https://github.com/edoardottt/images/blob/main/twitterbot2/version.svg)  
-![python-version](https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg)  
-![win-build-success-badge.svg](https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg)  
+![python-version](https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg)
+![linux-build-success-badge](https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg)
+![win-build-success-badge.svg](https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg)
 
 Useful notes/links
 --------
