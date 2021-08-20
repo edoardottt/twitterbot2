@@ -26,6 +26,7 @@ Installation 📡
 - `cd twitterbot2`
 - `pip install -r requirements.txt`
 - Edit the configuration file
+- `python init_db.py`
 - `python twitterbot2.py`
 
 Usage 🚀
