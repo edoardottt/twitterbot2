@@ -17,6 +17,8 @@ import banner
 import input
 import version
 import sys
+import db
+import datetime
 
 # from datetime import datetime
 
@@ -99,9 +101,19 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
     """
     This is the handler of the -t or --timeline option.
     """
-    while True:
-        # update values in the database
+    # check if there are values of today.
+    conn = db.conn_db()
+    username = globals.bot_user
+    today = datetime.datetime.now()
+    values = db.today_stats(conn, (username, today))
 
+    # if there aren't data, creates a record in the statistics table
+    if values is not None:
+        pass
+    else:
+        pass
+
+    while True:
         logging.info("Tweet count: " + str(tweet_count))
         logging.info("Likes count: " + str(tweet_count))
         logging.info("Retweets count: " + str(retweet_count))
