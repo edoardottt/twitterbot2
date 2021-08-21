@@ -32,7 +32,7 @@ def update_stat(conn, data):
     """
     This function updates the record of today with new up-to-date values.
     """
-    sql = """ UPDATE statistics SET VALUES(?,?,?,?,?) WHERE ? """
+    sql = """ UPDATE statistics SET likes = ?, retweets = ?, followers = ? WHERE username = ? AND date = ? """
     cur = conn.cursor()
     cur.execute(sql, data)
     conn.commit()
