@@ -98,7 +98,6 @@ def create_bot():
 def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
     """
     This is the handler of the -t or --timeline option.
-
     """
     while True:
         logging.info("Tweet count: " + str(tweet_count))
