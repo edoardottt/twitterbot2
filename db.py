@@ -40,7 +40,7 @@ def update_stat(conn, data):
 
 def today_stats(conn, data):
     """
-    This function updates the record of today with new up-to-date values.
+    This function retrieves the record of today with up-to-date values.
     """
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
