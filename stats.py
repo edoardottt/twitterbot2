@@ -44,14 +44,7 @@ def check_stat(username, password):
         sys.exit()
     else:
         cursor = conn.cursor()
-        # check if that user is in the database
-        cursor.execute("SELECT * FROM users WHERE username = ?", (username))
-        data = cursor.fetchone()
-        if data is None:
-            print("There aren't data for this username.")
-            sys.exit()
-        # if that user exists
-        cursor.execute("SELECT * FROM analytics WHERE username = ?", (username,))
+        cursor.execute("SELECT * FROM statistics WHERE username = ?", (username,))
         data = cursor.fetchall()
         if data is not None:
             if len(data) != 0:
