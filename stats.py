@@ -26,7 +26,7 @@ db_is_new = not os.path.exists(db_filename)
 conn = sqlite3.connect(db_filename)
 
 
-def check_stat(username, password):
+def check_stat(username):
     """
     This function checks the statistics for a user
     """
