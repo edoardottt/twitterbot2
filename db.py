@@ -21,6 +21,7 @@
 import os
 import sqlite3
 import sys
+import datetime
 
 
 def conn_db():
@@ -56,12 +57,12 @@ def update_stat(conn, data):
     conn.commit()
 
 
-def today_stats(conn, data):
+def today_stats(conn, username):
     """
     This function retrieves the record of today with up-to-date values.
     """
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
-    cur.execute(sql, data)
+    cur.execute(sql, (username, datetime.datetime.today()))
     values = cur.fetchone()
     return values
