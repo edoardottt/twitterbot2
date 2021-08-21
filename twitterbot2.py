@@ -110,7 +110,7 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
 
     # if there aren't data, creates a record in the statistics table
     if values is None:
-        db.create_stat(conn, (username, today, 0, 0, 0))
+        db.create_stat(conn, (username, today, 0, 0, 0, 0))
     # otherwise retrieves the values
     else:
         (
@@ -164,6 +164,18 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
         time.sleep(15 * 60)
 
         # update the values in the database
+        today = datetime.datetime.today()
+
+        # if there aren't data, creates a record in the statistics table
+        if values is None:
+            db.create_stat(conn, (username, today, 0, 0, 0, 0))
+            tweet_count = 0
+            likes_count = 0
+            retweet_count = 0
+            followers_count = 0
+        # otherwise update the values
+        else:
+            pass
 
 
 def main():
