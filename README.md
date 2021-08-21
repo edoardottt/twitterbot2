@@ -2,7 +2,7 @@
 
 **Follow me [edoardottt](https://twitter.com/edoardottt2)**
 
-**Say hi to [Son of Anton](https://twitter.com/ai_testing)**
+**Say Hi to [Son of Anton](https://twitter.com/ai_testing)**
 
 ![python-version](https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg)
 ![linux-build-success-badge](https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg)
