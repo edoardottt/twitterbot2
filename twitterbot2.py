@@ -53,7 +53,7 @@ def tweet(t, message):
 def put_like(t, status):
     # Favorite/like a status
     if not status["favorited"]:
-        logging.info("Put like on a tweet by {}".format(status["user"]["screen_name"]))
+        logging.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
         t.favorites.create(_id=status["id"])
 
 
@@ -151,7 +151,6 @@ def crawl_timeline(bot):
                 retweet_tweet(bot, tweet_home)
                 retweet_count += 1
                 time.sleep(2)
-
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
         values = db.today_stats(conn, username)
@@ -164,7 +163,8 @@ def crawl_timeline(bot):
         # otherwise update the values
         else:
             db.update_stat(
-                conn, (username, today, tweet_count, likes_count, retweet_count)
+                conn,
+                (tweet_count, likes_count, retweet_count, username, today),
             )
         logging.info("Database updated.")
         logging.info("Sleeping for 15 minutes.")
