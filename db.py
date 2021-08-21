@@ -45,4 +45,5 @@ def today_stats(conn, data):
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
     cur.execute(sql, data)
-    conn.commit()
+    values = cur.fetchone()
+    return values
