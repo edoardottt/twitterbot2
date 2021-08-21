@@ -32,7 +32,6 @@ sql_create_statistics_table = """CREATE TABLE IF NOT EXISTS statistics (
                                     tweets integer NOT NULL,
                                     likes integer NOT NULL,
                                     retweets integer NOT NULL,
-                                    followers integer NOT NULL,
                                     PRIMARY KEY (username,date)
                                 );"""
 if conn is not None:

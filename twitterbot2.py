@@ -20,16 +20,6 @@ import sys
 import db
 import datetime
 
-# from datetime import datetime
-
-
-# ----------- global vars -------------
-tweet_count = 0
-likes_count = 0
-retweet_count = 0
-followers_count = 0
-# -------------------------------------
-
 
 def auth(token, token_secret, consumer_key, consumer_secret):
     """
@@ -98,19 +88,23 @@ def create_bot():
     return bot
 
 
-def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
+def crawl_timeline(bot):
     """
     This is the handler of the -t or --timeline option.
     """
+    tweet_count = 0
+    likes_count = 0
+    retweet_count = 0
+
     # check if there are values of today.
     conn = db.conn_db()
     username = globals.bot_user
     values = db.today_stats(conn, username)
-    today = datetime.datetime.today()
+    today = datetime.datetime.today().strftime("%Y-%m-%d")
 
     # if there aren't data, creates a record in the statistics table
     if values is None:
-        db.create_stat(conn, (username, today, 0, 0, 0, 0))
+        db.create_stat(conn, (username, today, 0, 0, 0))
     # otherwise retrieves the values
     else:
         (
@@ -119,7 +113,6 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
             tweet_count,
             likes_count,
             retweet_count,
-            followers_count,
         ) = values
 
     while True:
@@ -127,7 +120,6 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
         logging.info("Tweet count: " + str(tweet_count))
         logging.info("Likes count: " + str(likes_count))
         logging.info("Retweets count: " + str(retweet_count))
-        logging.info("Followers count: " + str(followers_count))
 
         home = get_home(bot)
         if home is not None:
@@ -160,22 +152,23 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
                 retweet_count += 1
                 time.sleep(2)
 
-        logging.info("Sleeping for 15 minutes.")
-        time.sleep(15 * 60)
-
         # update the values in the database
-        today = datetime.datetime.today()
-
+        today = datetime.datetime.today().strftime("%Y-%m-%d")
+        values = db.today_stats(conn, username)
         # if there aren't data, creates a record in the statistics table
         if values is None:
-            db.create_stat(conn, (username, today, 0, 0, 0, 0))
+            db.create_stat(conn, (username, today, 0, 0, 0))
             tweet_count = 0
             likes_count = 0
             retweet_count = 0
-            followers_count = 0
         # otherwise update the values
         else:
-            pass
+            db.update_stat(
+                conn, (username, today, tweet_count, likes_count, retweet_count)
+            )
+        logging.info("Database updated.")
+        logging.info("Sleeping for 15 minutes.")
+        time.sleep(15 * 60)
 
 
 def main():

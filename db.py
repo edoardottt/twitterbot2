@@ -15,7 +15,6 @@
 # tweets integer NOT NULL
 # likes integer NOT NULL
 # retweets integer NOT NULL
-# followers integer NOT NULL
 #
 # PRIMARY KEY (username, date)
 
@@ -42,7 +41,7 @@ def create_stat(conn, data):
     """
     This function creates a record in the statistics table.
     """
-    sql = """ INSERT INTO statistics VALUES(?,?,?,?,?,?) """
+    sql = """ INSERT INTO statistics VALUES(?,?,?,?,?) """
     cur = conn.cursor()
     cur.execute(sql, data)
     conn.commit()
@@ -52,7 +51,7 @@ def update_stat(conn, data):
     """
     This function updates the record of today with new up-to-date values.
     """
-    sql = """ UPDATE statistics SET tweets = ?, likes = ?, retweets = ?, followers = ? WHERE username = ? AND date = ? """
+    sql = """ UPDATE statistics SET tweets = ?, likes = ?, retweets = ? WHERE username = ? AND date = ? """
     cur = conn.cursor()
     cur.execute(sql, data)
     conn.commit()
@@ -64,6 +63,6 @@ def today_stats(conn, username):
     """
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
-    cur.execute(sql, (username, datetime.datetime.today()))
+    cur.execute(sql, (username, datetime.datetime.today().strftime("%Y-%m-%d")))
     values = cur.fetchone()
     return values
