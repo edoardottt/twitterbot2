@@ -24,9 +24,10 @@ import datetime
 
 
 # ----------- global vars -------------
-retweet_count = 0
 tweet_count = 0
 likes_count = 0
+retweet_count = 0
+followers_count = 0
 # -------------------------------------
 
 
@@ -112,15 +113,20 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
         db.create_stat(conn, (username, today, 0, 0, 0))
     # otherwise retrieves the values
     else:
-        retweet_count, tweet_count, likes_count
+        (
+            username,
+            today,
+            tweet_count,
+            likes_count,
+            retweet_count,
+            followers_count,
+        ) = values
 
     while True:
         logging.info("Tweet count: " + str(tweet_count))
-        logging.info("Likes count: " + str(tweet_count))
+        logging.info("Likes count: " + str(likes_count))
         logging.info("Retweets count: " + str(retweet_count))
-
-        tweet(bot, banner.tweet_banner())
-        logging.info("Tweeted the banner.")
+        logging.info("Followers count: " + str(followers_count))
 
         home = get_home(bot)
         if home is not None:
