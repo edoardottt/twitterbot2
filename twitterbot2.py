@@ -177,7 +177,7 @@ def main():
     """
 
     logging.basicConfig(
-        encoding="utf-8", level=logging.DEBUG, format="%(asctime)s %(message)s"
+        encoding="utf-8", level=logging.DEBUG, format="%(asctime)s | %(message)s"
     )
 
     args = input.get_args()
