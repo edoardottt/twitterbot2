@@ -104,7 +104,7 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
     # check if there are values of today.
     conn = db.conn_db()
     username = globals.bot_user
-    today = datetime.datetime.now()
+    today = datetime.datetime.today()
     values = db.today_stats(conn, (username, today))
 
     # if there aren't data, creates a record in the statistics table
