@@ -100,6 +100,8 @@ def crawl_timeline(bot, tweet_count, likes_count, retweet_count):
     This is the handler of the -t or --timeline option.
     """
     while True:
+        # update values in the database
+
         logging.info("Tweet count: " + str(tweet_count))
         logging.info("Likes count: " + str(tweet_count))
         logging.info("Retweets count: " + str(retweet_count))

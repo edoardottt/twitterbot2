@@ -17,6 +17,23 @@
 # followers integer NOT NULL,
 # PRIMARY KEY (username, date)
 
+import os
+import sqlite3
+import sys
+
+
+def conn_db():
+    """
+    This function returns a connection to the database.
+    """
+    db_filename = "database.db"
+    db_is_new = not os.path.exists(db_filename)
+    if db_is_new:
+        print("You must execute: python init_db.py")
+        sys.exit()
+    conn = sqlite3.connect(db_filename)
+    return conn
+
 
 def create_stat(conn, data):
     """
