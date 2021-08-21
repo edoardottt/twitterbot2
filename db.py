@@ -36,3 +36,13 @@ def update_stat(conn, data):
     cur = conn.cursor()
     cur.execute(sql, data)
     conn.commit()
+
+
+def today_stats(conn, data):
+    """
+    This function updates the record of today with new up-to-date values.
+    """
+    sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
+    cur = conn.cursor()
+    cur.execute(sql, data)
+    conn.commit()
