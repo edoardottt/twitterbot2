@@ -10,11 +10,12 @@
 
 # TABLE statistics:
 #
-# username text NOT NULL,
-# date date NOT NULL,
-# likes integer NOT NULL,
-# retweets integer NOT NULL,
-# followers integer NOT NULL,
+# username text NOT NULL
+# date date NOT NULL
+# likes integer NOT NULL
+# retweets integer NOT NULL
+# followers integer NOT NULL
+#
 # PRIMARY KEY (username, date)
 
 import os
