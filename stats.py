@@ -12,11 +12,12 @@
 import os
 import sys
 import sqlite3
+import globals
 
 try:
     import matplotlib.pyplot as plt
 
-    plt.figure(num="twitterbot2 stats")
+    plt.figure(num="Twitterbot2 - " + globals.bot_user + " stats")
 except Exception:
     print("Execute: pip install -r requirements.txt")
     sys.exit()
