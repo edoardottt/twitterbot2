@@ -39,7 +39,10 @@ def get_args():
     )
 
     group.add_argument(
-        "-s", "--stats", action="store_true", help="Show the statistics of the bot."
+        "-s",
+        "--stats",
+        type=str,
+        help="Show the statistics of the inputted bot (username).",
     )
 
     args = parser.parse_args()

@@ -21,7 +21,8 @@ def usage():
       -t, --timeline        Search for tweets in the bot and user's timeline.
       -k KEYWORD, --keyword KEYWORD
                             Search for tweets with a defined keyword.
-      -s, --stats           Show the statistics of the bot.
+      -s STATS, --stats STATS
+                        Show the statistics of the inputted bot (username).
     """
     print("usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s]")
     print("")
@@ -33,4 +34,5 @@ def usage():
     print("  -t, --timeline  Search for tweets in the bot and user's timeline.")
     print("  -k KEYWORD, --keyword KEYWORD")
     print("                      Search for tweets with a defined keyword.")
-    print("  -s, --stats    Show the statistics of the bot.")
+    print("  -s STATS, --stats STATS")
+    print("                  Show the statistics of the inputted bot (username).")
