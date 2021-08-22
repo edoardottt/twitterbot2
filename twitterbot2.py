@@ -117,7 +117,7 @@ def crawl_timeline(bot):
 
     while True:
 
-        logging.info("Tweet count: " + str(tweet_count))
+        logging.info("Tweets count: " + str(tweet_count))
         logging.info("Likes count: " + str(likes_count))
         logging.info("Retweets count: " + str(retweet_count))
 
