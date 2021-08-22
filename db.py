@@ -66,3 +66,14 @@ def today_stats(conn, username):
     cur.execute(sql, (username, datetime.datetime.today().strftime("%Y-%m-%d")))
     values = cur.fetchone()
     return values
+
+
+def user_stats(conn, username):
+    """
+    This function retrieves all the records for a user.
+    """
+    sql = """ SELECT * FROM statistics WHERE username = ? """
+    cur = conn.cursor()
+    cur.execute(sql, (username))
+    values = cur.fetchall()
+    return values
