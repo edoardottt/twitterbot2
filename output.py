@@ -9,16 +9,19 @@
 #
 
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
 
 def create_output_folder():
-    pass
+    directory = "twitterbot-output"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 
-def create_output_file():
-    pass
+def create_output_file(filename):
+    _ = open("twitterbot-output/" + filename, "w+")
 
 
 def output_csv():
