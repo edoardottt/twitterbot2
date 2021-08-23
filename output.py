@@ -21,7 +21,8 @@ def create_output_folder():
 
 
 def create_output_file(filename):
-    _ = open("twitterbot-output/" + filename, "w+")
+    if not os.path.exists("twitterbot-output/" + filename):
+        _ = open("twitterbot-output/" + filename, "w+")
 
 
 def output_csv():
