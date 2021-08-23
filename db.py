@@ -79,3 +79,14 @@ def user_stats(conn, username):
     cur.execute(sql, (username))
     values = cur.fetchall()
     return values
+
+
+def all_stats(conn):
+    """
+    This function retrieves all the records.
+    """
+    sql = """ SELECT * FROM statistics"""
+    cur = conn.cursor()
+    cur.execute(sql)
+    values = cur.fetchall()
+    return values
