@@ -11,6 +11,7 @@
 import logging
 import os
 import db
+import csv
 
 logger = logging.getLogger(__name__)
 
@@ -35,8 +36,13 @@ def output_csv(user):
         values = db.all_stats(conn)
     else:
         values = db.user_stats(conn, user)
+    with open(filename, "w", newline="") as myfile:
+        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+        for elem in values:
+            wr.writerow(elem)
 
 
+"""
 def output_json(user):
     create_output_folder()
     filename = create_output_file(user + ".json")
@@ -55,3 +61,4 @@ def output_html(user):
         values = db.all_stats(conn)
     else:
         values = db.user_stats(conn, user)
+"""

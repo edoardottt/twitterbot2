@@ -65,7 +65,13 @@ def today_stats(conn, username):
     """
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
-    cur.execute(sql, (username, datetime.datetime.today().strftime("%Y-%m-%d")))
+    cur.execute(
+        sql,
+        (
+            username,
+            datetime.datetime.today().strftime("%Y-%m-%d"),
+        ),
+    )
     values = cur.fetchone()
     return values
 
@@ -76,7 +82,7 @@ def user_stats(conn, username):
     """
     sql = """ SELECT * FROM statistics WHERE username = ? """
     cur = conn.cursor()
-    cur.execute(sql, (username))
+    cur.execute(sql, (username,))
     values = cur.fetchall()
     return values
 
@@ -85,7 +91,7 @@ def all_stats(conn):
     """
     This function retrieves all the records.
     """
-    sql = """ SELECT * FROM statistics"""
+    sql = """ SELECT * FROM statistics """
     cur = conn.cursor()
     cur.execute(sql)
     values = cur.fetchall()
