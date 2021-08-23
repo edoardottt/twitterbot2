@@ -12,6 +12,7 @@ month_tweet_cap = 500000
 daily_tweet_cap = 2000
 quarter_hour_cap = 300
 
-# change these
+# ==== CHANGE THESE VALUES ====
 user = "edoardottt2"  # your profile
 bot_user = "ai_testing"  # the bot
+# =============================
