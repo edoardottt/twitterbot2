@@ -33,6 +33,8 @@ def check_stat(username):
     """
     This function checks the statistics for the inputted user
     """
+    logger = logging.getLogger("matplotlib")
+    logger.setLevel(logging.CRITICAL)
     dates = []  # contains all the dates stored in the database
     tweets = []  # contains all the tweets stored in the database
     likes = []  # contains all the likes stored in the records
@@ -68,7 +70,7 @@ def check_stat(username):
                 plt.legend(loc="upper left")
             # Print the results
             logger = logging.getLogger(__name__)
-            logger.info("Total Tweets: " + str(sum(tweets)))
+            logger.info("Total tweets: " + str(sum(tweets)))
             logger.info("Total likes: " + str(sum(likes)))
             logger.info("Total retweets: " + str(sum(retweets)))
             plt.title("Statistics for " + username)
