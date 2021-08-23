@@ -25,13 +25,16 @@ def create_output_file(filename):
         _ = open("twitterbot-output/" + filename, "w+")
 
 
-def output_csv():
-    pass
+def output_csv(user):
+    create_output_folder()
+    create_output_file(user + ".csv")
 
 
-def output_html():
-    pass
+def output_json(user):
+    create_output_folder()
+    create_output_file(user + ".json")
 
 
-def output_json():
-    pass
+def output_html(user):
+    create_output_folder()
+    create_output_file(user + ".html")
