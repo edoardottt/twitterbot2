@@ -19,6 +19,7 @@ import version
 import sys
 import db
 import datetime
+import stats
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):
@@ -50,17 +51,17 @@ def tweet(t, message):
     t.statuses.update(status=message)
 
 
-def put_like(t, status):
+def put_like(t, status, logger):
     # Favorite/like a status
     if not status["favorited"]:
-        logging.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
         t.favorites.create(_id=status["id"])
 
 
-def retweet_tweet(t, status):
+def retweet_tweet(t, status, logger):
     # Retweet a status
     if not status["retweeted"]:
-        logging.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
         t.statuses.retweet._id(_id=status["id"])
 
 
@@ -69,14 +70,14 @@ def search(t, term):
     return t.search.tweets(q=term)
 
 
-def create_bot():
+def create_bot(logger):
     """
     This function returns the authenticated Bot object.
     """
     secretss = secrets.read_secrets()
 
     if secretss["access_token"] is None or secretss["access_token_secret"] is None:
-        logging.error("You must modify properly the config.yaml file.")
+        logger.error("You must modify properly the config.yaml file.")
         sys.exit(1)
 
     bot = auth(
@@ -88,7 +89,7 @@ def create_bot():
     return bot
 
 
-def crawl_timeline(bot):
+def crawl_timeline(bot, logger):
     """
     This is the handler of the -t or --timeline option.
     """
@@ -117,38 +118,38 @@ def crawl_timeline(bot):
 
     while True:
 
-        logging.info("Tweets count: " + str(tweet_count))
-        logging.info("Likes count: " + str(likes_count))
-        logging.info("Retweets count: " + str(retweet_count))
+        logger.info("Tweets count: " + str(tweet_count))
+        logger.info("Likes count: " + str(likes_count))
+        logger.info("Retweets count: " + str(retweet_count))
 
         home = get_home(bot)
         if home is not None:
             tweet_count += len(home)
         else:
-            logging.warning("Rate limit exceeded")
+            logger.warning("Rate limit exceeded")
             time.sleep(15 * 60)
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_home)
+                put_like(bot, tweet_home, logger)
                 likes_count += 1
-                retweet_tweet(bot, tweet_home)
+                retweet_tweet(bot, tweet_home, logger)
                 retweet_count += 1
                 time.sleep(2)
 
-        logging.info("Sleeping for one minute.")
+        logger.info("Sleeping for one minute.")
         time.sleep(60)
 
         home = get_friend_home(bot, globals.user)
         if home is not None:
             tweet_count += len(home)
         else:
-            logging.warning("Rate limit exceeded")
+            logger.warning("Rate limit exceeded")
             time.sleep(15 * 60)
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_home)
+                put_like(bot, tweet_home, logger)
                 likes_count += 1
-                retweet_tweet(bot, tweet_home)
+                retweet_tweet(bot, tweet_home, logger)
                 retweet_count += 1
                 time.sleep(2)
         # update the values in the database
@@ -166,8 +167,8 @@ def crawl_timeline(bot):
                 conn,
                 (tweet_count, likes_count, retweet_count, username, today),
             )
-        logging.info("Database updated.")
-        logging.info("Sleeping for 15 minutes.")
+        logger.info("Database updated.")
+        logger.info("Sleeping for 15 minutes.")
         time.sleep(15 * 60)
 
 
@@ -175,6 +176,7 @@ def main():
     """
     Main function
     """
+    logger = logging.getLogger(__name__)
 
     logging.basicConfig(
         encoding="utf-8",
@@ -192,18 +194,18 @@ def main():
 
     # -- TIMELINE --
     if args.timeline:
-        bot = create_bot()
-        crawl_timeline(bot)
+        bot = create_bot(logger)
+        crawl_timeline(bot, logger)
 
     # -- KEYWORD --
     if args.keyword:
-        bot = create_bot()
-        ts = search(bot, args.keyword)
+        bot = create_bot(logger)
+        ts = search(bot, args.keyword, logger)
         print(ts)
 
     # -- STATS --
     if args.stats:
-        print("STATISTICS.")
+        stats.check_stat(args.stats)
 
 
 if __name__ == "__main__":

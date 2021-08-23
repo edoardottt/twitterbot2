@@ -13,13 +13,15 @@ import os
 import sys
 import sqlite3
 import globals
+import logging
 
 try:
     import matplotlib.pyplot as plt
 
     plt.figure(num="Twitterbot2 - " + globals.bot_user + " stats")
 except Exception:
-    print("Execute: pip install -r requirements.txt")
+    logger = logging.getLogger(__name__)
+    logger.error("Execute: pip install -r requirements.txt")
     sys.exit()
 
 db_filename = "database.db"
@@ -29,93 +31,57 @@ conn = sqlite3.connect(db_filename)
 
 def check_stat(username):
     """
-    This function checks the statistics for a user
+    This function checks the statistics for the inputted user
     """
-    timestamps = []  # contains all the timestamps saved in the records
-    likes = []  # contains all the likes saved in the records
-    retweets = []  # contains all the retweets saved in the records
-    followers = []  # contains all the followers saved in the records
-    d_likes = {}  # dictionary with as keys = days & values = likes
-    d_retweets = {}  # dictionary with as keys = days & values = retweets
-    d_followers = {}  # dictionary with as keys = days & values = followers
+    dates = []  # contains all the dates stored in the database
+    tweets = []  # contains all the tweets stored in the database
+    likes = []  # contains all the likes stored in the records
+    retweets = []  # contains all the retweets stored in the records
     if db_is_new:
-        print("No database detected.")
-        print("Execute the initdb.py file by typing in your command line:")
-        print("python init_db.py")
+        logger = logging.getLogger(__name__)
+        logger.error("No database detected.")
+        logger.error("Execute the initdb.py file by typing in your command line:")
+        logger.error("python init_db.py")
         sys.exit()
     else:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM statistics WHERE username = ?", (username,))
         data = cursor.fetchall()
-        if data is not None:
-            if len(data) != 0:
-                for record in data:
-                    timestamps += [record[1]]  # save the timestamp
-                    likes += [int(record[2])]  # save the likes count
-                    retweets += [int(record[3])]  # save the retweets count
-                    followers += [int(record[4])]  # save the followers count
-                # In this for loop all the arrays here declared become dictionary in this way:
-                # All the likes, followers and retweets counts are aggregate per day.
-                # Remember timestamps[:-16] means yyyy-mm-dd
-                for i in range(len(timestamps)):
-                    if not (timestamps[i][:-16] in d_likes):
-                        for j in range(len(timestamps)):
-                            if timestamps[i][:-16] == timestamps[j][:-16]:
-                                if timestamps[i][:-16] in d_likes:
-                                    d_likes[timestamps[i][:-16]] += likes[j]
-                                else:
-                                    d_likes[timestamps[i][:-16]] = likes[j]
-                                if timestamps[i][:-16] in d_retweets:
-                                    d_retweets[timestamps[i][:-16]] += retweets[j]
-                                else:
-                                    d_retweets[timestamps[i][:-16]] = retweets[j]
-                                if timestamps[i][:-16] in d_followers:
-                                    d_followers[timestamps[i][:-16]] -= d_followers[
-                                        timestamps[i][:-16]
-                                    ]
-                                    d_followers[timestamps[i][:-16]] = followers[j]
-                                else:
-                                    d_followers[timestamps[i][:-16]] = followers[j]
-                # adjust plot settings
-                plt.subplots_adjust(bottom=0.2)
-                plt.xticks(rotation=70)
-                ax = plt.gca()
-                ax.xaxis_date()
-                date = list(d_likes.keys())
-                likes_vector = [d_likes[i] for i in date]
-                retweets_vector = [d_retweets[i] for i in date]
-                followers_vector = [d_followers[i] for i in date]
-                plt.plot(date, likes_vector, "-r", marker="o", label="likes")
-                plt.plot(date, retweets_vector, "-g", marker="o", label="retweets")
-                plt.plot(date, followers_vector, "-b", marker="o", label="followers")
-                # if first > last element so the legend is shown on the right. Otherwise It's shown on the left
-                if (
-                    d_likes[list(d_likes.keys())[0]]
-                    > d_likes[list(d_likes.keys())[len(d_likes) - 1]]
-                ):
-                    plt.legend(loc="upper right")
-                else:
-                    plt.legend(loc="upper left")
-                # Print the results
-                print("Total likes: " + str(sum(likes)))
-                print("Total retweets: " + str(sum(retweets)))
-                # add the number label in all points
-                for var_date, var_likes in zip(date, likes_vector):
-                    plt.text(var_date, var_likes, str(var_likes))
-                for var_date, var_retweets in zip(date, retweets_vector):
-                    plt.text(var_date, var_retweets, str(var_retweets))
-                for var_date, var_followers in zip(date, followers_vector):
-                    plt.text(var_date, var_followers, str(var_followers))
-                plt.title("Statistics for " + username)
-                plt.subplots_adjust(
-                    left=None,
-                    bottom=0.13,
-                    right=0.98,
-                    top=0.94,
-                    wspace=None,
-                    hspace=None,
-                )
-                plt.show()
+        if data is not None and len(data) != 0:
+            for record in data:
+                dates += [record[1]]  # save the timestamp
+                tweets += [int(record[2])]  # save the tweets count
+                likes += [int(record[3])]  # save the likes count
+                retweets += [int(record[4])]  # save the retweets count
+            # adjust plot settings
+            plt.subplots_adjust(bottom=0.2)
+            plt.xticks(rotation=70)
+            ax = plt.gca()
+            ax.xaxis_date()
+            plt.plot(dates, tweets, "-r", marker="o", label="tweets")
+            plt.plot(dates, likes, "-g", marker="o", label="likes")
+            plt.plot(dates, retweets, "-b", marker="o", label="retweets")
+            # if first > last element the legend is shown on the right, otherwise it's shown on the left
+            if tweets[0] > tweets[len(tweets) - 1]:
+                plt.legend(loc="upper right")
             else:
-                print("There aren't data for this username.")
+                plt.legend(loc="upper left")
+            # Print the results
+            logger = logging.getLogger(__name__)
+            logger.info("Total Tweets: " + str(sum(tweets)))
+            logger.info("Total likes: " + str(sum(likes)))
+            logger.info("Total retweets: " + str(sum(retweets)))
+            plt.title("Statistics for " + username)
+            plt.subplots_adjust(
+                left=None,
+                bottom=0.13,
+                right=0.98,
+                top=0.94,
+                wspace=None,
+                hspace=None,
+            )
+            plt.show()
+        else:
+            logger = logging.getLogger(__name__)
+            logger.warning("There aren't data for this username.")
     conn.close()

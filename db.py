@@ -22,6 +22,7 @@ import os
 import sqlite3
 import sys
 import datetime
+import logging
 
 
 def conn_db():
@@ -31,7 +32,8 @@ def conn_db():
     db_filename = "database.db"
     db_is_new = not os.path.exists(db_filename)
     if db_is_new:
-        print("You must execute: python init_db.py")
+        logger = logging.getLogger(__name__)
+        logger.error("You must execute: python init_db.py")
         sys.exit()
     conn = sqlite3.connect(db_filename)
     return conn
