@@ -29,17 +29,20 @@ def create_output_file(filename):
 
 
 def output_csv(user):
-    create_output_folder()
-    filename = create_output_file(user + ".csv")
     conn = db.conn_db()
     if user == "ALL":
         values = db.all_stats(conn)
     else:
         values = db.user_stats(conn, user)
-    with open(filename, "w", newline="") as myfile:
-        wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
-        for elem in values:
-            wr.writerow(elem)
+    if len(values) == 0:
+        logger.warning("There aren't data for this user.")
+    else:
+        create_output_folder()
+        filename = create_output_file(user + ".csv")
+        with open(filename, "w", newline="") as myfile:
+            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+            for elem in values:
+                wr.writerow(elem)
 
 
 """
