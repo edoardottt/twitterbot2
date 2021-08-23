@@ -25,7 +25,7 @@ Installation 📡
 - `git clone https://github.com/edoardottt/twitterbot2`
 - `cd twitterbot2`
 - `pip install -r requirements.txt`
-- Edit the configuration file
+- Edit the `config.yaml` and `globals.py` files 
 - `python init_db.py`
 - `python twitterbot2.py`
 
