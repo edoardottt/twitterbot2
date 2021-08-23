@@ -7,3 +7,7 @@
 #
 #   This repository is under GPL-3 License.
 #
+
+import logging
+
+logger = logging.getLogger(__name__)
