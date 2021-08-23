@@ -1,6 +1,6 @@
 # TwitterBot2 specific
 database.db
-twitterbot-output/
+twitterbot2-output/
 twitterBot2_log.txt
 
 # Byte-compiled / optimized / DLL files
