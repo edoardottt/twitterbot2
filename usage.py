@@ -54,6 +54,3 @@ def usage():
     print(
         "                        Produce a html file containing the stats for the inputted used (ALL for anyone)."
     )
-
-
-usage()
