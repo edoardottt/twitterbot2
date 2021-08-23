@@ -45,6 +45,27 @@ def get_args():
         help="Show the statistics of the inputted bot (username).",
     )
 
+    group.add_argument(
+        "-oc",
+        "--output-csv",
+        type=str,
+        help="Produce a csv file containing the stats for the inputted used (ALL for anyone).",
+    )
+
+    group.add_argument(
+        "-oj",
+        "--output-json",
+        type=str,
+        help="Produce a json file containing the stats for the inputted used (ALL for anyone).",
+    )
+
+    group.add_argument(
+        "-oh",
+        "--output-html",
+        type=str,
+        help="Produce a html file containing the stats for the inputted used (ALL for anyone).",
+    )
+
     args = parser.parse_args()
 
     return args
