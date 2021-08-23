@@ -20,6 +20,7 @@ import sys
 import db
 import datetime
 import stats
+import output
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):
@@ -209,15 +210,15 @@ def main():
 
     # -- CSV OUTPUT --
     if args.output_csv:
-        print("CSV")
+        output.output_csv(args.output_csv)
 
     # -- JSON OUTPUT --
     if args.output_json:
-        print("JSON")
+        output.output_json(args.output_json)
 
     # -- HTML OUTPUT --
     if args.output_html:
-        print("HTML")
+        output.output_html(args.output_html)
 
 
 if __name__ == "__main__":
