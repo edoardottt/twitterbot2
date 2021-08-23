@@ -207,6 +207,18 @@ def main():
     if args.stats:
         stats.check_stat(args.stats)
 
+    # -- CSV OUTPUT --
+    if args.output_csv:
+        print("CSV")
+
+    # -- JSON OUTPUT --
+    if args.output_json:
+        print("JSON")
+
+    # -- HTML OUTPUT --
+    if args.output_html:
+        print("HTML")
+
 
 if __name__ == "__main__":
     main()
