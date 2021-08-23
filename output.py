@@ -23,18 +23,19 @@ def create_output_folder():
 def create_output_file(filename):
     if not os.path.exists("twitterbot-output/" + filename):
         _ = open("twitterbot-output/" + filename, "w+")
+    return "twitterbot-output/" + filename
 
 
 def output_csv(user):
     create_output_folder()
-    create_output_file(user + ".csv")
+    filename = create_output_file(user + ".csv")
 
 
 def output_json(user):
     create_output_folder()
-    create_output_file(user + ".json")
+    filename = create_output_file(user + ".json")
 
 
 def output_html(user):
     create_output_folder()
-    create_output_file(user + ".html")
+    filename = create_output_file(user + ".html")
