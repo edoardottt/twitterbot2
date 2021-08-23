@@ -12,6 +12,7 @@ import logging
 import os
 import db
 import csv
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -56,8 +57,10 @@ def output_json(user):
         logger.warning("There aren't data for this user.")
     else:
         create_output_folder()
-        _ = create_output_file(user + ".json")
-        pass
+        filename = create_output_file(user + ".json")
+        json_string = json.dumps(values)
+        with open(filename, "w") as f:
+            json.dump(json_string, f)
 
 
 def output_html(user):
@@ -70,5 +73,5 @@ def output_html(user):
         logger.warning("There aren't data for this user.")
     else:
         create_output_folder()
-        _ = create_output_file(user + ".html")
+        filename = create_output_file(user + ".html")
         pass
