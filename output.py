@@ -58,9 +58,12 @@ def output_json(user):
     else:
         create_output_folder()
         filename = create_output_file(user + ".json")
-        json_string = json.dumps(values)
+
+        dict = {}
+        for elem in values:
+            dict[elem[1]] = {"tweets": elem[2], "likes": elem[3], "retweets:": elem[4]}
         with open(filename, "w") as f:
-            json.dump(json_string, f)
+            json.dump(dict, f)
 
 
 def output_html(user):
@@ -74,4 +77,4 @@ def output_html(user):
     else:
         create_output_folder()
         filename = create_output_file(user + ".html")
-        pass
+        print(filename)
