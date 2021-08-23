@@ -180,7 +180,7 @@ def main():
 
     logging.basicConfig(
         encoding="utf-8",
-        level=logging.DEBUG,
+        level=logging.INFO,
         format="%(levelname)s:%(asctime)s | %(message)s",
     )
 
