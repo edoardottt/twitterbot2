@@ -76,6 +76,7 @@ def output_csv(user):
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             for elem in values:
                 wr.writerow(elem)
+    logger.info("All data has been written into " + filename)
 
 
 def output_json(user):
@@ -100,6 +101,7 @@ def output_json(user):
             dict[elem[1]] = {"tweets": elem[2], "likes": elem[3], "retweets:": elem[4]}
         with open(filename, "w") as f:
             json.dump(dict, f)
+    logger.info("All data has been written into " + filename)
 
 
 def output_html(user):
@@ -119,3 +121,4 @@ def output_html(user):
         create_output_folder()
         filename = create_output_file(user + ".html")
         print(filename)
+    logger.info("All data has been written into " + filename)
