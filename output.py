@@ -18,19 +18,39 @@ logger = logging.getLogger(__name__)
 
 
 def create_output_folder():
+    """
+    This function creates (only if not exists already) the
+    `twitterbot2-output` folder.
+    """
     directory = "twitterbot2-output"
     if not os.path.exists(directory):
         os.makedirs(directory)
 
 
 def create_output_file(filename):
+    """
+    This function creates (only if not exists already) the
+    output file in the `twitterbot2-output` folder.
+    """
     directory = "twitterbot2-output"
     if not os.path.exists(directory + "/" + filename):
         _ = open(directory + "/" + filename, "w+")
     return directory + "/" + filename
 
 
+def ask_confirmation():
+    answer = str(input("The file already exists. Do you want to override? (Y/n)"))
+    if answer.lower() == "y" or answer.lower() == "yes" or answer.lower() == "":
+        return True
+    return False
+
+
 def output_csv(user):
+    """
+    This function writes in the CSV output file the results got
+    from the database for the specified user or for all of them
+    (if ALL is inputted).
+    """
     conn = db.conn_db()
     if user == "ALL":
         values = db.all_stats(conn)
@@ -48,6 +68,11 @@ def output_csv(user):
 
 
 def output_json(user):
+    """
+    This function writes in the JSON output file the results got
+    from the database for the specified user or for all of them
+    (if ALL is inputted).
+    """
     conn = db.conn_db()
     if user == "ALL":
         values = db.all_stats(conn)
@@ -67,6 +92,11 @@ def output_json(user):
 
 
 def output_html(user):
+    """
+    This function writes in the HTML output file the results got
+    from the database for the specified user or for all of them
+    (if ALL is inputted).
+    """
     conn = db.conn_db()
     if user == "ALL":
         values = db.all_stats(conn)
