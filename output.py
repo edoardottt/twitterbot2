@@ -84,52 +84,6 @@ def output_json(user):
     This function writes in the JSON output file the results got
     from the database for the specified user or for all of them
     (if ALL is inputted).
-
-    user, DATE-HERE, 3,6,9
-    user, DATE-HERE2, 3,6,1000
-    user, DATE-HERE3, 3,3985,9
-    user, DATE-HERE4, 13,6,9
-    user2, DATE-HERE1, 13,6,9
-    user, DATE-HERE5, 13,6,90
-    user2, DATE-HERE2, 13,6,9
-    user3, DATE-HERE3, 13,6,9
-
-
-    "user": {
-        "2021-08-24": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        },
-        "2021-08-25": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        },
-        "2021-08-28": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        }
-    },
-    "user2": {
-        "2021-08-24": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        },
-        "2021-08-25": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        },
-        "2021-08-28": {
-            "tweets": 10,
-            "likes": 5,
-            "retweets":6,
-        }
-    }
-
     """
     conn = db.conn_db()
     if user == "ALL":
