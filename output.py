@@ -13,6 +13,7 @@ import os
 import db
 import csv
 import json
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +36,20 @@ def create_output_file(filename):
     directory = "twitterbot2-output"
     if not os.path.exists(directory + "/" + filename):
         _ = open(directory + "/" + filename, "w+")
+    else:
+        answer = ask_confirmation()
+        if not answer:
+            sys.exit()
+        else:
+            _ = open(directory + "/" + filename, "w+")
     return directory + "/" + filename
 
 
 def ask_confirmation():
+    """
+    This function checks if the user wants to override the already
+    existing output file.
+    """
     answer = str(input("The file already exists. Do you want to override? (Y/n)"))
     if answer.lower() == "y" or answer.lower() == "yes" or answer.lower() == "":
         return True
