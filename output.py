@@ -84,6 +84,52 @@ def output_json(user):
     This function writes in the JSON output file the results got
     from the database for the specified user or for all of them
     (if ALL is inputted).
+
+    user, DATE-HERE, 3,6,9
+    user, DATE-HERE2, 3,6,1000
+    user, DATE-HERE3, 3,3985,9
+    user, DATE-HERE4, 13,6,9
+    user2, DATE-HERE1, 13,6,9
+    user, DATE-HERE5, 13,6,90
+    user2, DATE-HERE2, 13,6,9
+    user3, DATE-HERE3, 13,6,9
+
+
+    "user": {
+        "2021-08-24": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        },
+        "2021-08-25": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        },
+        "2021-08-28": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        }
+    },
+    "user2": {
+        "2021-08-24": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        },
+        "2021-08-25": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        },
+        "2021-08-28": {
+            "tweets": 10,
+            "likes": 5,
+            "retweets":6,
+        }
+    }
+
     """
     conn = db.conn_db()
     if user == "ALL":
@@ -98,7 +144,13 @@ def output_json(user):
 
         dict = {}
         for elem in values:
-            dict[elem[1]] = {"tweets": elem[2], "likes": elem[3], "retweets:": elem[4]}
+            if not elem[0] in dict.keys():
+                dict[elem[0]] = {}
+            dict[elem[0]][elem[1]] = {
+                "tweets": elem[2],
+                "likes": elem[3],
+                "retweets:": elem[4],
+            }
         with open(filename, "w") as f:
             json.dump(dict, f)
     logger.info("All data has been written into " + filename)
