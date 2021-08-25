@@ -69,6 +69,7 @@ def output_csv(user):
         values = db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
+        sys.exit()
     else:
         create_output_folder()
         filename = create_output_file(user + ".csv")
@@ -92,6 +93,7 @@ def output_json(user):
         values = db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
+        sys.exit()
     else:
         create_output_folder()
         filename = create_output_file(user + ".json")
@@ -110,6 +112,81 @@ def output_json(user):
     logger.info("All data has been written into " + filename)
 
 
+def banner_html():
+    banner = """<html>
+    <head>
+        <title>Twitterbot2 output</title>
+    <style>
+    * {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the content */
+.content {
+  background-color: #ddd;
+  padding: 10px;
+  height: 200px;
+}
+
+/* Style the footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  bottom: 0;
+  text-align:center;
+  width: 100%;
+  position: fixed;
+}
+</style>
+    </head>
+    <body>
+    <div class="topnav">
+    <a href="https://github.com/edoardottt/twitterbot2">Twitterbot2</a>
+    <a href="https://github.com/edoardottt/twitterbot2">Contribute</a>
+    </div>
+    """
+    return banner
+
+
+def footer_html():
+    footer = """<div class="footer">
+        <p>twitterbot2 by <a href='https://github.com/edoardottt/twitterbot2'>edoardottt</a></p>
+    </div>
+    <br><br><br><br><br><br><br><br>
+    </body>
+    </html>
+    """
+    return footer
+
+
 def output_html(user):
     """
     This function writes in the HTML output file the results got
@@ -123,8 +200,12 @@ def output_html(user):
         values = db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
+        sys.exit()
     else:
         create_output_folder()
         filename = create_output_file(user + ".html")
-        print(filename)
+        with open(filename, "w") as f:
+            f.write(banner_html())
+
+            f.write(footer_html())
     logger.info("All data has been written into " + filename)
