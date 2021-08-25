@@ -169,8 +169,10 @@ body {
     </head>
     <body>
     <div class="topnav">
-    <a href="https://github.com/edoardottt/twitterbot2">Twitterbot2</a>
-    <a href="https://github.com/edoardottt/twitterbot2">Contribute</a>
+    <a href="https://github.com/edoardottt/twitterbot2">Twitterbot2 on GitHub</a>
+    <a href="https://github.com/edoardottt/twitterbot2#contributing-">Contribute</a>
+    <a href="https://github.com/edoardottt/twitterbot2/blob/main/README.md">Docs</a>
+    <a href="https://github.com/edoardottt/twitterbot2/blob/main/LICENSE">License</a>
     </div>
     """
     return banner
@@ -178,13 +180,27 @@ body {
 
 def footer_html():
     footer = """<div class="footer">
-        <p>twitterbot2 by <a href='https://github.com/edoardottt/twitterbot2'>edoardottt</a></p>
+        <p>twitterbot2 by <a href='https://github.com/edoardottt'>@edoardottt</a></p>
     </div>
     <br><br><br><br><br><br><br><br>
     </body>
     </html>
     """
     return footer
+
+
+def html_table(lol):
+    out_string = """<table border="1" cellspacing="15"><th scope="col">User</th>
+    <th scope="col">Date</th>
+    <th scope="col">Tweets</th>
+    <th scope="col">Likes</th>
+    <th scope="col">Retweets</th>"""
+    for sublist in lol:
+        out_string += "  <tr><td>"
+        out_string += "    </td><td>".join(list(map(str, sublist)))
+        out_string += "  </td></tr>"
+    out_string += "</table>"
+    return out_string
 
 
 def output_html(user):
@@ -206,6 +222,6 @@ def output_html(user):
         filename = create_output_file(user + ".html")
         with open(filename, "w") as f:
             f.write(banner_html())
-
+            f.write(html_table(values))
             f.write(footer_html())
     logger.info("All data has been written into " + filename)
