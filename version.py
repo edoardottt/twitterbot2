@@ -8,11 +8,11 @@
 #   This repository is under GPL-3 License.
 #
 
-version = "0.1-dev"
+version_str = "0.1-dev"
 
 def version():
-    return version + "\n"
+    return version_str + "\n"
 
 
 def print_version():
-    print(version + "\n")
+    print(version_str + "\n")
