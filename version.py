@@ -11,7 +11,7 @@
 version_str = "0.1-dev"
 
 def version():
-    return version_str + "\n"
+    return version_str
 
 
 def print_version():
