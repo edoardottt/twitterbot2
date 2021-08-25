@@ -27,7 +27,7 @@ Installation 📡
 - `pip install -r requirements.txt`
 - Edit the `config.yaml` and `globals.py` files 
 - `python init_db.py`
-- `python twitterbot2.py`
+- `python twitterbot2.py -h`
 
 Usage 🚀
 -------
