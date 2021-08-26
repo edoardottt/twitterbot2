@@ -7,7 +7,11 @@
 #
 #   This repository is under GPL-3 License.
 #
-
+# This file, when executed, creates a SQlite3 database
+# called 'database.db' and creates a table called 'statistics' that
+# stores the data collected during the twitterbot2 usage.
+# (The database is created only if it does not already exist)
+#
 
 import os
 import sqlite3
