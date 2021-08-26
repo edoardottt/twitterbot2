@@ -7,6 +7,13 @@
 #
 #   This repository is under GPL-3 License.
 #
+#
+# This file contains the main function and all
+# the main functionalities of twitterbot2.
+# There are defined here the functions to execute the
+# right actions when the user inputs his/her choices.
+#
+
 
 import twitter
 import secrets
