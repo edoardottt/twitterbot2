@@ -7,6 +7,9 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file provides the function to print the banner
+# in the standard output and a banner tweet sample.
+#
 
 
 import version
