@@ -7,6 +7,11 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file contains all the functions related to
+# the database (database.db).
+# These functions are intended to create, read, update
+# and delete data from the DB.
+#
 
 # TABLE statistics:
 #
