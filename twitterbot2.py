@@ -52,18 +52,22 @@ def tweet(t, message):
     t.statuses.update(status=message)
 
 
-def put_like(t, status, logger):
+def put_like(t, status, logger, count):
     # Favorite/like a status
     if not status["favorited"]:
         logger.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
         t.favorites.create(_id=status["id"])
+        count += 1
+    return count
 
 
-def retweet_tweet(t, status, logger):
+def retweet_tweet(t, status, logger, count):
     # Retweet a status
     if not status["retweeted"]:
         logger.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
         t.statuses.retweet._id(_id=status["id"])
+        count += 1
+    return count
 
 
 def search(t, term):
@@ -131,10 +135,8 @@ def crawl_timeline(bot, logger):
             time.sleep(15 * 60)
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_home, logger)
-                likes_count += 1
-                retweet_tweet(bot, tweet_home, logger)
-                retweet_count += 1
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+                retweet_count = retweet_tweet(bot, tweet_home, logger, likes_count)
                 time.sleep(2)
 
         logger.info("Sleeping for one minute.")
@@ -148,10 +150,8 @@ def crawl_timeline(bot, logger):
             time.sleep(15 * 60)
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_home, logger)
-                likes_count += 1
-                retweet_tweet(bot, tweet_home, logger)
-                retweet_count += 1
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
                 time.sleep(2)
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -216,10 +216,8 @@ def crawl_keyword(bot, logger, keyword):
             time.sleep(15 * 60)
         for tweet_ts in statuses:
             if tweet_ts["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_ts, logger)
-                likes_count += 1
-                retweet_tweet(bot, tweet_ts, logger)
-                retweet_count += 1
+                likes_count = put_like(bot, tweet_ts, logger, likes_count)
+                retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
                 time.sleep(2)
         logger.info("Sleeping for one minute.")
         time.sleep(60)
@@ -232,10 +230,8 @@ def crawl_keyword(bot, logger, keyword):
             time.sleep(15 * 60)
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
-                put_like(bot, tweet_home, logger)
-                likes_count += 1
-                retweet_tweet(bot, tweet_home, logger)
-                retweet_count += 1
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
                 time.sleep(2)
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
