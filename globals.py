@@ -13,7 +13,7 @@
 #
 
 month_tweet_cap = 500000
-daily_tweet_cap = 2000
+daily_tweet_cap = 2400
 quarter_hour_cap = 300
 
 # ==== CHANGE THESE VALUES ====

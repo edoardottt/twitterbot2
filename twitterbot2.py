@@ -176,8 +176,15 @@ def crawl_timeline(bot, logger):
                 (tweet_count, likes_count, retweet_count, username, today),
             )
         logger.info("Database updated.")
-        logger.info("Sleeping for 15 minutes.")
-        time.sleep(15 * 60)
+
+        # check if the bot reached the daily tweet cap
+        if retweet_count + 40 > globals.daily_tweet_cap:
+            logger.warning("Daily tweet cap reached.")
+            logger.info("Sleeping for 6 hours.")
+            time.sleep(6 * 60 * 60)
+        else:
+            logger.info("Sleeping for 15 minutes.")
+            time.sleep(15 * 60)
 
 
 def crawl_keyword(bot, logger, keyword):
