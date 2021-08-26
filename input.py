@@ -7,6 +7,12 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file handles the input from the standard input
+# and return the arguments object (using argparse).
+#
+# twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s STATS | -oc OUTPUT_CSV | -oj OUTPUT_JSON | -oh OUTPUT_HTML]
+#
+#
 
 
 import argparse
