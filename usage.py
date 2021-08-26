@@ -7,6 +7,9 @@
 #
 #   This repository is under GPL-3 License.
 #
+#
+# This file contains the usage output of twitterbot2.
+#
 
 
 def usage():
