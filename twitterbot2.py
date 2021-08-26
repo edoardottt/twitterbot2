@@ -173,6 +173,90 @@ def crawl_timeline(bot, logger):
         time.sleep(15 * 60)
 
 
+def crawl_keyword(bot, logger, keyword):
+    """
+    This is the handler of the -k or --keyword option.
+    """
+    tweet_count = 0
+    likes_count = 0
+    retweet_count = 0
+
+    # check if there are values of today.
+    conn = db.conn_db()
+    username = globals.bot_user
+    values = db.today_stats(conn, username)
+    today = datetime.datetime.today().strftime("%Y-%m-%d")
+
+    # if there aren't data, creates a record in the statistics table
+    if values is None:
+        db.create_stat(conn, (username, today, 0, 0, 0))
+    # otherwise retrieves the values
+    else:
+        (
+            username,
+            today,
+            tweet_count,
+            likes_count,
+            retweet_count,
+        ) = values
+
+    while True:
+
+        logger.info("Tweets count: " + str(tweet_count))
+        logger.info("Likes count: " + str(likes_count))
+        logger.info("Retweets count: " + str(retweet_count))
+
+        ts = search(bot, keyword)
+        statuses = ts["statuses"]
+
+        if statuses is not None:
+            tweet_count += len(statuses)
+        else:
+            logger.warning("Rate limit exceeded")
+            time.sleep(15 * 60)
+        for tweet_ts in statuses:
+            if tweet_ts["user"]["screen_name"] != globals.bot_user:
+                put_like(bot, tweet_ts, logger)
+                likes_count += 1
+                retweet_tweet(bot, tweet_ts, logger)
+                retweet_count += 1
+                time.sleep(2)
+        logger.info("Sleeping for one minute.")
+        time.sleep(60)
+
+        home = get_friend_home(bot, globals.user)
+        if home is not None:
+            tweet_count += len(home)
+        else:
+            logger.warning("Rate limit exceeded")
+            time.sleep(15 * 60)
+        for tweet_home in home:
+            if tweet_home["user"]["screen_name"] != globals.bot_user:
+                put_like(bot, tweet_home, logger)
+                likes_count += 1
+                retweet_tweet(bot, tweet_home, logger)
+                retweet_count += 1
+                time.sleep(2)
+        # update the values in the database
+        today = datetime.datetime.today().strftime("%Y-%m-%d")
+        values = db.today_stats(conn, username)
+        # if there aren't data, creates a record in the statistics table
+        if values is None:
+            db.create_stat(conn, (username, today, 0, 0, 0))
+            tweet_count = 0
+            likes_count = 0
+            retweet_count = 0
+        # otherwise update the values
+        else:
+            db.update_stat(
+                conn,
+                (tweet_count, likes_count, retweet_count, username, today),
+            )
+        logger.info("Database updated.")
+        logger.info("Sleeping for 15 minutes.")
+        time.sleep(15 * 60)
+
+
 def main():
     """
     Main function
@@ -201,8 +285,7 @@ def main():
     # -- KEYWORD --
     if args.keyword:
         bot = create_bot(logger)
-        ts = search(bot, args.keyword, logger)
-        print(ts)
+        crawl_keyword(bot, logger, args.keyword)
 
     # -- STATS --
     if args.stats:
