@@ -7,7 +7,10 @@
 #
 #   This repository is under GPL-3 License.
 #
-
+# This file contains the function to plot the data
+# contained in the database in a chart using
+# matplotlib.
+#
 
 import os
 import sys
