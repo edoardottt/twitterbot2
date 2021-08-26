@@ -7,6 +7,9 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file contains the function to retrieve
+# the secrets form the config.yaml file.
+#
 
 import yaml
 
