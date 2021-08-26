@@ -101,9 +101,28 @@ def create_bot(logger):
     return bot
 
 
+def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
+    """
+    This function tries to put likes and retweet on the bot timeline.
+    """
+    home = get_home(bot)
+    if home is not None:
+        tweet_count += len(home)
+    else:
+        logger.warning("Rate limit exceeded")
+        time.sleep(15 * 60)
+    for tweet_home in home:
+        if tweet_home["user"]["screen_name"] != globals.bot_user:
+            likes_count = put_like(bot, tweet_home, logger, likes_count)
+            retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+            time.sleep(2)
+
+    return tweet_count, likes_count, retweet_count
+
+
 def crawl_timeline(bot, logger):
     """
-    This is the handler of the -t or --timeline option.
+    This is the handle function of the -t or --timeline option.
     """
     tweet_count = 0
     likes_count = 0
@@ -134,17 +153,9 @@ def crawl_timeline(bot, logger):
         logger.info("Likes count: " + str(likes_count))
         logger.info("Retweets count: " + str(retweet_count))
 
-        home = get_home(bot)
-        if home is not None:
-            tweet_count += len(home)
-        else:
-            logger.warning("Rate limit exceeded")
-            time.sleep(15 * 60)
-        for tweet_home in home:
-            if tweet_home["user"]["screen_name"] != globals.bot_user:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_home, logger, likes_count)
-                time.sleep(2)
+        tweet_count, likes_count, retweet_count = likes_rt_home(
+            bot, logger, tweet_count, likes_count, retweet_count
+        )
 
         logger.info("Sleeping for one minute.")
         time.sleep(60)
@@ -187,9 +198,29 @@ def crawl_timeline(bot, logger):
             time.sleep(15 * 60)
 
 
+def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_count):
+    """
+    This function tries to put likes and retweet on the tweets searched by term.
+    """
+    ts = search(bot, keyword)
+    statuses = ts["statuses"]
+
+    if statuses is not None:
+        tweet_count += len(statuses)
+    else:
+        logger.warning("Rate limit exceeded")
+        time.sleep(15 * 60)
+    for tweet_ts in statuses:
+        if tweet_ts["user"]["screen_name"] != globals.bot_user:
+            likes_count = put_like(bot, tweet_ts, logger, likes_count)
+            retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
+            time.sleep(2)
+    return tweet_count, likes_count, retweet_count
+
+
 def crawl_keyword(bot, logger, keyword):
     """
-    This is the handler of the -k or --keyword option.
+    This is the handle function of the -k or --keyword option.
     """
     tweet_count = 0
     likes_count = 0
@@ -220,19 +251,9 @@ def crawl_keyword(bot, logger, keyword):
         logger.info("Likes count: " + str(likes_count))
         logger.info("Retweets count: " + str(retweet_count))
 
-        ts = search(bot, keyword)
-        statuses = ts["statuses"]
-
-        if statuses is not None:
-            tweet_count += len(statuses)
-        else:
-            logger.warning("Rate limit exceeded")
-            time.sleep(15 * 60)
-        for tweet_ts in statuses:
-            if tweet_ts["user"]["screen_name"] != globals.bot_user:
-                likes_count = put_like(bot, tweet_ts, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
-                time.sleep(2)
+        tweet_count, likes_count, retweet_count = likes_rt_search(
+            bot, logger, keyword, tweet_count, likes_count, retweet_count
+        )
         logger.info("Sleeping for one minute.")
         time.sleep(60)
 
