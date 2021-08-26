@@ -7,8 +7,11 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file mantains the version of twitterbot2.
+#
 
 version_str = "0.1-dev"
+
 
 def version():
     return version_str
