@@ -103,7 +103,8 @@ def create_bot(logger):
 
 def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     """
-    This function tries to put likes and retweet on the bot timeline.
+    This function tries to put likes and retweetthe tweets in
+    the bot timeline.
     """
     home = get_home(bot)
     if home is not None:
@@ -200,7 +201,7 @@ def crawl_timeline(bot, logger):
 
 def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_count):
     """
-    This function tries to put likes and retweet on the tweets searched by term.
+    This function tries to put likes and retweet the tweets searched by term.
     """
     ts = search(bot, keyword)
     statuses = ts["statuses"]
