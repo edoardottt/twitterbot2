@@ -7,6 +7,15 @@
 #
 #   This repository is under GPL-3 License.
 #
+# This file contains the functions to create and write
+# the output files (CSV / JSON / HTML).
+# The user can input a username to write in the output file
+# the data related only to that user (and the output file will be
+# twitterbot2-output/{username}.{csv,json,html}) or the word 'ALL'
+# to write in the output file the data related to all the users
+# in the database (and the output file will be
+# twitterbot2-output/ALL.{csv,json,html}).
+#
 
 import logging
 import os
