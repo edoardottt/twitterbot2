@@ -137,15 +137,5 @@ def month_stats(conn, username):
             ending_day,
         ),
     )
-    values = cur.fetchall()
-    return values
-
-
-def tweet_month_cap(conn, username):
-    """
-    This function gets the number of tweets (retweets) done
-    by the bot in the current month.
-    """
-    tweets, likes, retweets = month_stats(conn, username)
-
+    tweets, likes, retweets = cur.fetchone()
     return tweets, likes, retweets
