@@ -101,3 +101,41 @@ def all_stats(conn):
     cur.execute(sql)
     values = cur.fetchall()
     return values
+
+def month_stats(conn, username):
+    """
+    This function retrieves the values of the 
+    current month for a given user.
+    """
+    sql = """ SELECT * FROM statistics WHERE username = ? AND date >= ? AND date <= ? """
+    cur = conn.cursor()
+    current_year = datetime.datetime.today().strftime("%Y")
+    current_month = datetime.datetime.today().strftime("%m")
+    starting_day = datetime.datetime.today().replace(day=1).strftime("%Y-%m-%d")
+    february_days = 28
+    if int(current_year)%4 == 0 and int(current_year)%100 != 0 or int(current_year)%400 == 0:
+        february_days = 29
+    months = {  1: 31,
+            2: february_days,
+            3: 31,
+            4: 30,
+            5: 31,
+            6: 30,
+            7: 31,
+            8: 31,
+            9: 30,
+            10: 31,
+            11: 30,
+            12: 31
+        }
+    ending_day = datetime.datetime.today().replace(day=months[int(current_month)]).strftime("%Y-%m-%d")
+    cur.execute(
+        sql,
+        (
+            username,
+            starting_day,
+            ending_day,
+        ),
+    )
+    values = cur.fetchone()
+    return values
