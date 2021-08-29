@@ -189,6 +189,12 @@ def crawl_timeline(bot, logger):
             )
         logger.info("Database updated.")
 
+        # check if the bot reached the monthly tweet cap
+        if db.month_stats(conn, username)[2] > globals.month_tweet_cap: 
+            logger.critical("Monthly tweet cap reached.")
+            logger.critical("Exiting.")
+            sys.exit()
+
         # check if the bot reached the daily tweet cap
         if retweet_count + 40 > globals.daily_tweet_cap:
             logger.warning("Daily tweet cap reached.")
@@ -285,6 +291,12 @@ def crawl_keyword(bot, logger, keyword):
                 (tweet_count, likes_count, retweet_count, username, today),
             )
         logger.info("Database updated.")
+
+        # check if the bot reached the monthly tweet cap
+        if db.month_stats(conn, username)[2] > globals.month_tweet_cap: 
+            logger.critical("Monthly tweet cap reached.")
+            logger.critical("Exiting.")
+            sys.exit()
 
         # check if the bot reached the daily tweet cap
         if retweet_count + 40 > globals.daily_tweet_cap:
