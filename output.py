@@ -59,7 +59,8 @@ def ask_confirmation():
     This function checks if the user wants to override the already
     existing output file.
     """
-    answer = str(input("The file already exists. Do you want to override? (Y/n)"))
+    answer = str(
+        input("The file already exists. Do you want to override? (Y/n)"))
     if answer.lower() == "y" or answer.lower() == "yes" or answer.lower() == "":
         return True
     return False
