@@ -150,9 +150,9 @@ def crawl_timeline(bot, logger):
 
     while True:
 
-        logger.info("Tweets count: " + str(tweet_count))
-        logger.info("Likes count: " + str(likes_count))
-        logger.info("Retweets count: " + str(retweet_count))
+        logger.info("Today tweets count: " + str(tweet_count))
+        logger.info("Today likes count: " + str(likes_count))
+        logger.info("Today retweets count: " + str(retweet_count))
 
         tweet_count, likes_count, retweet_count = likes_rt_home(
             bot, logger, tweet_count, likes_count, retweet_count
@@ -248,9 +248,9 @@ def crawl_keyword(bot, logger, keyword):
 
     while True:
 
-        logger.info("Tweets count: " + str(tweet_count))
-        logger.info("Likes count: " + str(likes_count))
-        logger.info("Retweets count: " + str(retweet_count))
+        logger.info("Today tweets count: " + str(tweet_count))
+        logger.info("Today likes count: " + str(likes_count))
+        logger.info("Today retweets count: " + str(retweet_count))
 
         tweet_count, likes_count, retweet_count = likes_rt_search(
             bot, logger, keyword, tweet_count, likes_count, retweet_count
