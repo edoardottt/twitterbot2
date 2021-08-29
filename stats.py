@@ -45,12 +45,14 @@ def check_stat(username):
     if db_is_new:
         logger = logging.getLogger(__name__)
         logger.error("No database detected.")
-        logger.error("Execute the initdb.py file by typing in your command line:")
+        logger.error(
+            "Execute the initdb.py file by typing in your command line:")
         logger.error("python init_db.py")
         sys.exit()
     else:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM statistics WHERE username = ?", (username,))
+        cursor.execute(
+            "SELECT * FROM statistics WHERE username = ?", (username,))
         data = cursor.fetchall()
         if data is not None and len(data) != 0:
             for record in data:

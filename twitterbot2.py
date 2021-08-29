@@ -62,7 +62,8 @@ def tweet(t, message):
 def put_like(t, status, logger, count):
     # Favorite/like a status
     if not status["favorited"]:
-        logger.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info("Liked a tweet by {}".format(
+            status["user"]["screen_name"]))
         t.favorites.create(_id=status["id"])
         count += 1
     return count
@@ -71,7 +72,8 @@ def put_like(t, status, logger, count):
 def retweet_tweet(t, status, logger, count):
     # Retweet a status
     if not status["retweeted"]:
-        logger.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info("Retweeted a tweet by {}".format(
+            status["user"]["screen_name"]))
         t.statuses.retweet._id(_id=status["id"])
         count += 1
     return count
@@ -115,7 +117,8 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     for tweet_home in home:
         if tweet_home["user"]["screen_name"] != globals.bot_user:
             likes_count = put_like(bot, tweet_home, logger, likes_count)
-            retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+            retweet_count = retweet_tweet(
+                bot, tweet_home, logger, retweet_count)
             time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
@@ -170,7 +173,8 @@ def crawl_timeline(bot, logger):
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
                 likes_count = put_like(bot, tweet_home, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+                retweet_count = retweet_tweet(
+                    bot, tweet_home, logger, retweet_count)
                 time.sleep(2)
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -190,7 +194,7 @@ def crawl_timeline(bot, logger):
         logger.info("Database updated.")
 
         # check if the bot reached the monthly tweet cap
-        if db.month_stats(conn, username)[2] > globals.month_tweet_cap: 
+        if db.month_stats(conn, username)[2] > globals.month_tweet_cap:
             logger.critical("Monthly tweet cap reached.")
             logger.critical("Exiting.")
             sys.exit()
@@ -273,7 +277,8 @@ def crawl_keyword(bot, logger, keyword):
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
                 likes_count = put_like(bot, tweet_home, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+                retweet_count = retweet_tweet(
+                    bot, tweet_home, logger, retweet_count)
                 time.sleep(2)
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -293,7 +298,7 @@ def crawl_keyword(bot, logger, keyword):
         logger.info("Database updated.")
 
         # check if the bot reached the monthly tweet cap
-        if db.month_stats(conn, username)[2] > globals.month_tweet_cap: 
+        if db.month_stats(conn, username)[2] > globals.month_tweet_cap:
             logger.critical("Monthly tweet cap reached.")
             logger.critical("Exiting.")
             sys.exit()
