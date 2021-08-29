@@ -107,7 +107,7 @@ def month_stats(conn, username):
     This function retrieves the values of the 
     current month for a given user.
     """
-    sql = """ SELECT * FROM statistics WHERE username = ? AND date >= ? AND date <= ? """
+    sql = """ SELECT sum(tweets), sum(likes), sum(retweets) FROM statistics WHERE username = ? AND date >= ? AND date <= ? GROUP BY username """
     cur = conn.cursor()
     current_year = datetime.datetime.today().strftime("%Y")
     current_month = datetime.datetime.today().strftime("%m")
@@ -146,6 +146,6 @@ def tweet_month_cap(conn, username):
     This function gets the number of tweets (retweets) done
     by the bot in the current month.
     """
-    _, _, tweets, likes, retweets = month_stats(conn, username)
+    tweets, likes, retweets = month_stats(conn, username)
 
-    return sum(tweets), sum(likes), sum(retweets)
+    return tweets, likes, retweets
