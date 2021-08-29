@@ -105,10 +105,11 @@ def all_stats(conn):
 
 def month_stats(conn, username):
     """
-    This function retrieves the values of the 
+    This function retrieves the values of the
     current month for a given user.
     """
-    sql = """ SELECT sum(tweets), sum(likes), sum(retweets) FROM statistics WHERE username = ? AND date >= ? AND date <= ? GROUP BY username """
+    sql = """ SELECT sum(tweets), sum(likes), sum(retweets) FROM statistics \
+        WHERE username = ? AND date >= ? AND date <= ? GROUP BY username """
     cur = conn.cursor()
     current_year = datetime.datetime.today().strftime("%Y")
     current_month = datetime.datetime.today().strftime("%m")
