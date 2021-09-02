@@ -8,7 +8,7 @@
 ![linux-build-success-badge](https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg)
 ![win-build-success-badge.svg](https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg)
 
-Useful notes/links
+Useful notes/links 🔗
 --------
 
 - https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api
