@@ -8,12 +8,6 @@
 ![linux-build-success-badge](https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg)
 ![win-build-success-badge.svg](https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg)
 
-Useful notes/links 🔗
---------
-
-- https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api
-- https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
-
 Description 🔦 
 --------
 
@@ -52,6 +46,12 @@ optional arguments:
   -oh OUTPUT_HTML, --output-html OUTPUT_HTML
                         Produce a html file containing the stats for the inputted used (ALL for anyone).
 ```
+
+Useful notes/links 🔗
+--------
+
+- https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api
+- https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits
 
 Contributing 🤝
 --------
