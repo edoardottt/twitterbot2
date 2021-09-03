@@ -326,35 +326,47 @@ def main():
 
     banner.print_banner()
 
+    at_least_one_option = False
+
     # -- VERSION --
     if args.version:
+        at_least_one_option = True
         version.print_version()
 
     # -- TIMELINE --
     if args.timeline:
+        at_least_one_option = True
         bot = create_bot(logger)
         crawl_timeline(bot, logger)
 
     # -- KEYWORD --
     if args.keyword:
+        at_least_one_option = True
         bot = create_bot(logger)
         crawl_keyword(bot, logger, args.keyword)
 
     # -- STATS --
     if args.stats:
+        at_least_one_option = True
         stats.check_stat(args.stats)
 
     # -- CSV OUTPUT --
     if args.output_csv:
+        at_least_one_option = True
         output.output_csv(args.output_csv)
 
     # -- JSON OUTPUT --
     if args.output_json:
+        at_least_one_option = True
         output.output_json(args.output_json)
 
     # -- HTML OUTPUT --
     if args.output_html:
+        at_least_one_option = True
         output.output_html(args.output_html)
+
+    if not at_least_one_option:
+        version.print_version()
 
 
 if __name__ == "__main__":
