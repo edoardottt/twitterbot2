@@ -136,6 +136,7 @@ def crawl_timeline(bot, logger):
     tweet_count = 0
     likes_count = 0
     retweet_count = 0
+    followers_count = 0
 
     # check if there are values of today.
     conn = db.conn_db()
@@ -145,7 +146,7 @@ def crawl_timeline(bot, logger):
 
     # if there aren't data, creates a record in the statistics table
     if values is None:
-        db.create_stat(conn, (username, today, 0, 0, 0))
+        db.create_stat(conn, (username, today, 0, 0, 0, 0))
     # otherwise retrieves the values
     else:
         (
@@ -154,6 +155,7 @@ def crawl_timeline(bot, logger):
             tweet_count,
             likes_count,
             retweet_count,
+            followers_count,
         ) = values
 
     while True:
@@ -161,6 +163,7 @@ def crawl_timeline(bot, logger):
         logger.info("Today tweets count: " + str(tweet_count))
         logger.info("Today likes count: " + str(likes_count))
         logger.info("Today retweets count: " + str(retweet_count))
+        logger.info("Followers count: " + str(followers_count))
 
         tweet_count, likes_count, retweet_count = likes_rt_home(
             bot, logger, tweet_count, likes_count, retweet_count
@@ -185,15 +188,25 @@ def crawl_timeline(bot, logger):
         values = db.today_stats(conn, username)
         # if there aren't data, creates a record in the statistics table
         if values is None:
-            db.create_stat(conn, (username, today, 0, 0, 0))
+            db.create_stat(conn, (username, today, 0, 0, 0, 0))
             tweet_count = 0
             likes_count = 0
             retweet_count = 0
+            followers_count = 0
         # otherwise update the values
         else:
+            # retrieve the up-to-date followers count
+            followers_count = followers(bot, globals.bot_user)
             db.update_stat(
                 conn,
-                (tweet_count, likes_count, retweet_count, username, today),
+                (
+                    tweet_count,
+                    likes_count,
+                    retweet_count,
+                    followers_count,
+                    username,
+                    today,
+                ),
             )
         logger.info("Database updated.")
 
