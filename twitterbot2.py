@@ -59,11 +59,12 @@ def tweet(t, message):
     t.statuses.update(status=message)
 
 
-def followers(t):
-    # Return the number of followers of the bot
-    return t.users.lookup(screen_name=globals.bot_user, _timeout=1)[0][
-        "followers_count"
-    ]
+def followers(t, username):
+    """
+    Return the number of followers of the user
+    with the username provided as input.
+    """
+    return t.users.lookup(screen_name=username, _timeout=2)[0]["followers_count"]
 
 
 def put_like(t, status, logger, count):
