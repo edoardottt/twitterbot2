@@ -68,7 +68,7 @@ def check_stat(username):
             plt.plot(dates, tweets, "-r", marker="o", label="tweets")
             plt.plot(dates, likes, "-g", marker="o", label="likes")
             plt.plot(dates, retweets, "-b", marker="o", label="retweets")
-            plt.plot(dates, retweets, "-k", marker="o", label="followers")
+            plt.plot(dates, followers, "-k", marker="o", label="followers")
             # if first > last element the legend is shown on the right, otherwise it's shown on the left
             if tweets[0] > tweets[len(tweets) - 1]:
                 plt.legend(loc="upper right")
