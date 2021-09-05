@@ -42,17 +42,16 @@ def check_stat(username):
     tweets = []  # contains all the tweets stored in the database
     likes = []  # contains all the likes stored in the records
     retweets = []  # contains all the retweets stored in the records
+    followers = []  # contains all the followers stored in the records
     if db_is_new:
         logger = logging.getLogger(__name__)
         logger.error("No database detected.")
-        logger.error(
-            "Execute the initdb.py file by typing in your command line:")
+        logger.error("Execute the initdb.py file by typing in your command line:")
         logger.error("python init_db.py")
         sys.exit()
     else:
         cursor = conn.cursor()
-        cursor.execute(
-            "SELECT * FROM statistics WHERE username = ?", (username,))
+        cursor.execute("SELECT * FROM statistics WHERE username = ?", (username,))
         data = cursor.fetchall()
         if data is not None and len(data) != 0:
             for record in data:
@@ -60,6 +59,7 @@ def check_stat(username):
                 tweets += [int(record[2])]  # save the tweets count
                 likes += [int(record[3])]  # save the likes count
                 retweets += [int(record[4])]  # save the retweets count
+                followers += [int(record[5])]  # save the followers count
             # adjust plot settings
             plt.subplots_adjust(bottom=0.2)
             plt.xticks(rotation=70)
@@ -68,6 +68,7 @@ def check_stat(username):
             plt.plot(dates, tweets, "-r", marker="o", label="tweets")
             plt.plot(dates, likes, "-g", marker="o", label="likes")
             plt.plot(dates, retweets, "-b", marker="o", label="retweets")
+            plt.plot(dates, retweets, "-k", marker="o", label="followers")
             # if first > last element the legend is shown on the right, otherwise it's shown on the left
             if tweets[0] > tweets[len(tweets) - 1]:
                 plt.legend(loc="upper right")
