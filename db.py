@@ -38,7 +38,7 @@ def conn_db():
     db_filename = "database.db"
     db_is_new = not os.path.exists(db_filename)
     if db_is_new:
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger("__main__")
         logger.error("You must execute: python init_db.py")
         sys.exit()
     conn = sqlite3.connect(db_filename)

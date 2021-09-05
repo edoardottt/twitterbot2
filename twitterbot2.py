@@ -351,8 +351,15 @@ def main():
     logging.basicConfig(
         encoding="utf-8",
         level=logging.INFO,
+        filename="twitterbot2.log",
+        filemode="a",
         format="%(levelname)s:%(asctime)s | %(message)s",
     )
+    console = logging.StreamHandler()
+    console.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(levelname)s:%(asctime)s | %(message)s')
+    console.setFormatter(formatter)
+    logger.addHandler(console)
 
     args = input.get_args()
 

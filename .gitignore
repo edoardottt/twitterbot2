@@ -1,7 +1,7 @@
 # TwitterBot2 specific
 database.db
 twitterbot2-output/
-twitterBot2_log.txt
+twitterbot2.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

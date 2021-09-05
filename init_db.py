@@ -15,6 +15,7 @@
 
 import os
 import sqlite3
+import logging
 
 db_filename = "database.db"
 db_is_new = not os.path.exists(db_filename)
@@ -27,7 +28,8 @@ def create_table(conn, create_table_sql):
         c = conn.cursor()
         c.execute(create_table_sql)
     except Exception as e:
-        print(e)
+        logger = logging.getLogger("__main__")
+        logger.error(e)
 
 
 sql_create_statistics_table = """CREATE TABLE IF NOT EXISTS statistics (

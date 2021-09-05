@@ -12,7 +12,7 @@
 #
 
 import yaml
-
+import logging 
 
 def read_secrets():
     """
@@ -31,5 +31,6 @@ def read_secrets():
         try:
             return yaml.safe_load(stream)
         except yaml.YAMLError as exc:
-            print(exc)
+            logger = logging.getLogger("__main__")
+            logger.error(exc)
             exit()

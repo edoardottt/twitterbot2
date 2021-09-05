@@ -23,7 +23,7 @@ try:
 
     plt.figure(num="Twitterbot2 - " + globals.bot_user + " stats")
 except Exception:
-    logger = logging.getLogger(__name__)
+    logger = logging.getLogger("__main__")
     logger.error("Execute: pip install -r requirements.txt")
     sys.exit()
 
@@ -38,13 +38,14 @@ def check_stat(username):
     """
     logger = logging.getLogger("matplotlib")
     logger.setLevel(logging.CRITICAL)
+    logger = logging.getLogger("__main__")
     dates = []  # contains all the dates stored in the database
     tweets = []  # contains all the tweets stored in the database
     likes = []  # contains all the likes stored in the records
     retweets = []  # contains all the retweets stored in the records
     followers = []  # contains all the followers stored in the records
     if db_is_new:
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger("__main__")
         logger.error("No database detected.")
         logger.error("Execute the initdb.py file by typing in your command line:")
         logger.error("python init_db.py")
@@ -82,7 +83,7 @@ def check_stat(username):
             else:
                 plt.legend(loc="upper left")
             # Print the results
-            logger = logging.getLogger(__name__)
+            logger = logging.getLogger("__main__")
             logger.info("Total tweets: " + str(sum(tweets)))
             logger.info("Total likes: " + str(sum(likes)))
             logger.info("Total retweets: " + str(sum(retweets)))
@@ -101,6 +102,6 @@ def check_stat(username):
             )
             plt.show()
         else:
-            logger = logging.getLogger(__name__)
+            logger = logging.getLogger("__main__")
             logger.warning("There aren't data for this username.")
     conn.close()
