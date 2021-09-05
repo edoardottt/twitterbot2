@@ -60,15 +60,22 @@ def check_stat(username):
                 likes += [int(record[3])]  # save the likes count
                 retweets += [int(record[4])]  # save the retweets count
                 followers += [int(record[5])]  # save the followers count
+
             # adjust plot settings
             plt.subplots_adjust(bottom=0.2)
             plt.xticks(rotation=70)
             ax = plt.gca()
             ax.xaxis_date()
-            plt.plot(dates, tweets, "-r", marker="o", label="tweets")
-            plt.plot(dates, likes, "-g", marker="o", label="likes")
-            plt.plot(dates, retweets, "-b", marker="o", label="retweets")
-            plt.plot(dates, followers, "-k", marker="o", label="followers")
+
+            plt.plot(dates, tweets, "-r", marker="o", label="tweets")  # tweets -> red
+            plt.plot(dates, likes, "-g", marker="o", label="likes")  # likes -> green
+            plt.plot(
+                dates, retweets, "-b", marker="o", label="retweets"
+            )  # retweets -> blue
+            plt.plot(
+                dates, followers, "-k", marker="o", label="followers"
+            )  # followers -> black
+
             # if first > last element the legend is shown on the right, otherwise it's shown on the left
             if tweets[0] > tweets[len(tweets) - 1]:
                 plt.legend(loc="upper right")
@@ -79,6 +86,10 @@ def check_stat(username):
             logger.info("Total tweets: " + str(sum(tweets)))
             logger.info("Total likes: " + str(sum(likes)))
             logger.info("Total retweets: " + str(sum(retweets)))
+            logger.info(
+                "Followers (latest available data): "
+                + str(followers[len(followers) - 1])
+            )
             plt.title("Statistics for " + username)
             plt.subplots_adjust(
                 left=None,
