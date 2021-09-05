@@ -59,8 +59,7 @@ def ask_confirmation():
     This function checks if the user wants to override the already
     existing output file.
     """
-    answer = str(
-        input("The file already exists. Do you want to override? (Y/n)"))
+    answer = str(input("The file already exists. Do you want to override? (Y/n)"))
     if answer.lower() == "y" or answer.lower() == "yes" or answer.lower() == "":
         return True
     return False
@@ -116,6 +115,7 @@ def output_json(user):
                 "tweets": elem[2],
                 "likes": elem[3],
                 "retweets:": elem[4],
+                "followers:": elem[5],
             }
         with open(filename, "w") as f:
             json.dump(dict, f)
@@ -204,7 +204,8 @@ def html_table(lol):
     <th scope="col">Date</th>
     <th scope="col">Tweets</th>
     <th scope="col">Likes</th>
-    <th scope="col">Retweets</th>"""
+    <th scope="col">Retweets</th>
+    <th scope="col">Followers</th>"""
     for sublist in lol:
         out_string += "  <tr><td>"
         out_string += "    </td><td>".join(list(map(str, sublist)))
