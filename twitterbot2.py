@@ -353,7 +353,7 @@ def main():
         level=logging.INFO,
         filename="twitterbot2.log",
         filemode="a",
-        format="%(levelname)s:%(asctime)s | %(message)s",
+        format= globals.bot_user + ": %(levelname)s:%(asctime)s | %(message)s",
     )
     console = logging.StreamHandler()
     console.setLevel(logging.INFO)
