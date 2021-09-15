@@ -2,6 +2,7 @@
 database.db
 twitterbot2-output/
 twitterbot2.log
+Dockerfile
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
