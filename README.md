@@ -56,7 +56,8 @@ Useful notes/links 🔗
 Contributing 🤝
 --------
 
-Just open an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull request](https://github.com/edoardottt/twitterbot2/pulls).
+Just open an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull request](https://github.com/edoardottt/twitterbot2/pulls).  
+Read also [Code of Conduct](https://github.com/edoardottt/twitterbot2/blob/main/CODE_OF_CONDUCT.md) and [Contributing](https://github.com/edoardottt/twitterbot2/blob/main/CONTRIBUTING.md) files.
 
 License 📝
 --------
