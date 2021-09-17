@@ -386,7 +386,7 @@ def main():
                 logger,
             ),
         )
-        t2 = Thread(target=server.app.run)
+        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
         t1.start()
         t2.start()
 
@@ -402,7 +402,7 @@ def main():
                 args.keyword,
             ),
         )
-        t2 = Thread(target=server.app.run)
+        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
         t1.start()
         t2.start()
 
