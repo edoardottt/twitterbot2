@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- automatically updated -->
+    <script>
+        function updateValues() {
+            location.reload(true);
+        }
+        setInterval(updateValues, 2000);
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>twitterbot2</h1>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="container" id="content">
+        <div class="row">
+            <p>Asynchronous page updates will appear here:</p>
+            <div id="log"> {{ user }} and random value {{ random }} updated every tot seconds.
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
