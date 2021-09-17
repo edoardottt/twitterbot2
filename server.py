@@ -66,7 +66,7 @@ def user_dashboard():
     return render_template(
         "dashboard.html",
         user=username,
-        update=datetime.datetime.now(),
+        update=datetime.datetime.now().strftime("%d %b %Y %H:%M:%S"),
         tweets=tweet_count,
         likes=likes_count,
         retweets=retweet_count,
