@@ -14,7 +14,7 @@
 from flask import Flask
 from flask import request
 from flask.templating import render_template
-from datetime import datetime
+import datetime
 import db
 
 app = Flask(__name__, template_folder="templates")
