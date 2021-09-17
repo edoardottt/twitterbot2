@@ -12,6 +12,8 @@
 #
 
 from flask import Flask
+from flask import request
+import db
 from random import randint
 
 from flask.templating import render_template
@@ -22,12 +24,34 @@ app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
 
 @app.route("/")
 def hello():
-    return render_template("index.html")
+    conn = db.conn_db()
+    users = db.all_users(conn)
+    return render_template("index.html", len=len(users), users=users)
 
 
-@app.route("/<user>")
-def user_dashboard(user):
-    randvalue = randint(0, 2722235)
+def user_ok(user):
+    """
+    This function checks if a username is correct.
+    """
+    if user is None:
+        return False
+    if len(user) == 0:
+        return False
+    conn = db.conn_db()
+    users = db.all_users(conn)
+    for param in users:
+        if user == param[0]:
+            return True
+    return False
+
+
+@app.route("/dashboard")
+def user_dashboard():
+    user = request.args.get("user")
+    if not user_ok(user):
+        return render_template("error.html", errormsg="Invalid username.")
+
+    randvalue = randint(0, 100)
     return render_template("dashboard.html", user=user, random=randvalue)
 
 
