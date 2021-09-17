@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- automatically updated -->
+    <script>
+        function updateValues() {
+            location.reload(true);
+        }
+        // every 6 seconds
+        setInterval(updateValues, 60000);
+    </script>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #009879;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>twitterbot2</h1>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="container" id="content">
+        <div class="row">
+            <div id="log">
+                <h3>Real time statistics for {{ user }}.</h3>
+            </div>
+            <div>
+                <table class="styled-table">
+                    <tr>
+                        <th>Last update</th>
+                        <th>Tweets</th>
+                        <th>Likes</th>
+                        <th>Retweets</th>
+                        <th>Followers</th>
+                    </tr>
+                    <tr>
+                        <td>{{ update }}</td>
+                        <td>{{ tweets }}</td>
+                        <td>{{ likes }}</td>
+                        <td>{{ retweets }}</td>
+                        <td>{{ followers }}</td>
+                    </tr>
+                </table>
+            </div>
+            <a href="http://localhost:5000/">Back to home</a>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

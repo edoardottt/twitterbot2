@@ -28,6 +28,9 @@ import db
 import datetime
 import stats
 import output
+import server
+
+from threading import Thread
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):
@@ -376,13 +379,32 @@ def main():
     if args.timeline:
         at_least_one_option = True
         bot = create_bot(logger)
-        crawl_timeline(bot, logger)
+        t1 = Thread(
+            target=crawl_timeline,
+            args=(
+                bot,
+                logger,
+            ),
+        )
+        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
+        t1.start()
+        t2.start()
 
     # -- KEYWORD --
     if args.keyword:
         at_least_one_option = True
         bot = create_bot(logger)
-        crawl_keyword(bot, logger, args.keyword)
+        t1 = Thread(
+            target=crawl_keyword,
+            args=(
+                bot,
+                logger,
+                args.keyword,
+            ),
+        )
+        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
+        t1.start()
+        t2.start()
 
     # -- STATS --
     if args.stats:
