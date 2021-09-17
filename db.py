@@ -152,3 +152,14 @@ def month_stats(conn, username):
     )
     tweets, likes, retweets = cur.fetchone()
     return tweets, likes, retweets
+
+
+def all_users(conn):
+    """
+    This function retrieves all the users in the database.
+    """
+    sql = """ SELECT DISTINCT username FROM statistics"""
+    cur = conn.cursor()
+    cur.execute(sql)
+    values = cur.fetchall()
+    return values
