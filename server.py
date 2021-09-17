@@ -13,10 +13,9 @@
 
 from flask import Flask
 from flask import request
-import db
-from random import randint
-
 from flask.templating import render_template
+from datetime import datetime
+import db
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -51,8 +50,28 @@ def user_dashboard():
     if not user_ok(user):
         return render_template("error.html", errormsg="Invalid username.")
 
-    randvalue = randint(0, 100)
-    return render_template("dashboard.html", user=user, random=randvalue)
+    # if user ok ->
+    conn = db.conn_db()
+    values = db.today_stats(conn, user)
+    if values is None:
+        return render_template("error.html", errormsg="No data for this user.")
+    (
+        username,
+        today,
+        tweet_count,
+        likes_count,
+        retweet_count,
+        followers_count,
+    ) = values
+    return render_template(
+        "dashboard.html",
+        user=username,
+        update=datetime.datetime.now(),
+        tweets=tweet_count,
+        likes=likes_count,
+        retweets=retweet_count,
+        followers=followers_count,
+    )
 
 
 if __name__ == "__main__":

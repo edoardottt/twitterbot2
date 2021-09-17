@@ -11,7 +11,8 @@
         function updateValues() {
             location.reload(true);
         }
-        setInterval(updateValues, 2000);
+        // every 6 seconds
+        setInterval(updateValues, 60000);
     </script>
 
 </head>
@@ -28,7 +29,25 @@
     <div class="container" id="content">
         <div class="row">
             <p>Asynchronous page updates will appear here:</p>
-            <div id="log"> {{ user }} and random value {{ random }} updated every tot seconds.
+            <div id="log"> Real time statistics for {{ user }}.
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Last update</th>
+                        <th>Tweets</th>
+                        <th>Likes</th>
+                        <th>Retweets</th>
+                        <th>Followers</th>
+                    </tr>
+                    <tr>
+                        <td>{{ update }}</td>
+                        <td>{{ tweets }}</td>
+                        <td>{{ likes }}</td>
+                        <td>{{ retweets }}</td>
+                        <td>{{ followers }}</td>
+                    </tr>
+                </table>
             </div>
             <a href="http://localhost:5000/">Back to home</a>
         </div>
