@@ -2,6 +2,9 @@
   <img src="https://github.com/edoardottt/images/blob/main/twitterbot2/twitterbot2.png"><br>
   <b>Simple bot for twitter.</b><br>
   <!--badges-->
+  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg"/></a>
+  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg"/></a>
+  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg"/></a>
   <br>
   <sub>
     Coded with 💙 by edoardottt.
@@ -22,10 +25,6 @@
 **Follow me [edoardottt](https://twitter.com/edoardottt2)**
 
 **Say Hi to [Son of Anton](https://twitter.com/ai_testing)**
-
-![python-version](https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg)
-![linux-build-success-badge](https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg)
-![win-build-success-badge.svg](https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg)
 
 Description 🔦 
 --------
