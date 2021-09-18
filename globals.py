@@ -9,7 +9,7 @@
 #
 # This file contains some global values needed by
 # twitterbot2 while running.
-# You should edit the last two ('user' and 'bot_user').
+# You should edit the last two ('user' and 'bot_user') values.
 #
 
 month_tweet_cap = 500000
