@@ -64,7 +64,7 @@ def user_dashboard():
         followers_count,
     ) = values
 
-    values = db.all_stats(conn, user)
+    values = db.user_stats(conn, user)
     if values is None:
         return render_template("error.html", errormsg="No data for this user.")
 

@@ -1,74 +1,38 @@
-const config = {
-    type: 'line',
-    data: data,
+//var values = JSON.parse(document.getElementById("myChart").dataset.values);
+//console.log(data);
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
     options: {
-        responsive: true,
-        interaction: {
-            mode: 'index',
-            intersect: false,
-        },
-        stacked: false,
-        plugins: {
-            title: {
-                display: true,
-                text: 'Chart.js Line Chart - Multi Axis'
-            }
-        },
         scales: {
             y: {
-                type: 'linear',
-                display: true,
-                position: 'left',
-            },
-            y1: {
-                type: 'linear',
-                display: true,
-                position: 'right',
-
-                // grid line settings
-                grid: {
-                    drawOnChartArea: false, // only want the grid lines for one axis to show up
-                },
-            },
+                beginAtZero: true
+            }
         }
-    },
-};
-
-const DATA_COUNT = 7;
-const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
-
-const labels = Utils.months({ count: 7 });
-const data = {
-    labels: labels,
-    datasets: [
-        {
-            label: 'Dataset 1',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.red,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-            yAxisID: 'y',
-        },
-        {
-            label: 'Dataset 2',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.blue,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-            yAxisID: 'y1',
-        }
-    ]
-};
-
-const actions = [
-    {
-        name: 'Randomize',
-        handler(chart) {
-            chart.data.datasets.forEach(dataset => {
-                dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
-            });
-            chart.update();
-        }
-    },
-];
-
-var values = JSON.parse(document.getElementById("myChart").dataset.values);
-console.log(values);
+    }
+});
