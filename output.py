@@ -236,3 +236,21 @@ def output_html(user):
             f.write(html_table(values))
             f.write(footer_html())
     logger.info("All data has been written into " + filename)
+
+
+def data_json(values):
+    """
+    This function tranforms the input values
+    in a py dictionary useful for json.
+    """
+    dict = {}
+    for elem in values:
+        if not elem[0] in dict.keys():
+            dict[elem[0]] = {}
+        dict[elem[0]][elem[1]] = {
+            "tweets": elem[2],
+            "likes": elem[3],
+            "retweets:": elem[4],
+            "followers:": elem[5],
+        }
+    return dict
