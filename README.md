@@ -5,6 +5,7 @@
   <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg"/></a>
   <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg"/></a>
   <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg"/></a>
+  <a href="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml"><img src="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml/badge.svg"/></a>
   <br>
   <sub>
     Coded with 💙 by edoardottt.
