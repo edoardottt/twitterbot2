@@ -23,9 +23,7 @@
   <a href="#license-">License</a>
 </p>
 
-**Follow me [edoardottt](https://twitter.com/edoardottt2)**
-
-**Say Hi to [Son of Anton](https://twitter.com/ai_testing)**
+**twitterbot2 live demo running on [twitter.com/ai_testing](https://twitter.com/ai_testing)**
 
 Description 🔦 
 --------
