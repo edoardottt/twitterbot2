@@ -101,25 +101,21 @@ var myChart = new Chart(ctx, {
                 label: 'Tweets',
                 data: tweets,
                 borderColor: CHART_COLORS.red,
-                yAxisID: 'y',
             },
             {
                 label: 'Likes',
                 data: likes,
                 borderColor: CHART_COLORS.blue,
-                yAxisID: 'y1',
             },
             {
                 label: 'Retweets',
                 data: retweets,
                 borderColor: CHART_COLORS.yellow,
-                yAxisID: 'y2',
             },
             {
                 label: 'Followers',
                 data: followers,
                 borderColor: CHART_COLORS.green,
-                yAxisID: 'y3',
             }
         ]
     },
@@ -131,26 +127,4 @@ var myChart = new Chart(ctx, {
     },
     responsive: true,
     scaleShowVerticalLines: false,
-    scales: {
-        y: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-        },
-        y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-        },
-        y2: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-        },
-        y3: {
-            type: 'linear',
-            display: true,
-            position: 'left',
-        },
-    }
 });
