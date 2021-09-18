@@ -1,4 +1,23 @@
-# twitterbot2 🤖
+<p align="center">
+  <img src="https://github.com/edoardottt/images/blob/main/twitterbot2/twitterbot2.png"><br>
+  <b>Simple bot for twitter.</b><br>
+  <!--badges-->
+  <br>
+  <sub>
+    Coded with 💙 by edoardottt.
+  </sub>
+  <br>
+  <!--Tweet button-->
+</p>
+
+<p align="center">
+  <a href="#description-">Description</a> •
+  <a href="#installation-">Install</a> •
+  <a href="#usage-">Usage</a> •
+  <a href="#useful-noteslinks-">Notes</a> •
+  <a href="#contributing-">Contributing</a> •
+  <a href="#license-">License</a>
+</p>
 
 **Follow me [edoardottt](https://twitter.com/edoardottt2)**
 
