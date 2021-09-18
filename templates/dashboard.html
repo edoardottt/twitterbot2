@@ -20,7 +20,6 @@
         </div>
     </div>
 
-    </div>
 
     <div class="container" id="content">
         <div class="row">
@@ -28,34 +27,39 @@
             <div id="log">
                 <h3>Real time statistics for <a href="https://twitter.com/{{ user }}">{{ user }}</a>.</h3>
             </div>
+        </div>
+    </div>
 
-            <div>
-                <table class="styled-table">
-                    <tr>
-                        <th>Last update</th>
-                        <th>Tweets</th>
-                        <th>Likes</th>
-                        <th>Retweets</th>
-                        <th>Followers</th>
-                    </tr>
-                    <tr>
-                        <td>{{ update }}</td>
-                        <td>{{ tweets }}</td>
-                        <td>{{ likes }}</td>
-                        <td>{{ retweets }}</td>
-                        <td>{{ followers }}</td>
-                    </tr>
-                </table>
-            </div>
+    <div class="container-fluid">
+        <div>
+            <table class="styled-table">
+                <tr>
+                    <th>Last update</th>
+                    <th>Tweets</th>
+                    <th>Likes</th>
+                    <th>Retweets</th>
+                    <th>Followers</th>
+                </tr>
+                <tr>
+                    <td>{{ update }}</td>
+                    <td>{{ tweets }}</td>
+                    <td>{{ likes }}</td>
+                    <td>{{ retweets }}</td>
+                    <td>{{ followers }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
-            <div class="chart-container" style="position: relative; width:100%">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="chart-container">
                 <canvas data-values='{{ values|tojson }}' id="lineChart"></canvas>
             </div>
-
-            <script src="{{ url_for('static', filename='values.js')}}"></script>
-
-            <a href="/">Back to home</a>
         </div>
+
+        <script src="{{ url_for('static', filename='values.js')}}"></script>
+        <a href="/">Back to home</a>
     </div>
 
     {% include 'footer.html' %}
