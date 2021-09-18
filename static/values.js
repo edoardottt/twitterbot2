@@ -1,3 +1,16 @@
+//
+// twitterbot2
+//
+//   edoardottt
+//   edoardoottavianelli.it
+//   https://github.com/edoardottt/twitterbot2
+//
+//   This repository is under GPL - 3 License.
+//
+// This file controls the charts and all the data
+// visualization on frontend.
+//
+
 const COLORS = [
     '#4dc9f6',
     '#f67019',
@@ -22,7 +35,9 @@ const CHART_COLORS = {
     green: 'rgb(75, 192, 192)',
     blue: 'rgb(54, 162, 235)',
     purple: 'rgb(153, 102, 255)',
-    grey: 'rgb(201, 203, 207)'
+    grey: 'rgb(201, 203, 207)',
+    grey: 'rgb(255, 255, 255)',
+    black: 'rgb(0, 0, 0)'
 };
 
 const NAMED_COLORS = [
@@ -33,13 +48,15 @@ const NAMED_COLORS = [
     CHART_COLORS.blue,
     CHART_COLORS.purple,
     CHART_COLORS.grey,
+    CHART_COLORS.white,
+    CHART_COLORS.black,
 ];
 
 function namedColor(index) {
     return NAMED_COLORS[index % NAMED_COLORS.length];
 }
 
-var values = JSON.parse(document.getElementById("myChart").dataset.values);
+var values = JSON.parse(document.getElementById("lineChart").dataset.values);
 
 var dates = [];
 var tweets = [];
@@ -74,7 +91,7 @@ console.log("followers: ");
 console.log(followers);
 */
 
-var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('lineChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
@@ -112,6 +129,8 @@ var myChart = new Chart(ctx, {
             text: 'Statistics over time'
         }
     },
+    responsive: true,
+    scaleShowVerticalLines: false,
     scales: {
         y: {
             type: 'linear',

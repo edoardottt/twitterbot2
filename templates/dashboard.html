@@ -49,7 +49,7 @@
             </div>
 
             <div class="chart-container" style="position: relative; width:100%">
-                <canvas data-values='{{ values|tojson }}' id="myChart"></canvas>
+                <canvas data-values='{{ values|tojson }}' id="lineChart"></canvas>
             </div>
 
             <script src="{{ url_for('static', filename='values.js')}}"></script>
