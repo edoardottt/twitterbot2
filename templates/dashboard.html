@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="https://www.python.org/static/community_logos/python-powered-h-140x182.png" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="{{ url_for('static', filename='dashboard.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css')}}">
 
@@ -48,7 +48,7 @@
                 </table>
             </div>
 
-            <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+            <div class="chart-container" style="position: relative; width:100%">
                 <canvas data-values='{{ values|tojson }}' id="myChart"></canvas>
             </div>
 

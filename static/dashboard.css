@@ -1,9 +1,15 @@
+html,body {
+    width: 100%;
+}
+
 .styled-table {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 0.9em;
+    margin-left: auto;
+    margin-right: auto;
     font-family: sans-serif;
-    min-width: 400px;
+    width: 80%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 

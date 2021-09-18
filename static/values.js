@@ -135,6 +135,3 @@ var myChart = new Chart(ctx, {
         },
     }
 });
-
-
-// NOT WORKING, LUNCH TIME
