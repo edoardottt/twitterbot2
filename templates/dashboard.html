@@ -24,9 +24,11 @@
 
     <div class="container" id="content">
         <div class="row">
+
             <div id="log">
                 <h3>Real time statistics for <a href="https://twitter.com/{{ user }}">{{ user }}</a>.</h3>
             </div>
+
             <div>
                 <table class="styled-table">
                     <tr>
@@ -45,10 +47,13 @@
                     </tr>
                 </table>
             </div>
-            <div class="container">
+
+            <div class="chart-container" style="position: relative; height:40vh; width:80vw">
                 <canvas data-values='{{ values|tojson }}' id="myChart"></canvas>
             </div>
+
             <script src="{{ url_for('static', filename='values.js')}}"></script>
+
             <a href="/">Back to home</a>
         </div>
     </div>
