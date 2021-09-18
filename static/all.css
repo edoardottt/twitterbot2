@@ -1,0 +1,95 @@
+html,body {
+    width: 100%;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: sans-serif;
+    width: 80%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+footer{
+    width: 100%;
+    min-height: 30px;
+    max-height: auto;
+    background-color: rgba(0,0,0,0.9);
+    margin-top: 10px;
+    clear: both;
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin-bottom: 0px;
+}
+div.footerCopy{
+    clear: both;
+    color: white;
+    text-align: center;
+    padding-bottom: 5px;
+    border-top: 1px solid #ccc;
+}
+  
+@media (max-width:800px){
+    footer .footer-wrap{
+      width: 100%;
+      padding: 0;
+    }
+    div.footerCopy{
+        font-size: 0.8em;
+    }
+}
+    @media (max-width:600px){
+    .widgetFooter:not(:nth-of-type(2)){
+      text-align: left;
+    }
+  }
+  @media (max-width:500px){
+    footer{
+      min-height: auto;
+    }
+    .widgetFooter:not(:nth-of-type(2)){
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+}
