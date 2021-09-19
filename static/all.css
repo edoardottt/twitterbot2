@@ -1,5 +1,21 @@
 html,body {
     width: 100%;
+    height:100%;
+}
+
+/* change the background color */
+.navbar {
+    background-color: #1DA1F2 !important;
+}
+
+/* change the brand and text color */
+.navbar-brand .navbar-text {
+    color: #ffffff !important;
+}
+
+/* change the link color */
+.navbar-custom .navbar-nav .nav-item .nav-link {
+    color: #ffffff !important;
 }
 
 .container-fluid {
@@ -55,10 +71,10 @@ footer{
     width: 100%;
     min-height: 30px;
     max-height: auto;
-    background-color: rgba(0,0,0,0.9);
+    background-color: #1DA1F2 !important;
     margin-top: 10px;
     clear: both;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     color: white;
     position: fixed;

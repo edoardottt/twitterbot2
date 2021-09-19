@@ -20,8 +20,8 @@
 
 
     <div class="container" id="content">
+        <br>
         <div class="row">
-
             <div id="log">
                 <h3>Real time statistics for <a href="https://twitter.com/{{ user }}">{{ user }}</a>.</h3>
             </div>
@@ -62,14 +62,15 @@
         </div>
 
         <script src="{{ url_for('static', filename='values.js')}}"></script>
+
+        <div class="container">
+            <input type="range" class="form-range" id="formRange" value="100" min="50" max="100"
+                onInput="$('.chart-container').css('width',$(this).val() + '%')">
+        </div>
+
         <a href="/">Back to home</a>
-
     </div>
 
-    <div class="container">
-        <input type="range" class="form-range" id="formRange" value="100" min="50" max="100"
-            onInput="$('.chart-container').css('width',$(this).val() + '%')">
-    </div>
 
     {% include 'footer.html' %}
 
