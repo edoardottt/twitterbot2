@@ -55,6 +55,8 @@
                 <canvas data-values='{{ values|tojson }}' id="lineChart"></canvas>
             </div>
         </div>
+        <input type="range" class="form-range" id="formRange" value="100" min="50" max="100"
+            onInput="$('.chart-container').css('width',$(this).val() + '%')">
 
         <script src="{{ url_for('static', filename='values.js')}}"></script>
         <a href="/">Back to home</a>
