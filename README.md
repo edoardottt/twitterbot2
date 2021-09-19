@@ -23,7 +23,7 @@
   <a href="#license-">License</a>
 </p>
 
-**twitterbot2 live demo running on [twitter.com/ai_testing](https://twitter.com/ai_testing)**
+**live demo running on [@ai_testing](https://twitter.com/ai_testing)**
 
 Description 🔦 
 --------
