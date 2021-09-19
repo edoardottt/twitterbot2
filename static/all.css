@@ -76,6 +76,7 @@ div.footerCopy{
 }
   
 @media (max-width:800px){
+    
     footer .footer-wrap{
       width: 100%;
       padding: 0;
@@ -83,13 +84,29 @@ div.footerCopy{
     div.footerCopy{
         font-size: 0.8em;
     }
+    .container-fluid {
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }
-    @media (max-width:600px){
+
+@media (max-width:600px){
+    
     .widgetFooter:not(:nth-of-type(2)){
       text-align: left;
+    
     }
-  }
-  @media (max-width:500px){
+    .container-fluid {
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media (max-width:500px){
+    
     footer{
       min-height: auto;
     }
@@ -98,4 +115,10 @@ div.footerCopy{
       padding: 0;
       text-align: center;
     }
+    .container-fluid {
+        width:100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }
