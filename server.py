@@ -53,30 +53,40 @@ def user_dashboard():
     # if user ok ->
     conn = db.conn_db()
     values = db.today_stats(conn, user)
+    today_show = 1
     if values is None:
-        return render_template("error.html", errormsg="No data for this user today.")
-    (
-        username,
-        today,
-        tweet_count,
-        likes_count,
-        retweet_count,
-        followers_count,
-    ) = values
+        today_show = 0
+    else:
+        (
+            username,
+            today,
+            tweet_count,
+            likes_count,
+            retweet_count,
+            followers_count,
+        ) = values
 
     values = db.user_stats(conn, user)
     if values is None:
         return render_template("error.html", errormsg="No data for this user.")
 
+    if not today_show:
+        (
+            tweet_count,
+            likes_count,
+            retweet_count,
+            followers_count,
+        ) = ("", "", "", "")
     return render_template(
         "dashboard.html",
-        user=username,
+        user=user,
         update=datetime.datetime.now().strftime("%d %b %Y %H:%M:%S"),
         tweets=tweet_count,
         likes=likes_count,
         retweets=retweet_count,
         followers=followers_count,
         values=values,
+        today_show=today_show,
     )
 
 
