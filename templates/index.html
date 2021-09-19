@@ -16,7 +16,9 @@
 <body>
     {% include 'navbar.html' %}
 
+    {% if len %}
     <div class="container" id="content">
+        <br>
         <div class="row">
             <p>
                 Select for which user you want to show real time data
@@ -31,6 +33,22 @@
             </form>
         </div>
     </div>
+    {% endif %}
+
+    {% if not len %}
+    <div class="container" id="content">
+        <br>
+        <div class="row">
+            <p>
+                There aren't users in the database, start the bot before. Execute <i><b>python twitterbot2.py -t</b></i>
+                or
+                <i><b>python
+                        twitterbot2.py -k &lt;term&gt; </b></i>See also the usage <a
+                    href="https://github.com/edoardottt/twitterbot2#usage-">here</a>.
+            </p>
+        </div>
+    </div>
+    {% endif %}
 
     {% include 'footer.html' %}
 
