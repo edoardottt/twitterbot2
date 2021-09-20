@@ -128,3 +128,15 @@ var myChart = new Chart(ctx, {
     responsive: true,
     scaleShowVerticalLines: false,
 });
+
+// on mobile
+if (window.innerHeight > window.innerWidth) {
+    (document.getElementsByClassName("chart-container")[0]).style.width = "100%";
+    document.getElementById("formRange").value = 100;
+    console.log(document.getElementById("formRange").value);
+} else {
+    // on desktop
+    (document.getElementsByClassName("chart-container")[0]).style.width = "75%";
+    document.getElementById("formRange").value = 75;
+    console.log(document.getElementById("formRange").value);
+}
