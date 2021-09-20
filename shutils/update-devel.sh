@@ -14,13 +14,37 @@
 # will be kept. 
 #
 
-cp database.db ..
-cp config.yaml ..
-cp twitterbot2.log ..
+if [ -f database.db ]
+then 
+    cp database.db ..
+fi 
+
+if [ -f config.yaml ]
+then 
+    cp config.yaml ..
+fi 
+
+if [ -f twitterbot2.log ]
+then 
+    cp twitterbot2.log ..
+fi 
+
 cd ..
 rm -rf twitterbot2
 git clone --single-branch --branch devel https://github.com/edoardottt/twitterbot2
 cd twitterbot2
-cp ../database.db .
-cp ../config.yaml .
-cp ../twitterbot2.log .
+
+if [ -f ../database.db ]
+then 
+    cp ../database.db .
+fi 
+
+if [ -f ../config.yaml ]
+then 
+    cp ../config.yaml .
+fi 
+
+if [ -f ../twitterbot2.log ]
+then 
+    cp ../twitterbot2.log .
+fi 
