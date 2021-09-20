@@ -14,17 +14,17 @@
 # will be kept. 
 #
 
-if [ -fe database.db ]
+if [ -f database.db ]
 then 
     cp database.db ..
 fi 
 
-if [ -fe config.yaml ]
+if [ -f config.yaml ]
 then 
     cp config.yaml ..
 fi 
 
-if [ -fe twitterbot2.log ]
+if [ -f twitterbot2.log ]
 then 
     cp twitterbot2.log ..
 fi 
@@ -34,17 +34,17 @@ rm -rf twitterbot2
 git clone --single-branch --branch devel https://github.com/edoardottt/twitterbot2
 cd twitterbot2
 
-if [ -fe ../database.db ]
+if [ -f ../database.db ]
 then 
     cp ../database.db .
 fi 
 
-if [ -fe ../config.yaml ]
+if [ -f ../config.yaml ]
 then 
     cp ../config.yaml .
 fi 
 
-if [ -fe ../twitterbot2.log ]
+if [ -f ../twitterbot2.log ]
 then 
     cp ../twitterbot2.log .
 fi 
