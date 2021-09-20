@@ -63,12 +63,12 @@
             </div>
         </div>
 
-        <script src="{{ url_for('static', filename='values.js')}}"></script>
-
         <div class="container">
-            <input type="range" class="form-range" id="formRange" value="100" min="50" max="100"
+            <input type="range" class="form-range" id="formRange" min="50" max="100"
                 onInput="$('.chart-container').css('width',$(this).val() + '%')">
         </div>
+
+        <script src="{{ url_for('static', filename='values.js')}}"></script>
 
         <a href="/">Back to home</a>
     </div>
