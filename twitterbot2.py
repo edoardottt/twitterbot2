@@ -245,7 +245,7 @@ def crawl_timeline(bot, logger):
                 )
             logger.info("Database updated.")
             logger.error(str(e.e) + " on " + e.uri)
-            logger.info("Sleeping for 15 minutes.")
+            logger.info("Sleeping for one hour.")
             time.sleep(60 * 60)
 
 
@@ -383,7 +383,7 @@ def crawl_keyword(bot, logger, keyword):
                 )
             logger.info("Database updated.")
             logger.error(str(e.e) + " on " + e.uri)
-            logger.info("Sleeping for 15 minutes.")
+            logger.info("Sleeping for one hour.")
             time.sleep(60 * 60)
 
 
