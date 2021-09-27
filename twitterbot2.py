@@ -18,8 +18,6 @@
 import twitter
 import secrets
 import time
-
-from twitter.api import TwitterHTTPError
 import globals
 import logging
 import banner
@@ -233,6 +231,19 @@ def crawl_timeline(bot, logger):
                 time.sleep(15 * 60)
         except twitter.api.TwitterHTTPError as e:
 
+            if tweet_count != 0:
+                db.update_stat(
+                    conn,
+                    (
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        followers_count,
+                        username,
+                        today,
+                    ),
+                )
+            logger.info("Database updated.")
             logger.error(str(e.e) + " on " + e.uri)
             logger.info("Sleeping for 15 minutes.")
             time.sleep(15 * 60)
@@ -358,6 +369,19 @@ def crawl_keyword(bot, logger, keyword):
             time.sleep(15 * 60)
         except twitter.api.TwitterHTTPError as e:
 
+            if tweet_count != 0:
+                db.update_stat(
+                    conn,
+                    (
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        followers_count,
+                        username,
+                        today,
+                    ),
+                )
+            logger.info("Database updated.")
             logger.error(str(e.e) + " on " + e.uri)
             logger.info("Sleeping for 15 minutes.")
             time.sleep(15 * 60)
