@@ -24,13 +24,13 @@ def error_handler(e):
     logger.error(str(e.e) + " on " + e.uri)
 
     # == 429 TOO MANY REQUESTS -> Sleep for one hour
-    if str(e.code) == "429":
+    if str(e.e.code) == "429":
         logger.info("Sleeping for one hour.")
         time.sleep(60 * 60)
         return
 
     # == 403 FORBIDDEN -> Sleep for ten seconds
-    if str(e.code) == "403":
+    if str(e.e.code) == "403":
         logger.info("Sleeping for ten seconds.")
         time.sleep(10)
         return
