@@ -35,4 +35,9 @@ def error_handler(e):
         time.sleep(10)
         return
 
+    # for other types of issues with specific behaviour
+    # add here an additional handler
+
+    # == DEFAULT ==
+    logger.info("Sleeping for ten seconds.")
     time.sleep(10)
