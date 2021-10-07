@@ -29,6 +29,7 @@ import datetime
 import stats
 import output
 import server
+import errors
 
 from threading import Thread
 
@@ -114,19 +115,62 @@ def create_bot(logger):
 
 def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     """
-    This function tries to put likes and retweetthe tweets in
+    This function tries to put likes and retweet the tweets in
     the bot timeline.
     """
-    home = get_home(bot)
+
+    try:
+        home = get_home(bot)
+    except twitter.api.TwitterHTTPError as e:
+        errors.error_handler(e)
+
     if home is not None:
         tweet_count += len(home)
-    else:
-        logger.warning("Rate limit exceeded")
-        time.sleep(15 * 60)
+
     for tweet_home in home:
         if tweet_home["user"]["screen_name"] != globals.bot_user:
-            likes_count = put_like(bot, tweet_home, logger, likes_count)
-            retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+
+            try:
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+            except twitter.api.TwitterHTTPError as e:
+                errors.error_handler(e)
+
+            try:
+                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+            except twitter.api.TwitterHTTPError as e:
+                errors.error_handler(e)
+
+            time.sleep(2)
+
+    return tweet_count, likes_count, retweet_count
+
+
+def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
+    """
+    This function tries to put likes and retweet the tweets in
+    the user timeline.
+    """
+    try:
+        home = get_friend_home(bot, globals.user)
+    except twitter.api.TwitterHTTPError as e:
+        errors.error_handler(e)
+
+    if home is not None:
+        tweet_count += len(home)
+
+    for tweet_home in home:
+        if tweet_home["user"]["screen_name"] != globals.bot_user:
+
+            try:
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+            except twitter.api.TwitterHTTPError as e:
+                errors.error_handler(e)
+
+            try:
+                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+            except twitter.api.TwitterHTTPError as e:
+                errors.error_handler(e)
+
             time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
@@ -175,22 +219,20 @@ def crawl_timeline(bot, logger):
         logger.info("Sleeping for one minute.")
         time.sleep(60)
 
-        home = get_friend_home(bot, globals.user)
-        if home is not None:
-            tweet_count += len(home)
-        else:
-            logger.warning("Rate limit exceeded")
-            time.sleep(15 * 60)
-        for tweet_home in home:
-            if tweet_home["user"]["screen_name"] != globals.bot_user:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-                time.sleep(2)
+        tweet_count, likes_count, retweet_count = likes_rt_user(
+            bot, logger, tweet_count, likes_count, retweet_count
+        )
+
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
         values = db.today_stats(conn, username)
+
         # retrieve the up-to-date followers count
-        followers_count = followers(bot, globals.bot_user)
+        try:
+            followers_count = followers(bot, globals.bot_user)
+        except twitter.api.TwitterHTTPError as e:
+            errors.error_handler(e)
+
         # if there aren't data, creates a record in the statistics table
         if values is None:
             db.create_stat(conn, (username, today, 0, 0, 0, 0))
@@ -221,8 +263,8 @@ def crawl_timeline(bot, logger):
         # check if the bot reached the daily tweet cap
         if retweet_count + 40 > globals.daily_tweet_cap:
             logger.warning("Daily tweet cap reached.")
-            logger.info("Sleeping for 6 hours.")
-            time.sleep(6 * 60 * 60)
+            logger.info("Sleeping for 2 hours.")
+            time.sleep(2 * 60 * 60)
         else:
             logger.info("Sleeping for 15 minutes.")
             time.sleep(15 * 60)
@@ -279,70 +321,82 @@ def crawl_keyword(bot, logger, keyword):
 
     while True:
 
-        logger.info("Today tweets count: " + str(tweet_count))
-        logger.info("Today likes count: " + str(likes_count))
-        logger.info("Today retweets count: " + str(retweet_count))
-        logger.info("Followers count: " + str(followers_count))
+        try:
+            logger.info("Today tweets count: " + str(tweet_count))
+            logger.info("Today likes count: " + str(likes_count))
+            logger.info("Today retweets count: " + str(retweet_count))
+            logger.info("Followers count: " + str(followers_count))
 
-        tweet_count, likes_count, retweet_count = likes_rt_search(
-            bot, logger, keyword, tweet_count, likes_count, retweet_count
-        )
-        logger.info("Sleeping for one minute.")
-        time.sleep(60)
-
-        home = get_friend_home(bot, globals.user)
-        if home is not None:
-            tweet_count += len(home)
-        else:
-            logger.warning("Rate limit exceeded")
-            time.sleep(15 * 60)
-        for tweet_home in home:
-            if tweet_home["user"]["screen_name"] != globals.bot_user:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-                time.sleep(2)
-        # update the values in the database
-        today = datetime.datetime.today().strftime("%Y-%m-%d")
-        values = db.today_stats(conn, username)
-        # retrieve the up-to-date followers count
-        followers_count = followers(bot, globals.bot_user)
-        # if there aren't data, creates a record in the statistics table
-        if values is None:
-            db.create_stat(conn, (username, today, 0, 0, 0, 0))
-            tweet_count = 0
-            likes_count = 0
-            retweet_count = 0
-        # otherwise update the values
-        else:
-            db.update_stat(
-                conn,
-                (
-                    tweet_count,
-                    likes_count,
-                    retweet_count,
-                    followers_count,
-                    username,
-                    today,
-                ),
+            tweet_count, likes_count, retweet_count = likes_rt_search(
+                bot, logger, keyword, tweet_count, likes_count, retweet_count
             )
-        logger.info("Database updated.")
+            logger.info("Sleeping for one minute.")
+            time.sleep(60)
 
-        # check if the bot reached the monthly tweet cap
-        if db.month_stats(conn, username)[2] > globals.month_tweet_cap:
-            logger.critical("Monthly tweet cap reached.")
-            logger.critical("Exiting.")
-            sys.exit()
+            tweet_count, likes_count, retweet_count = likes_rt_user(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
 
-        # check if the bot reached the daily tweet cap
-        if retweet_count + 40 > globals.daily_tweet_cap:
-            logger.warning("Daily tweet cap reached.")
-            logger.info("Sleeping for 6 hours.")
-            time.sleep(6 * 60 * 60)
-        else:
+            # update the values in the database
+            today = datetime.datetime.today().strftime("%Y-%m-%d")
+            values = db.today_stats(conn, username)
+            # retrieve the up-to-date followers count
+            followers_count = followers(bot, globals.bot_user)
+            # if there aren't data, creates a record in the statistics table
+            if values is None:
+                db.create_stat(conn, (username, today, 0, 0, 0, 0))
+                tweet_count = 0
+                likes_count = 0
+                retweet_count = 0
+            # otherwise update the values
+            else:
+                db.update_stat(
+                    conn,
+                    (
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        followers_count,
+                        username,
+                        today,
+                    ),
+                )
+            logger.info("Database updated.")
+
+            # check if the bot reached the monthly tweet cap
+            if db.month_stats(conn, username)[2] > globals.month_tweet_cap:
+                logger.critical("Monthly tweet cap reached.")
+                logger.critical("Exiting.")
+                sys.exit()
+
+            # check if the bot reached the daily tweet cap
+            if retweet_count + 40 > globals.daily_tweet_cap:
+                logger.warning("Daily tweet cap reached.")
+                logger.info("Sleeping for 6 hours.")
+                time.sleep(6 * 60 * 60)
+            else:
+                logger.info("Sleeping for 15 minutes.")
+                time.sleep(15 * 60)
             logger.info("Sleeping for 15 minutes.")
             time.sleep(15 * 60)
-        logger.info("Sleeping for 15 minutes.")
-        time.sleep(15 * 60)
+        except twitter.api.TwitterHTTPError as e:
+
+            if tweet_count != 0:
+                db.update_stat(
+                    conn,
+                    (
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        followers_count,
+                        username,
+                        today,
+                    ),
+                )
+            logger.info("Database updated.")
+            logger.error(str(e.e) + " on " + e.uri)
+            logger.info("Sleeping for one hour.")
+            time.sleep(60 * 60)
 
 
 def main():

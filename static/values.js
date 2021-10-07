@@ -5,7 +5,7 @@
 //   edoardoottavianelli.it
 //   https://github.com/edoardottt/twitterbot2
 //
-//   This repository is under GPL - 3 License.
+//   This repository is under GPL-3 License.
 //
 // This file controls the charts and all the data
 // visualization on frontend.
