@@ -10,7 +10,7 @@
 # This file mantains the version of twitterbot2.
 #
 
-version_str = "0.1-dev"
+version_str = "0.1"
 
 
 def version():
