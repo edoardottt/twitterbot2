@@ -28,7 +28,7 @@
 Description 🔦 
 --------
 
-Simple bot for Twitter. 2nd version of [twitterbot](https://github.com/edoardottt/twitterbot).
+Simple twitter bot that can like and retweet your tweets, or search tweets with a specified topic. It stores and serves the data with a Flask webapp. 🐦
 
 Installation 📡
 -------
