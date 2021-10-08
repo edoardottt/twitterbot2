@@ -176,7 +176,7 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     return tweet_count, likes_count, retweet_count
 
 
-def crawl_timeline(bot, logger):
+def crawl_timeline(bot, logger, no_user):
     """
     This is the handle function of the -t or --timeline option.
     """
@@ -219,9 +219,14 @@ def crawl_timeline(bot, logger):
         logger.info("Sleeping for one minute.")
         time.sleep(60)
 
-        tweet_count, likes_count, retweet_count = likes_rt_user(
-            bot, logger, tweet_count, likes_count, retweet_count
-        )
+        if no_user:
+            tweet_count, likes_count, retweet_count = likes_rt_home(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
+        else:
+            tweet_count, likes_count, retweet_count = likes_rt_user(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
 
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -290,7 +295,7 @@ def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_coun
     return tweet_count, likes_count, retweet_count
 
 
-def crawl_keyword(bot, logger, keyword):
+def crawl_keyword(bot, logger, keyword, no_user):
     """
     This is the handle function of the -k or --keyword option.
     """
@@ -330,12 +335,18 @@ def crawl_keyword(bot, logger, keyword):
             tweet_count, likes_count, retweet_count = likes_rt_search(
                 bot, logger, keyword, tweet_count, likes_count, retweet_count
             )
+
             logger.info("Sleeping for one minute.")
             time.sleep(60)
 
-            tweet_count, likes_count, retweet_count = likes_rt_user(
-                bot, logger, tweet_count, likes_count, retweet_count
-            )
+            if no_user:
+                tweet_count, likes_count, retweet_count = likes_rt_search(
+                    bot, logger, keyword, tweet_count, likes_count, retweet_count
+                )
+            else:
+                tweet_count, likes_count, retweet_count = likes_rt_user(
+                    bot, logger, tweet_count, likes_count, retweet_count
+                )
 
             # update the values in the database
             today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -438,6 +449,7 @@ def main():
             args=(
                 bot,
                 logger,
+                args.no_user,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
@@ -454,6 +466,7 @@ def main():
                 bot,
                 logger,
                 args.keyword,
+                args.no_user,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
