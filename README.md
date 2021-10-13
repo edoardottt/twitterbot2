@@ -28,7 +28,7 @@
 Description 🔦 
 --------
 
-Simple twitter bot that can like and retweet your tweets, or search tweets with a specified topic. It stores and serves the data with a Flask webapp. 🐦
+Simple twitter bot that can like and retweet your tweets, or search tweets with a specified topic. It stores and serves data with a Flask webapp. 🐦
 
 Installation 📡
 -------
@@ -44,7 +44,7 @@ Usage 🚀
 -------
 
 ```
-usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s STATS | -oc OUTPUT_CSV | -oj OUTPUT_JSON | -oh OUTPUT_HTML]
+usage: twitterbot2.py [-h] [-v] [-t] [-k KEYWORD] [-nu] [-s STATS] [-oc OUTPUT_CSV] [-oj OUTPUT_JSON] [-oh OUTPUT_HTML]
 
 Twitterbot v2
 
@@ -54,6 +54,7 @@ optional arguments:
   -t, --timeline        Search for tweets in the bot and user's timeline.
   -k KEYWORD, --keyword KEYWORD
                         Search for tweets with a defined keyword.
+  -nu, --no-user        Don't like and retweet user tweets.
   -s STATS, --stats STATS
                         Show the statistics of the inputted bot (username).
   -oc OUTPUT_CSV, --output-csv OUTPUT_CSV
@@ -69,7 +70,7 @@ Useful notes/links 🔗
 
 - [Getting access to the Twitter api](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api)
 - [Twitter api rate limits](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits)
-- This app uses a Flask server. Do not expose this on the public Internet, use this behind NAT/firewall.
+- This app uses a Flask webserver. Don't expose it on public Internet, use this behind NAT/firewall.
 
 Contributing 🤝
 --------
