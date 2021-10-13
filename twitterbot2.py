@@ -121,7 +121,7 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
 
     try:
         home = get_home(bot)
-    except twitter.api.TwitterHTTPError as e:
+    except Exception as e:
         errors.error_handler(e)
 
     if home is not None:
@@ -132,12 +132,12 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
 
             try:
                 likes_count = put_like(bot, tweet_home, logger, likes_count)
-            except twitter.api.TwitterHTTPError as e:
+            except Exception as e:
                 errors.error_handler(e)
 
             try:
                 retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-            except twitter.api.TwitterHTTPError as e:
+            except Exception as e:
                 errors.error_handler(e)
 
             time.sleep(2)
@@ -152,7 +152,7 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     """
     try:
         home = get_friend_home(bot, globals.user)
-    except twitter.api.TwitterHTTPError as e:
+    except Exception as e:
         errors.error_handler(e)
 
     if home is not None:
@@ -163,12 +163,12 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
 
             try:
                 likes_count = put_like(bot, tweet_home, logger, likes_count)
-            except twitter.api.TwitterHTTPError as e:
+            except Exception as e:
                 errors.error_handler(e)
 
             try:
                 retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-            except twitter.api.TwitterHTTPError as e:
+            except Exception as e:
                 errors.error_handler(e)
 
             time.sleep(2)
@@ -176,7 +176,7 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     return tweet_count, likes_count, retweet_count
 
 
-def crawl_timeline(bot, logger):
+def crawl_timeline(bot, logger, no_user):
     """
     This is the handle function of the -t or --timeline option.
     """
@@ -219,9 +219,14 @@ def crawl_timeline(bot, logger):
         logger.info("Sleeping for one minute.")
         time.sleep(60)
 
-        tweet_count, likes_count, retweet_count = likes_rt_user(
-            bot, logger, tweet_count, likes_count, retweet_count
-        )
+        if no_user:
+            tweet_count, likes_count, retweet_count = likes_rt_home(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
+        else:
+            tweet_count, likes_count, retweet_count = likes_rt_user(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
 
         # update the values in the database
         today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -230,7 +235,7 @@ def crawl_timeline(bot, logger):
         # retrieve the up-to-date followers count
         try:
             followers_count = followers(bot, globals.bot_user)
-        except twitter.api.TwitterHTTPError as e:
+        except Exception as e:
             errors.error_handler(e)
 
         # if there aren't data, creates a record in the statistics table
@@ -290,7 +295,7 @@ def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_coun
     return tweet_count, likes_count, retweet_count
 
 
-def crawl_keyword(bot, logger, keyword):
+def crawl_keyword(bot, logger, keyword, no_user):
     """
     This is the handle function of the -k or --keyword option.
     """
@@ -330,12 +335,18 @@ def crawl_keyword(bot, logger, keyword):
             tweet_count, likes_count, retweet_count = likes_rt_search(
                 bot, logger, keyword, tweet_count, likes_count, retweet_count
             )
+
             logger.info("Sleeping for one minute.")
             time.sleep(60)
 
-            tweet_count, likes_count, retweet_count = likes_rt_user(
-                bot, logger, tweet_count, likes_count, retweet_count
-            )
+            if no_user:
+                tweet_count, likes_count, retweet_count = likes_rt_search(
+                    bot, logger, keyword, tweet_count, likes_count, retweet_count
+                )
+            else:
+                tweet_count, likes_count, retweet_count = likes_rt_user(
+                    bot, logger, tweet_count, likes_count, retweet_count
+                )
 
             # update the values in the database
             today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -379,7 +390,7 @@ def crawl_keyword(bot, logger, keyword):
                 time.sleep(15 * 60)
             logger.info("Sleeping for 15 minutes.")
             time.sleep(15 * 60)
-        except twitter.api.TwitterHTTPError as e:
+        except Exception as e:
 
             if tweet_count != 0:
                 db.update_stat(
@@ -438,6 +449,7 @@ def main():
             args=(
                 bot,
                 logger,
+                args.no_user,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
@@ -454,6 +466,7 @@ def main():
                 bot,
                 logger,
                 args.keyword,
+                args.no_user,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})

@@ -44,6 +44,13 @@ def get_args():
         help="Search for tweets with a defined keyword.",
     )
 
+    parser.add_argument(
+        "-nu",
+        "--no-user",
+        action="store_true",
+        help="Don't like and retweet user tweets.",
+    )
+
     group.add_argument(
         "-s",
         "--stats",
