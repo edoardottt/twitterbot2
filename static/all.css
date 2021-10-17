@@ -13,6 +13,8 @@
 html,body {
     width: 100%;
     height:100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* change the background color */
@@ -75,10 +77,16 @@ html,body {
     color: #009879;
 }
 
-html, body{
-    margin: 0;
-    padding: 0;
+.logs {
+    width: 100%;
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    margin-left: 0;
+    text-align: left;
 }
+
+
 footer{
     width: 100%;
     min-height: 30px;
