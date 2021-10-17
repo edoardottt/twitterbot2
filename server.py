@@ -70,6 +70,23 @@ def user_dashboard():
     if values is None:
         return render_template("error.html", errormsg="No data for this user.")
 
+    # render last 50 logs
+    logs_line = 50
+    logs = []
+    render_logs = 1
+    try:
+        with open("twitterbot2.log", "r") as f:
+            text = f.read().split("\n")
+        if len(text) > logs_line:
+            start = len(text) - logs_line - 1
+        else:
+            start = 0
+        for line in text[start:]:
+            if line.strip() != "":
+                logs.append(line)
+    except Exception:
+        render_logs = 0
+
     if not today_show:
         (
             tweet_count,
@@ -87,6 +104,9 @@ def user_dashboard():
         followers=followers_count,
         values=values,
         today_show=today_show,
+        len=len(logs),
+        logs=logs,
+        render_logs=render_logs,
     )
 
 
