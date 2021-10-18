@@ -145,6 +145,41 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     return tweet_count, likes_count, retweet_count
 
 
+def likes_rt_home_no_user(bot, logger, tweet_count, likes_count, retweet_count):
+    """
+    This function tries to put likes and retweet the tweets in
+    the bot timeline (not the user's ones).
+    """
+
+    try:
+        home = get_home(bot)
+    except Exception as e:
+        errors.error_handler(e)
+
+    if home is not None:
+        tweet_count += len(home)
+
+    for tweet_home in home:
+        if (
+            tweet_home["user"]["screen_name"] != globals.bot_user
+            and tweet_home["user"]["screen_name"] != globals.user
+        ):
+
+            try:
+                likes_count = put_like(bot, tweet_home, logger, likes_count)
+            except Exception as e:
+                errors.error_handler(e)
+
+            try:
+                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
+            except Exception as e:
+                errors.error_handler(e)
+
+            time.sleep(2)
+
+    return tweet_count, likes_count, retweet_count
+
+
 def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     """
     This function tries to put likes and retweet the tweets in
@@ -220,7 +255,7 @@ def crawl_timeline(bot, logger, no_user):
         time.sleep(60)
 
         if no_user:
-            tweet_count, likes_count, retweet_count = likes_rt_home(
+            tweet_count, likes_count, retweet_count = likes_rt_home_no_user(
                 bot, logger, tweet_count, likes_count, retweet_count
             )
         else:
@@ -295,6 +330,32 @@ def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_coun
     return tweet_count, likes_count, retweet_count
 
 
+def likes_rt_search_no_user(
+    bot, logger, keyword, tweet_count, likes_count, retweet_count
+):
+    """
+    This function tries to put likes and retweet the tweets
+    searched by term (not the user's ones).
+    """
+    ts = search(bot, keyword)
+    statuses = ts["statuses"]
+
+    if statuses is not None:
+        tweet_count += len(statuses)
+    else:
+        logger.warning("Rate limit exceeded")
+        time.sleep(15 * 60)
+    for tweet_ts in statuses:
+        if (
+            tweet_ts["user"]["screen_name"] != globals.bot_user
+            and tweet_ts["user"]["screen_name"] != globals.user
+        ):
+            likes_count = put_like(bot, tweet_ts, logger, likes_count)
+            retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
+            time.sleep(2)
+    return tweet_count, likes_count, retweet_count
+
+
 def crawl_keyword(bot, logger, keyword, no_user):
     """
     This is the handle function of the -k or --keyword option.
@@ -340,7 +401,7 @@ def crawl_keyword(bot, logger, keyword, no_user):
             time.sleep(60)
 
             if no_user:
-                tweet_count, likes_count, retweet_count = likes_rt_search(
+                tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
                     bot, logger, keyword, tweet_count, likes_count, retweet_count
                 )
             else:
