@@ -247,9 +247,14 @@ def crawl_timeline(bot, logger, no_user):
         logger.info("Today retweets count: " + str(retweet_count))
         logger.info("Followers count: " + str(followers_count))
 
-        tweet_count, likes_count, retweet_count = likes_rt_home(
-            bot, logger, tweet_count, likes_count, retweet_count
-        )
+        if no_user:
+            tweet_count, likes_count, retweet_count = likes_rt_home_no_user(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
+        else:
+            tweet_count, likes_count, retweet_count = likes_rt_home(
+                bot, logger, tweet_count, likes_count, retweet_count
+            )
 
         logger.info("Sleeping for one minute.")
         time.sleep(60)
@@ -393,9 +398,14 @@ def crawl_keyword(bot, logger, keyword, no_user):
             logger.info("Today retweets count: " + str(retweet_count))
             logger.info("Followers count: " + str(followers_count))
 
-            tweet_count, likes_count, retweet_count = likes_rt_search(
-                bot, logger, keyword, tweet_count, likes_count, retweet_count
-            )
+            if no_user:
+                tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
+                    bot, logger, keyword, tweet_count, likes_count, retweet_count
+                )
+            else:
+                tweet_count, likes_count, retweet_count = likes_rt_search(
+                    bot, logger, tweet_count, likes_count, retweet_count
+                )
 
             logger.info("Sleeping for one minute.")
             time.sleep(60)
