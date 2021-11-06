@@ -119,6 +119,7 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     the bot timeline.
     """
 
+    home = None
     try:
         home = get_home(bot)
     except Exception as e:
@@ -151,6 +152,7 @@ def likes_rt_home_no_user(bot, logger, tweet_count, likes_count, retweet_count):
     the bot timeline (not the user's ones).
     """
 
+    home = None
     try:
         home = get_home(bot)
     except Exception as e:
@@ -185,6 +187,7 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     This function tries to put likes and retweet the tweets in
     the user timeline.
     """
+    home = None
     try:
         home = get_friend_home(bot, globals.user)
     except Exception as e:
