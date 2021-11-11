@@ -127,21 +127,22 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
 
     if home is not None:
         tweet_count += len(home)
+        for tweet_home in home:
+            if tweet_home["user"]["screen_name"] != globals.bot_user:
 
-    for tweet_home in home:
-        if tweet_home["user"]["screen_name"] != globals.bot_user:
+                try:
+                    likes_count = put_like(bot, tweet_home, logger, likes_count)
+                except Exception as e:
+                    errors.error_handler(e)
 
-            try:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-            except Exception as e:
-                errors.error_handler(e)
+                try:
+                    retweet_count = retweet_tweet(
+                        bot, tweet_home, logger, retweet_count
+                    )
+                except Exception as e:
+                    errors.error_handler(e)
 
-            try:
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-            except Exception as e:
-                errors.error_handler(e)
-
-            time.sleep(2)
+                time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
 
@@ -161,23 +162,25 @@ def likes_rt_home_no_user(bot, logger, tweet_count, likes_count, retweet_count):
     if home is not None:
         tweet_count += len(home)
 
-    for tweet_home in home:
-        if (
-            tweet_home["user"]["screen_name"] != globals.bot_user
-            and tweet_home["user"]["screen_name"] != globals.user
-        ):
+        for tweet_home in home:
+            if (
+                tweet_home["user"]["screen_name"] != globals.bot_user
+                and tweet_home["user"]["screen_name"] != globals.user
+            ):
 
-            try:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-            except Exception as e:
-                errors.error_handler(e)
+                try:
+                    likes_count = put_like(bot, tweet_home, logger, likes_count)
+                except Exception as e:
+                    errors.error_handler(e)
 
-            try:
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-            except Exception as e:
-                errors.error_handler(e)
+                try:
+                    retweet_count = retweet_tweet(
+                        bot, tweet_home, logger, retweet_count
+                    )
+                except Exception as e:
+                    errors.error_handler(e)
 
-            time.sleep(2)
+                time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
 
@@ -196,20 +199,22 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
     if home is not None:
         tweet_count += len(home)
 
-    for tweet_home in home:
-        if tweet_home["user"]["screen_name"] != globals.bot_user:
+        for tweet_home in home:
+            if tweet_home["user"]["screen_name"] != globals.bot_user:
 
-            try:
-                likes_count = put_like(bot, tweet_home, logger, likes_count)
-            except Exception as e:
-                errors.error_handler(e)
+                try:
+                    likes_count = put_like(bot, tweet_home, logger, likes_count)
+                except Exception as e:
+                    errors.error_handler(e)
 
-            try:
-                retweet_count = retweet_tweet(bot, tweet_home, logger, retweet_count)
-            except Exception as e:
-                errors.error_handler(e)
+                try:
+                    retweet_count = retweet_tweet(
+                        bot, tweet_home, logger, retweet_count
+                    )
+                except Exception as e:
+                    errors.error_handler(e)
 
-            time.sleep(2)
+                time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
 
@@ -350,17 +355,17 @@ def likes_rt_search_no_user(
 
     if statuses is not None:
         tweet_count += len(statuses)
+        for tweet_ts in statuses:
+            if (
+                tweet_ts["user"]["screen_name"] != globals.bot_user
+                and tweet_ts["user"]["screen_name"] != globals.user
+            ):
+                likes_count = put_like(bot, tweet_ts, logger, likes_count)
+                retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
+                time.sleep(2)
     else:
         logger.warning("Rate limit exceeded")
         time.sleep(15 * 60)
-    for tweet_ts in statuses:
-        if (
-            tweet_ts["user"]["screen_name"] != globals.bot_user
-            and tweet_ts["user"]["screen_name"] != globals.user
-        ):
-            likes_count = put_like(bot, tweet_ts, logger, likes_count)
-            retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
-            time.sleep(2)
     return tweet_count, likes_count, retweet_count
 
 
