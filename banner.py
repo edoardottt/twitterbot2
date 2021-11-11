@@ -14,6 +14,7 @@
 
 import version
 import datetime
+import globals
 
 
 def print_banner():
@@ -31,10 +32,12 @@ def print_banner():
     print("")
 
 
-def tweet_banner():
+def tweet_banner(message):
+    """
+    This is a standard tweet to spread info about the bot.
+    """
     tweet = str(datetime.datetime.now()) + "\n"
-    tweet += "This is a bot at the service of the only almighty God @edoardottt2.\n"
-    tweet += "https://www.edoardoottavianelli.it\n"
-    tweet += "https://github.com/edoardottt\n"
-    tweet += "https://twitter.com/edoardottt2"
+    tweet += "This is a bot at the service of @" + globals.user + ".\n"
+    tweet += "https://github.com/edoardottt/twitterbot2\n"
+    tweet += message + "\n"
     return tweet
