@@ -113,7 +113,9 @@ def create_bot(logger):
     return bot
 
 
-def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
+def likes_rt_home(
+    bot, logger, tweet_count, likes_count, retweet_count, no_like, no_retweet
+):
     """
     This function tries to put likes and retweet the tweets in
     the bot timeline.
@@ -130,17 +132,19 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
 
-                try:
-                    likes_count = put_like(bot, tweet_home, logger, likes_count)
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_like:
+                    try:
+                        likes_count = put_like(bot, tweet_home, logger, likes_count)
+                    except Exception as e:
+                        errors.error_handler(e)
 
-                try:
-                    retweet_count = retweet_tweet(
-                        bot, tweet_home, logger, retweet_count
-                    )
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_retweet:
+                    try:
+                        retweet_count = retweet_tweet(
+                            bot, tweet_home, logger, retweet_count
+                        )
+                    except Exception as e:
+                        errors.error_handler(e)
 
                 time.sleep(2)
 
