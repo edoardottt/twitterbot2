@@ -41,7 +41,7 @@ def get_args():
         "-k",
         "--keyword",
         type=str,
-        help="Search for tweets with a defined keyword.",
+        help="Search for tweets with defined keyword(s). If more than one, comma separated.",
     )
 
     parser.add_argument(
