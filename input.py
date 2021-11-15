@@ -51,6 +51,20 @@ def get_args():
         help="Don't like and retweet user tweets.",
     )
 
+    parser.add_argument(
+        "-nl",
+        "--no-like",
+        action="store_true",
+        help="Don't like tweets, just retweet.",
+    )
+
+    parser.add_argument(
+        "-nr",
+        "--no-retweet",
+        action="store_true",
+        help="Don't retweet tweets, just like.",
+    )
+
     group.add_argument(
         "-s",
         "--stats",

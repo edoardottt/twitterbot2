@@ -14,7 +14,8 @@
 
 def usage():
     """
-    usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -nu | -s STATS | -oc OUTPUT_CSV | -oj OUTPUT_JSON | -oh OUTPUT_HTML]
+    usage: twitterbot2.py [-h] [-v | -t | -k KEYWORD | -nu | -nl | -nr \
+| -s STATS | -oc OUTPUT_CSV | -oj OUTPUT_JSON | -oh OUTPUT_HTML]
 
     Twitterbot v2
 
