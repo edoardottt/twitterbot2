@@ -147,7 +147,9 @@ def likes_rt_home(bot, logger, tweet_count, likes_count, retweet_count):
     return tweet_count, likes_count, retweet_count
 
 
-def likes_rt_home_no_user(bot, logger, tweet_count, likes_count, retweet_count):
+def likes_rt_home_no_user(
+    bot, logger, tweet_count, likes_count, retweet_count, no_like, no_retweet
+):
     """
     This function tries to put likes and retweet the tweets in
     the bot timeline (not the user's ones).
@@ -168,24 +170,28 @@ def likes_rt_home_no_user(bot, logger, tweet_count, likes_count, retweet_count):
                 and tweet_home["user"]["screen_name"] != globals.user
             ):
 
-                try:
-                    likes_count = put_like(bot, tweet_home, logger, likes_count)
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_like:
+                    try:
+                        likes_count = put_like(bot, tweet_home, logger, likes_count)
+                    except Exception as e:
+                        errors.error_handler(e)
 
-                try:
-                    retweet_count = retweet_tweet(
-                        bot, tweet_home, logger, retweet_count
-                    )
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_retweet:
+                    try:
+                        retweet_count = retweet_tweet(
+                            bot, tweet_home, logger, retweet_count
+                        )
+                    except Exception as e:
+                        errors.error_handler(e)
 
                 time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
 
 
-def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
+def likes_rt_user(
+    bot, logger, tweet_count, likes_count, retweet_count, no_like, no_retweet
+):
     """
     This function tries to put likes and retweet the tweets in
     the user timeline.
@@ -202,24 +208,26 @@ def likes_rt_user(bot, logger, tweet_count, likes_count, retweet_count):
         for tweet_home in home:
             if tweet_home["user"]["screen_name"] != globals.bot_user:
 
-                try:
-                    likes_count = put_like(bot, tweet_home, logger, likes_count)
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_like:
+                    try:
+                        likes_count = put_like(bot, tweet_home, logger, likes_count)
+                    except Exception as e:
+                        errors.error_handler(e)
 
-                try:
-                    retweet_count = retweet_tweet(
-                        bot, tweet_home, logger, retweet_count
-                    )
-                except Exception as e:
-                    errors.error_handler(e)
+                if not no_retweet:
+                    try:
+                        retweet_count = retweet_tweet(
+                            bot, tweet_home, logger, retweet_count
+                        )
+                    except Exception as e:
+                        errors.error_handler(e)
 
                 time.sleep(2)
 
     return tweet_count, likes_count, retweet_count
 
 
-def crawl_timeline(bot, logger, no_user):
+def crawl_timeline(bot, logger, no_user, no_like, no_retweet):
     """
     This is the handle function of the -t or --timeline option.
     """
@@ -257,11 +265,23 @@ def crawl_timeline(bot, logger, no_user):
 
         if no_user:
             tweet_count, likes_count, retweet_count = likes_rt_home_no_user(
-                bot, logger, tweet_count, likes_count, retweet_count
+                bot,
+                logger,
+                tweet_count,
+                likes_count,
+                retweet_count,
+                no_like,
+                no_retweet,
             )
         else:
             tweet_count, likes_count, retweet_count = likes_rt_home(
-                bot, logger, tweet_count, likes_count, retweet_count
+                bot,
+                logger,
+                tweet_count,
+                likes_count,
+                retweet_count,
+                no_like,
+                no_retweet,
             )
 
         logger.info("Sleeping for one minute.")
@@ -269,11 +289,23 @@ def crawl_timeline(bot, logger, no_user):
 
         if no_user:
             tweet_count, likes_count, retweet_count = likes_rt_home_no_user(
-                bot, logger, tweet_count, likes_count, retweet_count
+                bot,
+                logger,
+                tweet_count,
+                likes_count,
+                retweet_count,
+                no_like,
+                no_retweet,
             )
         else:
             tweet_count, likes_count, retweet_count = likes_rt_user(
-                bot, logger, tweet_count, likes_count, retweet_count
+                bot,
+                logger,
+                tweet_count,
+                likes_count,
+                retweet_count,
+                no_like,
+                no_retweet,
             )
 
         # update the values in the database
@@ -323,7 +355,9 @@ def crawl_timeline(bot, logger, no_user):
             time.sleep(15 * 60)
 
 
-def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_count):
+def likes_rt_search(
+    bot, logger, keyword, tweet_count, likes_count, retweet_count, no_like, no_retweet
+):
     """
     This function tries to put likes and retweet the tweets searched by term.
     """
@@ -337,14 +371,16 @@ def likes_rt_search(bot, logger, keyword, tweet_count, likes_count, retweet_coun
         time.sleep(15 * 60)
     for tweet_ts in statuses:
         if tweet_ts["user"]["screen_name"] != globals.bot_user:
-            likes_count = put_like(bot, tweet_ts, logger, likes_count)
-            retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
+            if not no_like:
+                likes_count = put_like(bot, tweet_ts, logger, likes_count)
+            if not no_retweet:
+                retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
             time.sleep(2)
     return tweet_count, likes_count, retweet_count
 
 
 def likes_rt_search_no_user(
-    bot, logger, keyword, tweet_count, likes_count, retweet_count
+    bot, logger, keyword, tweet_count, likes_count, retweet_count, no_like, no_retweet
 ):
     """
     This function tries to put likes and retweet the tweets
@@ -360,8 +396,10 @@ def likes_rt_search_no_user(
                 tweet_ts["user"]["screen_name"] != globals.bot_user
                 and tweet_ts["user"]["screen_name"] != globals.user
             ):
-                likes_count = put_like(bot, tweet_ts, logger, likes_count)
-                retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
+                if not no_like:
+                    likes_count = put_like(bot, tweet_ts, logger, likes_count)
+                if not no_retweet:
+                    retweet_count = retweet_tweet(bot, tweet_ts, logger, retweet_count)
                 time.sleep(2)
     else:
         logger.warning("Rate limit exceeded")
@@ -378,7 +416,7 @@ def clean_keywords(keywords):
     return cleaned_keywords
 
 
-def crawl_keyword(bot, logger, keyword, no_user):
+def crawl_keyword(bot, logger, keyword, no_user, no_like, no_retweet):
     """
     This is the handle function of the -k or --keyword option.
     """
@@ -418,11 +456,25 @@ def crawl_keyword(bot, logger, keyword, no_user):
             for key in keyword:
                 if no_user:
                     tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
-                        bot, logger, key, tweet_count, likes_count, retweet_count
+                        bot,
+                        logger,
+                        key,
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        no_like,
+                        no_retweet,
                     )
                 else:
                     tweet_count, likes_count, retweet_count = likes_rt_search(
-                        bot, logger, key, tweet_count, likes_count, retweet_count
+                        bot,
+                        logger,
+                        key,
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        no_like,
+                        no_retweet,
                     )
 
             logger.info("Sleeping for one minute.")
@@ -431,11 +483,24 @@ def crawl_keyword(bot, logger, keyword, no_user):
             for key in keyword:
                 if no_user:
                     tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
-                        bot, logger, keyword, tweet_count, likes_count, retweet_count
+                        bot,
+                        logger,
+                        keyword,
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        no_like,
+                        no_retweet,
                     )
                 else:
                     tweet_count, likes_count, retweet_count = likes_rt_user(
-                        bot, logger, tweet_count, likes_count, retweet_count
+                        bot,
+                        logger,
+                        tweet_count,
+                        likes_count,
+                        retweet_count,
+                        no_like,
+                        no_retweet,
                     )
 
             # update the values in the database
@@ -544,6 +609,8 @@ def main():
                 bot,
                 logger,
                 args.no_user,
+                args.no_like,
+                args.no_retweet,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
@@ -561,6 +628,8 @@ def main():
                 logger,
                 clean_keywords(args.keyword),
                 args.no_user,
+                args.no_like,
+                args.no_retweet,
             ),
         )
         t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
