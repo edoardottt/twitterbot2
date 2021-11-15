@@ -369,6 +369,15 @@ def likes_rt_search_no_user(
     return tweet_count, likes_count, retweet_count
 
 
+def clean_keywords(keywords):
+    """
+    This function returns an array of inputted keywords.
+    """
+    splitted_keywords = keywords.split(",")
+    cleaned_keywords = [elem.strip() for elem in splitted_keywords]
+    return cleaned_keywords
+
+
 def crawl_keyword(bot, logger, keyword, no_user):
     """
     This is the handle function of the -k or --keyword option.
