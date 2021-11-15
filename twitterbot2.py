@@ -412,7 +412,7 @@ def crawl_keyword(bot, logger, keyword, no_user):
                 )
             else:
                 tweet_count, likes_count, retweet_count = likes_rt_search(
-                    bot, logger, tweet_count, likes_count, retweet_count
+                    bot, logger, keyword, tweet_count, likes_count, retweet_count
                 )
 
             logger.info("Sleeping for one minute.")
@@ -484,9 +484,7 @@ def crawl_keyword(bot, logger, keyword, no_user):
                     ),
                 )
             logger.info("Database updated.")
-            logger.error(str(e.e) + " on " + e.uri)
-            logger.info("Sleeping for one hour.")
-            time.sleep(60 * 60)
+            errors.error_handler(e)
 
 
 def main():
