@@ -415,26 +415,28 @@ def crawl_keyword(bot, logger, keyword, no_user):
             logger.info("Today retweets count: " + str(retweet_count))
             logger.info("Followers count: " + str(followers_count))
 
-            if no_user:
-                tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
-                    bot, logger, keyword, tweet_count, likes_count, retweet_count
-                )
-            else:
-                tweet_count, likes_count, retweet_count = likes_rt_search(
-                    bot, logger, keyword, tweet_count, likes_count, retweet_count
-                )
+            for key in keyword:
+                if no_user:
+                    tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
+                        bot, logger, key, tweet_count, likes_count, retweet_count
+                    )
+                else:
+                    tweet_count, likes_count, retweet_count = likes_rt_search(
+                        bot, logger, key, tweet_count, likes_count, retweet_count
+                    )
 
             logger.info("Sleeping for one minute.")
             time.sleep(60)
 
-            if no_user:
-                tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
-                    bot, logger, keyword, tweet_count, likes_count, retweet_count
-                )
-            else:
-                tweet_count, likes_count, retweet_count = likes_rt_user(
-                    bot, logger, tweet_count, likes_count, retweet_count
-                )
+            for key in keyword:
+                if no_user:
+                    tweet_count, likes_count, retweet_count = likes_rt_search_no_user(
+                        bot, logger, keyword, tweet_count, likes_count, retweet_count
+                    )
+                else:
+                    tweet_count, likes_count, retweet_count = likes_rt_user(
+                        bot, logger, tweet_count, likes_count, retweet_count
+                    )
 
             # update the values in the database
             today = datetime.datetime.today().strftime("%Y-%m-%d")
@@ -551,7 +553,7 @@ def main():
             args=(
                 bot,
                 logger,
-                args.keyword,
+                clean_keywords(args.keyword),
                 args.no_user,
             ),
         )
