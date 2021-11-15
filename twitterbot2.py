@@ -523,6 +523,12 @@ def main():
 
     at_least_one_option = False
 
+    # check if bot -nl and -nr to avoid
+    # empty API calls.
+    if args.no_like and args.no_retweet:
+        logger.error("You can specify only -nl OR -nr, not together.")
+        sys.exit(1)
+
     # -- VERSION --
     if args.version:
         at_least_one_option = True
