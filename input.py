@@ -41,7 +41,7 @@ def get_args():
         "-k",
         "--keyword",
         type=str,
-        help="Search for tweets with a defined keyword.",
+        help="Search for tweets with defined keyword(s). If more than one, comma separated enclosed in double quotes.",
     )
 
     parser.add_argument(
@@ -49,6 +49,20 @@ def get_args():
         "--no-user",
         action="store_true",
         help="Don't like and retweet user tweets.",
+    )
+
+    parser.add_argument(
+        "-nl",
+        "--no-like",
+        action="store_true",
+        help="Don't like tweets, just retweet.",
+    )
+
+    parser.add_argument(
+        "-nr",
+        "--no-retweet",
+        action="store_true",
+        help="Don't retweet tweets, just like.",
     )
 
     group.add_argument(
