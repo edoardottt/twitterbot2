@@ -12,7 +12,8 @@
 #
 
 import yaml
-import logging 
+import logging
+
 
 def read_secrets():
     """
