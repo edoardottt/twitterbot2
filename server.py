@@ -115,7 +115,7 @@ def user_dashboard():
 # ---------------------------------
 
 
-@app.route("/api/<user>/tweets")
+@app.route("/api/tweets/<user>")
 def api_user_tweets(user):
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -132,7 +132,7 @@ def api_user_tweets(user):
         return str(result)
 
 
-@app.route("/api/<user>/likes")
+@app.route("/api/likes/<user>")
 def api_user_likes(user):
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -149,7 +149,7 @@ def api_user_likes(user):
         return str(result)
 
 
-@app.route("/api/<user>/retweets")
+@app.route("/api/retweets/<user>")
 def api_user_retweets(user):
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -166,7 +166,7 @@ def api_user_retweets(user):
         return str(result)
 
 
-@app.route("/api/<user>/followers")
+@app.route("/api/followers/<user>")
 def api_user_followers(user):
     if not user_ok(user):
         return "ERROR: Invalid username."
