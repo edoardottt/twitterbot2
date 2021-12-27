@@ -110,5 +110,78 @@ def user_dashboard():
     )
 
 
+# ---------------------------------
+# ------------ API ----------------
+# ---------------------------------
+
+
+@app.route("/api/tweets/<user>")
+def api_user_tweets(user):
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+
+    # if user ok ->
+    conn = db.conn_db()
+    values = db.user_stats(conn, user)
+    if values is None:
+        return "ERROR: No data for this user."
+    else:
+        result = 0
+        for i in range(0, len(values)):
+            result += values[i][2]
+        return str(result)
+
+
+@app.route("/api/likes/<user>")
+def api_user_likes(user):
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+
+    # if user ok ->
+    conn = db.conn_db()
+    values = db.user_stats(conn, user)
+    if values is None:
+        return "ERROR: No data for this user."
+    else:
+        result = 0
+        for i in range(0, len(values)):
+            result += values[i][3]
+        return str(result)
+
+
+@app.route("/api/retweets/<user>")
+def api_user_retweets(user):
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+
+    # if user ok ->
+    conn = db.conn_db()
+    values = db.user_stats(conn, user)
+    if values is None:
+        return "ERROR: No data for this user."
+    else:
+        result = 0
+        for i in range(0, len(values)):
+            result += values[i][4]
+        return str(result)
+
+
+@app.route("/api/followers/<user>")
+def api_user_followers(user):
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+
+    # if user ok ->
+    conn = db.conn_db()
+    values = db.user_stats(conn, user)
+    if values is None:
+        return "ERROR: No data for this user."
+    else:
+        result = 0
+        for i in range(0, len(values)):
+            result += values[i][5]
+        return str(result)
+
+
 if __name__ == "__main__":
     app.run()
