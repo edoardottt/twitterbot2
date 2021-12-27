@@ -177,9 +177,7 @@ def api_user_followers(user):
     if values is None:
         return "ERROR: No data for this user."
     else:
-        result = 0
-        for i in range(0, len(values)):
-            result += values[i][5]
+        result = values[len(values) - 1][5]
         return str(result)
 
 
