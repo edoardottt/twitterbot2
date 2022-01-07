@@ -83,6 +83,7 @@ for (var i = 0; i < values.length; i++) {
 }
 
 /*
+------ DEBUG -------
 console.log("dates: ");
 console.log(dates);
 console.log("tweets: ");
@@ -93,6 +94,7 @@ console.log("retweets: ");
 console.log(retweets);
 console.log("followers: ");
 console.log(followers);
+---------------------
 */
 
 var ctx = document.getElementById('lineChart').getContext('2d');
