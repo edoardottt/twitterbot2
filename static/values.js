@@ -11,6 +11,7 @@
 // visualization on frontend.
 //
 
+// Hex-colors array
 const COLORS = [
     '#4dc9f6',
     '#f67019',
@@ -23,11 +24,12 @@ const COLORS = [
     '#8549ba'
 ];
 
+//This function returns a hex-defined color.
 function color(index) {
     return COLORS[index % COLORS.length];
 }
 
-
+//Colors needed for the chart
 const CHART_COLORS = {
     red: 'rgb(255, 99, 132)',
     orange: 'rgb(255, 159, 64)',
@@ -40,6 +42,7 @@ const CHART_COLORS = {
     black: 'rgb(0, 0, 0)'
 };
 
+//Colors names
 const NAMED_COLORS = [
     CHART_COLORS.red,
     CHART_COLORS.orange,
