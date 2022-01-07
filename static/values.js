@@ -55,6 +55,7 @@ const NAMED_COLORS = [
     CHART_COLORS.black,
 ];
 
+//This function returns a name-defined color.
 function namedColor(index) {
     return NAMED_COLORS[index % NAMED_COLORS.length];
 }
