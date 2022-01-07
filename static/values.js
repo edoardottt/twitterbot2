@@ -139,10 +139,10 @@ var myChart = new Chart(ctx, {
 if (window.innerHeight > window.innerWidth) {
     (document.getElementsByClassName("chart-container")[0]).style.width = "100%";
     document.getElementById("formRange").value = 100;
-    console.log(document.getElementById("formRange").value);
+    console.log("Form range value: " + document.getElementById("formRange").value);
 } else {
     // --- On desktop ---
     (document.getElementsByClassName("chart-container")[0]).style.width = "75%";
     document.getElementById("formRange").value = 75;
-    console.log(document.getElementById("formRange").value);
+    console.log("Form range value: " + document.getElementById("formRange").value);
 }
