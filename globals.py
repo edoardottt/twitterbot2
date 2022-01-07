@@ -13,8 +13,8 @@
 #
 
 # ==== CHANGE THESE VALUES ====
-user = "edoardottt2"  # your profile
-bot_user = "ai_testing"  # the bot
+user = "edoardottt2"  # your profile | in my case: https://twitter.com/edoardottt2
+bot_user = "ai_testing"  # the bot | in my case: https://twitter.com/ai_testing
 # =============================
 
 
