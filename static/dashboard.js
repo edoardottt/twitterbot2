@@ -7,7 +7,7 @@
 //
 //   This repository is under GPL-3 License.
 //
-// This file reloads the website every 60 seconds.
+// This file refresh the website every 60 seconds.
 //
 
 function updateValues() {
