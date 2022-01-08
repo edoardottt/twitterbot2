@@ -60,7 +60,7 @@ function namedColor(index) {
     return NAMED_COLORS[index % NAMED_COLORS.length];
 }
 
-// Init variables
+//Init variables
 var values = JSON.parse(document.getElementById("lineChart").dataset.values);
 var dates = [];
 var tweets = [];
