@@ -98,6 +98,7 @@ def user_dashboard():
             retweet_count,
             followers_count,
         ) = ("", "", "", "")
+    uptime = datetime.datetime.now() - starting_time
     return render_template(
         "dashboard.html",
         user=user,
@@ -111,6 +112,7 @@ def user_dashboard():
         len=len(logs),
         logs=logs,
         render_logs=render_logs,
+        uptime=uptime,
     )
 
 
