@@ -8,7 +8,8 @@
 #   This repository is under GPL-3 License.
 #
 #
-# This file contains the api logic for the web service.
+# This file contains the backend code and
+# API logic for the web service.
 #
 
 from flask import Flask
@@ -19,6 +20,9 @@ import db
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
+
+# Needed for uptime
+starting_time = datetime.datetime.now()
 
 
 @app.route("/")
@@ -94,6 +98,7 @@ def user_dashboard():
             retweet_count,
             followers_count,
         ) = ("", "", "", "")
+    uptime = datetime.datetime.now() - starting_time
     return render_template(
         "dashboard.html",
         user=user,
@@ -107,6 +112,7 @@ def user_dashboard():
         len=len(logs),
         logs=logs,
         render_logs=render_logs,
+        uptime=str(uptime).split(".")[0],
     )
 
 
