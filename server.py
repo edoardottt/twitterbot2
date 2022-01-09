@@ -20,6 +20,9 @@ import db
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
 
+# Needed for uptime
+starting_time = datetime.datetime.now()
+
 
 @app.route("/")
 def hello():
