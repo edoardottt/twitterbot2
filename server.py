@@ -8,7 +8,8 @@
 #   This repository is under GPL-3 License.
 #
 #
-# This file contains the api logic for the web service.
+# This file contains the backend code and
+# API logic for the web service.
 #
 
 from flask import Flask
