@@ -112,7 +112,7 @@ def user_dashboard():
         len=len(logs),
         logs=logs,
         render_logs=render_logs,
-        uptime=uptime,
+        uptime=str(uptime).split(".")[0],
     )
 
 
