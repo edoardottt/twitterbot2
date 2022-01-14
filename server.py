@@ -17,6 +17,7 @@ from flask import request
 from flask.templating import render_template
 import datetime
 import db
+from dateutil.parser import parse
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -185,6 +186,20 @@ def api_user_followers(user):
     else:
         result = values[len(values) - 1][5]
         return str(result)
+
+
+def string_to_date(date):
+    """
+    @Input: string
+    @Output: string
+    This function tries to convert a string into a date,
+    if it's not possible return an empty string.
+    """
+    try:
+        converted = parse(date)
+        return converted
+    except Exception:
+        return ""
 
 
 if __name__ == "__main__":
