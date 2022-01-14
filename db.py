@@ -94,6 +94,23 @@ def user_stats(conn, username):
     return values
 
 
+def user_date_stats(conn, username, date):
+    """
+    This function retrieves all the records for a user for a specific day.
+    """
+    sql = """ SELECT * FROM statistics WHERE username = ? AND date = ?"""
+    cur = conn.cursor()
+    cur.execute(
+        sql,
+        (
+            username,
+            date,
+        ),
+    )
+    values = cur.fetchall()
+    return values
+
+
 def all_stats(conn):
     """
     This function retrieves all the records.
