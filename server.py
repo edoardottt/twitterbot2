@@ -17,6 +17,7 @@ from flask import request
 from flask.templating import render_template
 import datetime
 import db
+from dateutil.parser import parse
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -123,6 +124,9 @@ def user_dashboard():
 
 @app.route("/api/tweets/<user>")
 def api_user_tweets(user):
+    """
+    Total tweets for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -140,6 +144,9 @@ def api_user_tweets(user):
 
 @app.route("/api/likes/<user>")
 def api_user_likes(user):
+    """
+    Total likes for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -157,6 +164,9 @@ def api_user_likes(user):
 
 @app.route("/api/retweets/<user>")
 def api_user_retweets(user):
+    """
+    Total retweets for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -174,6 +184,9 @@ def api_user_retweets(user):
 
 @app.route("/api/followers/<user>")
 def api_user_followers(user):
+    """
+    Latest follower count for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -184,6 +197,100 @@ def api_user_followers(user):
         return "ERROR: No data for this user."
     else:
         result = values[len(values) - 1][5]
+        return str(result)
+
+
+def string_to_date(date):
+    """
+    @Input: string
+    @Output: string
+    This function tries to convert a string into a date,
+    if it's not possible return an empty string.
+    """
+    try:
+        converted = parse(date)
+        return converted
+    except Exception:
+        return ""
+
+
+@app.route("/api/tweets/<user>/<date>")
+def api_user_date_tweets(user, date):
+    """
+    Tweets for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
+    """
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+    if string_to_date(date) == "":
+        return "ERROR: Invalid date."
+    # if checks ok ->
+    conn = db.conn_db()
+    values = db.user_date_stats(conn, user, date)
+    if values is None or len(values) == 0:
+        return "ERROR: No data for this user on this day."
+    else:
+        result = values[0][2]
+        return str(result)
+
+
+@app.route("/api/likes/<user>/<date>")
+def api_user_date_likes(user, date):
+    """
+    Likes for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
+    """
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+    if string_to_date(date) == "":
+        return "ERROR: Invalid date."
+    # if checks ok ->
+    conn = db.conn_db()
+    values = db.user_date_stats(conn, user, date)
+    if values is None or len(values) == 0:
+        return "ERROR: No data for this user on this day."
+    else:
+        result = values[0][3]
+        return str(result)
+
+
+@app.route("/api/retweets/<user>/<date>")
+def api_user_date_retweets(user, date):
+    """
+    Retweets for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
+    """
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+    if string_to_date(date) == "":
+        return "ERROR: Invalid date."
+    # if checks ok ->
+    conn = db.conn_db()
+    values = db.user_date_stats(conn, user, date)
+    if values is None or len(values) == 0:
+        return "ERROR: No data for this user on this day."
+    else:
+        result = values[0][4]
+        return str(result)
+
+
+@app.route("/api/followers/<user>/<date>")
+def api_user_date_followers(user, date):
+    """
+    Followers for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
+    """
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+    if string_to_date(date) == "":
+        return "ERROR: Invalid date."
+    # if checks ok ->
+    conn = db.conn_db()
+    values = db.user_date_stats(conn, user, date)
+    if values is None or len(values) == 0:
+        return "ERROR: No data for this user on this day."
+    else:
+        result = values[0][5]
         return str(result)
 
 
