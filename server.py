@@ -250,5 +250,21 @@ def api_user_date_retweets(user, date):
         return str(result)
 
 
+@app.route("/api/followers/<user>/<date>")
+def api_user_date_followers(user, date):
+    if not user_ok(user):
+        return "ERROR: Invalid username."
+    if string_to_date(date) == "":
+        return "ERROR: Invalid date."
+    # if checks ok ->
+    conn = db.conn_db()
+    values = db.user_date_stats(conn, user, date)
+    if values is None or len(values) == 0:
+        return "ERROR: No data for this user on this day."
+    else:
+        result = values[0][5]
+        return str(result)
+
+
 if __name__ == "__main__":
     app.run()
