@@ -124,6 +124,9 @@ def user_dashboard():
 
 @app.route("/api/tweets/<user>")
 def api_user_tweets(user):
+    """
+    Total tweets for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -141,6 +144,9 @@ def api_user_tweets(user):
 
 @app.route("/api/likes/<user>")
 def api_user_likes(user):
+    """
+    Total likes for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -158,6 +164,9 @@ def api_user_likes(user):
 
 @app.route("/api/retweets/<user>")
 def api_user_retweets(user):
+    """
+    Total retweets for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -175,6 +184,9 @@ def api_user_retweets(user):
 
 @app.route("/api/followers/<user>")
 def api_user_followers(user):
+    """
+    Latest follower count for user <user>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
 
@@ -204,6 +216,9 @@ def string_to_date(date):
 
 @app.route("/api/tweets/<user>/<date>")
 def api_user_date_tweets(user, date):
+    """
+    Tweets for user <user> in date <date>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
     if string_to_date(date) == "":
@@ -220,6 +235,9 @@ def api_user_date_tweets(user, date):
 
 @app.route("/api/likes/<user>/<date>")
 def api_user_date_likes(user, date):
+    """
+    Likes for user <user> in date <date>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
     if string_to_date(date) == "":
@@ -236,6 +254,9 @@ def api_user_date_likes(user, date):
 
 @app.route("/api/retweets/<user>/<date>")
 def api_user_date_retweets(user, date):
+    """
+    Retweets for user <user> in date <date>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
     if string_to_date(date) == "":
@@ -252,6 +273,9 @@ def api_user_date_retweets(user, date):
 
 @app.route("/api/followers/<user>/<date>")
 def api_user_date_followers(user, date):
+    """
+    Followers for user <user> in date <date>.
+    """
     if not user_ok(user):
         return "ERROR: Invalid username."
     if string_to_date(date) == "":
