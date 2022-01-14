@@ -218,6 +218,7 @@ def string_to_date(date):
 def api_user_date_tweets(user, date):
     """
     Tweets for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -237,6 +238,7 @@ def api_user_date_tweets(user, date):
 def api_user_date_likes(user, date):
     """
     Likes for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -256,6 +258,7 @@ def api_user_date_likes(user, date):
 def api_user_date_retweets(user, date):
     """
     Retweets for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
         return "ERROR: Invalid username."
@@ -275,6 +278,7 @@ def api_user_date_retweets(user, date):
 def api_user_date_followers(user, date):
     """
     Followers for user <user> in date <date>.
+    Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
         return "ERROR: Invalid username."
