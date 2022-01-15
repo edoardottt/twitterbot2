@@ -74,6 +74,7 @@ Useful notes/links 🔗
 - [Twitter api rate limits](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits)
 - This app uses a Flask webserver (port 5000). Don't expose it on public Internet, use this behind NAT/firewall.
 - [ValueError: Unrecognised argument(s): encoding](https://github.com/edoardottt/twitterbot2/issues/47)
+- [twitterbot2 Api documentation](https://github.com/edoardottt/twitterbot2/wiki/Api)
 
 Contributing 🤝
 --------
