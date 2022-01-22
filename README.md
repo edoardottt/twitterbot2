@@ -21,10 +21,10 @@
   <a href="#useful-noteslinks-">Notes</a> •
   <a href="#contributing-">Contributing</a> •
   <a href="#license-">License</a>
+  <br>
+  <b>live demo running on <a href="https://twitter.com/ai_testing">@ai_testing</a></b>
 </p>
-
-**live demo running on [@ai_testing](https://twitter.com/ai_testing)**
-
+  
 Description 🔦 
 --------
 
