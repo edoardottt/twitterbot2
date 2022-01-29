@@ -1,14 +1,14 @@
 /*
- twitterbot2
+twitterbot2
 
-   edoardottt
-   edoardoottavianelli.it
-   https://github.com/edoardottt/twitterbot2
+> edoardottt
+> edoardoottavianelli.it
+> https://github.com/edoardottt/twitterbot2
 
-   This repository is under GPL-3 License.
+This repository is under GPL-3 License.
 
- This file controls the layout on the frontend.
- Basically, it cointains all the css needed.
+This file controls the layout on the frontend.
+Basically, it cointains all the css needed.
 */
 
 html,body {
@@ -88,7 +88,7 @@ html,body {
 }
 
 
-footer{
+footer {
     width: 100%;
     min-height: 30px;
     max-height: auto;
@@ -104,7 +104,8 @@ footer{
     right: 0px;
     margin-bottom: 0px;
 }
-div.footerCopy{
+
+div.footerCopy {
     clear: both;
     color: white;
     text-align: center;
@@ -113,7 +114,6 @@ div.footerCopy{
 }
 
 @media only screen and (orientation: portrait) {
-
     .container-fluid {
         width:100%;
         margin-left: auto;
@@ -124,11 +124,9 @@ div.footerCopy{
         margin-left: auto;
         margin-right: auto;
     }
-
 }
 
-@media (max-width:800px){
-    
+@media (max-width:800px) {
     footer .footer-wrap{
       width: 100%;
       padding: 0;
@@ -141,14 +139,11 @@ div.footerCopy{
         margin-left: auto;
         margin-right: auto;
     }
-
 }
 
-@media (max-width:600px){
-    
+@media (max-width:600px) {
     .widgetFooter:not(:nth-of-type(2)){
       text-align: left;
-    
     }
     .container-fluid {
         width:100%;
@@ -157,8 +152,7 @@ div.footerCopy{
     }
 }
 
-@media (max-width:500px){
-    
+@media (max-width:500px) {
     footer{
       min-height: auto;
     }
@@ -172,5 +166,4 @@ div.footerCopy{
         margin-left: auto;
         margin-right: auto;
     }
-
 }
