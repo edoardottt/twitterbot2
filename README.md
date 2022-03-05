@@ -8,7 +8,7 @@
   <a href="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml"><img src="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml/badge.svg"/></a>
   <br>
   <sub>
-    Coded with 💙 by edoardottt.
+    Coded with 💙 by edoardottt
   </sub>
   <br>
   <!--Tweet button-->
