@@ -32,6 +32,9 @@ import server
 import errors
 
 from threading import Thread
+# Create the two thread variables
+t1 = None
+t2 = None
 
 
 def auth(token, token_secret, consumer_key, consumer_secret):

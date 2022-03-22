@@ -18,6 +18,7 @@ from flask.templating import render_template
 import datetime
 import db
 from dateutil.parser import parse
+import twitterbot2
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -120,6 +121,16 @@ def user_dashboard():
 # ---------------------------------
 # ------------ API ----------------
 # ---------------------------------
+
+@app.route("/api/health")
+def api_health():
+    """
+    Server health endpoint.
+    """
+    if twitterbot2.t2 is not None:
+        if twitterbot2.t2.is_alive():
+            return "ok"
+    return "error"
 
 
 @app.route("/api/tweets/<user>")
