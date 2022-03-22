@@ -100,7 +100,12 @@ def user_dashboard():
             retweet_count,
             followers_count,
         ) = ("", "", "", "")
-    uptime = datetime.datetime.now() - starting_time
+
+    if twitterbot2.t2 is not None and twitterbot2.t2.is_alive():
+        uptime = "🟢Uptime: " + datetime.datetime.now() - starting_time
+    else:
+        uptime = "🔴Uptime: Dead"
+
     return render_template(
         "dashboard.html",
         user=user,
