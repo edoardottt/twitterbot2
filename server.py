@@ -18,7 +18,7 @@ from flask.templating import render_template
 import datetime
 import db
 from dateutil.parser import parse
-import twitterbot2
+import threading
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -101,10 +101,12 @@ def user_dashboard():
             followers_count,
         ) = ("", "", "", "")
 
-    if twitterbot2.t1 is not None and twitterbot2.t1.is_alive():
-        uptime = "🟢Uptime: " + datetime.datetime.now() - starting_time
-    else:
-        uptime = "🔴Uptime: Dead"
+    uptime = "🟢Uptime: " + str(datetime.datetime.now() - starting_time)
+    for thread in threading.enumerate():
+        if thread.getName() == "bot":
+            if not thread.is_alive():
+                uptime = "🔴Uptime: Dead"
+                break
 
     return render_template(
         "dashboard.html",
@@ -123,19 +125,19 @@ def user_dashboard():
     )
 
 
-# ---------------------------------
-# ------------ API ----------------
-# ---------------------------------
+# ---------------------------------------------------------
+# ------------------------ API ----------------------------
+# ---------------------------------------------------------
 
 @app.route("/api/health")
 def api_health():
     """
     Server health endpoint.
     """
-    if twitterbot2.t1 is not None:
-        if twitterbot2.t1.is_alive():
-            return "ok"
-    return "error"
+    for thread in threading.enumerate():
+        if thread.getName() == "bot" and not thread.is_alive():
+            return "error"
+    return "ok"
 
 
 @app.route("/api/tweets/<user>")

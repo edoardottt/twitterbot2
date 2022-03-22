@@ -611,6 +611,7 @@ def main():
         at_least_one_option = True
         bot = create_bot(logger)
         t1 = Thread(
+            name="bot",
             target=crawl_timeline,
             args=(
                 bot,
@@ -620,7 +621,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0"})
         t1.start()
         t2.start()
 
@@ -629,6 +630,7 @@ def main():
         at_least_one_option = True
         bot = create_bot(logger)
         t1 = Thread(
+            name="bot",
             target=crawl_keyword,
             args=(
                 bot,
@@ -639,7 +641,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(target=server.app.run, kwargs={"host": "0.0.0.0"})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0"})
         t1.start()
         t2.start()
 
