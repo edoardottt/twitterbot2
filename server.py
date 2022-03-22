@@ -101,7 +101,7 @@ def user_dashboard():
             followers_count,
         ) = ("", "", "", "")
 
-    if twitterbot2.t2 is not None and twitterbot2.t2.is_alive():
+    if twitterbot2.t1 is not None and twitterbot2.t1.is_alive():
         uptime = "🟢Uptime: " + datetime.datetime.now() - starting_time
     else:
         uptime = "🔴Uptime: Dead"
@@ -132,8 +132,8 @@ def api_health():
     """
     Server health endpoint.
     """
-    if twitterbot2.t2 is not None:
-        if twitterbot2.t2.is_alive():
+    if twitterbot2.t1 is not None:
+        if twitterbot2.t1.is_alive():
             return "ok"
     return "error"
 
