@@ -18,6 +18,7 @@ from flask.templating import render_template
 import datetime
 import db
 from dateutil.parser import parse
+import threading
 
 app = Flask(__name__, template_folder="templates")
 app.config["SECRET_KEY"] = "ILVYilvbthLQETHeteggrgwi2r389"
@@ -99,7 +100,14 @@ def user_dashboard():
             retweet_count,
             followers_count,
         ) = ("", "", "", "")
-    uptime = datetime.datetime.now() - starting_time
+
+    uptime = "🟢Uptime: " + str(datetime.datetime.now() - starting_time)
+    for thread in threading.enumerate():
+        if thread.getName() == "bot":
+            if not thread.is_alive():
+                uptime = "🔴Uptime: Dead"
+                break
+
     return render_template(
         "dashboard.html",
         user=user,
@@ -117,9 +125,19 @@ def user_dashboard():
     )
 
 
-# ---------------------------------
-# ------------ API ----------------
-# ---------------------------------
+# ---------------------------------------------------------
+# ------------------------ API ----------------------------
+# ---------------------------------------------------------
+
+@app.route("/api/health")
+def api_health():
+    """
+    Server health endpoint.
+    """
+    for thread in threading.enumerate():
+        if thread.getName() == "bot" and not thread.is_alive():
+            return "error"
+    return "ok"
 
 
 @app.route("/api/tweets/<user>")
