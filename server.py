@@ -103,7 +103,7 @@ def user_dashboard():
 
     uptime = "🟢Uptime: " + str(datetime.datetime.now() - starting_time)
     for thread in threading.enumerate():
-        if thread.getName() == "bot":
+        if thread.name == "bot":
             if not thread.is_alive():
                 uptime = "🔴Uptime: Dead"
                 break
