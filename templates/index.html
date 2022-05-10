@@ -24,12 +24,14 @@
                 Select for which user you want to show real time data
             </p>
             <form method="get" action="/dashboard">
-                <!-- For loop logic of jinja template -->
-                {%for i in range(0, len)%}
-                <input type="radio" name="user" id="option1" value="{{ users[i][0] }}"> {{ users[i][0]}} </input><br>
-                {%endfor%}
+                <select name="user" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <!-- For loop logic of jinja template -->
+                    {%for i in range(0, len)%}
+                    <option value="{{ users[i][0] }}">{{ users[i][0]}}</option>
+                    {%endfor%}
+                </select>
                 <br>
-                <button type="submit" value="Submit">Submit</button>
+                <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
             </form>
         </div>
     </div>
