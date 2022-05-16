@@ -78,10 +78,13 @@ Useful notes/links 🔗
 - [ValueError: Unrecognised argument(s): encoding](https://github.com/edoardottt/twitterbot2/issues/47)
 - [twitterbot2 Api documentation](https://github.com/edoardottt/twitterbot2/wiki/Api)
 
-Contributing 🤝
---------
+Changelog 📌
+-------
+Detailed changes for each release are documented in the [release notes](https://github.com/edoardottt/twitterbot2/releases).
 
-Just open an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull request](https://github.com/edoardottt/twitterbot2/pulls).  
+Contributing 🤝
+------
+If you want to contribute to this project, you can start opening an [issue](https://github.com/edoardottt/twitterbot2/issues)/[pull request](https://github.com/edoardottt/twitterbot2/pulls).  
 Read also [Code of Conduct](https://github.com/edoardottt/twitterbot2/blob/main/CODE_OF_CONDUCT.md) and [Contributing](https://github.com/edoardottt/twitterbot2/blob/main/CONTRIBUTING.md) files.
 
 License 📝
