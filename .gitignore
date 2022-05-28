@@ -4,6 +4,9 @@ twitterbot2-output/
 twitterbot2.log
 Dockerfile
 
+# VScode Debugging folder
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
