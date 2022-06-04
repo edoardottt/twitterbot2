@@ -20,9 +20,7 @@ import secrets
 import time
 import globals
 import logging
-import banner
 import input
-import version
 import sys
 import db
 import datetime
@@ -591,7 +589,7 @@ def main():
 
     args = input.get_args()
 
-    banner.print_banner()
+    output.print_banner()
 
     at_least_one_option = False
 
@@ -604,7 +602,7 @@ def main():
     # -- VERSION --
     if args.version:
         at_least_one_option = True
-        version.print_version()
+        output.print_version()
 
     # -- TIMELINE --
     if args.timeline:
@@ -666,7 +664,7 @@ def main():
         output.output_html(args.output_html)
 
     if not at_least_one_option:
-        version.print_version()
+        output.print_version()
 
 
 if __name__ == "__main__":
