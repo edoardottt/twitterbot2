@@ -9,6 +9,8 @@
 #
 # This file handles the input from the standard input
 # and return the arguments object (using argparse).
+# Moreover, it contains the function to retrieve
+# the secrets form the config.yaml file.
 #
 # twitterbot2.py [-h] [-v | -t | -k KEYWORD | -s STATS | -oc OUTPUT_CSV | -oj OUTPUT_JSON | -oh OUTPUT_HTML]
 #
@@ -16,6 +18,8 @@
 
 
 import argparse
+import yaml
+import logging
 
 
 def get_args():
@@ -96,3 +100,25 @@ def get_args():
     args = parser.parse_args()
 
     return args
+
+
+def read_secrets():
+    """
+    With this function we can read secrets
+    from the configuration file.
+    @return:
+        {
+            api_key
+            api_secret_key
+            bearer_token
+            access_token
+            access_token_secret
+        }
+    """
+    with open("config.yaml", "r") as stream:
+        try:
+            return yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            logger = logging.getLogger("__main__")
+            logger.error(exc)
+            exit()
