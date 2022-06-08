@@ -16,7 +16,6 @@
 
 
 import twitter
-import secrets
 import time
 import globals
 import logging
@@ -30,6 +29,7 @@ import server
 import errors
 
 from threading import Thread
+
 # Create the two thread variables
 t1 = None
 t2 = None
@@ -99,7 +99,7 @@ def create_bot(logger):
     """
     This function returns the authenticated Bot object.
     """
-    secretss = secrets.read_secrets()
+    secretss = input.read_secrets()
 
     if secretss["access_token"] is None or secretss["access_token_secret"] is None:
         logger.error("You must modify properly the config.yaml file.")
