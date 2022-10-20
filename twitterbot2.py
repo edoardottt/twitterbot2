@@ -611,10 +611,12 @@ def main():
         if args.port.isnumeric():
             if not (0 < int(args.port) < 65536):
                 print("invalid port.")
+                sys.exit()
             else:
                 port = int(args.port)
         else:
             print("invalid port.")
+            sys.exit()
 
     # -- TIMELINE --
     if args.timeline:
