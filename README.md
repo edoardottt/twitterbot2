@@ -44,7 +44,7 @@ Usage 🚀
 -------
 
 ```
-usage: twitterbot2.py [-h] [-v] [-t] [-k KEYWORD] [-nu] [-nl] [-nr] [-s STATS] [-oc OUTPUT_CSV] [-oj OUTPUT_JSON] [-oh OUTPUT_HTML]
+usage: twitterbot2.py [-h] [-v] [-t] [-k KEYWORD] [-p PORT] [-nu] [-nl] [-nr] [-s STATS] [-oc OUTPUT_CSV] [-oj OUTPUT_JSON] [-oh OUTPUT_HTML]
 
 Twitterbot v2
 
@@ -54,6 +54,7 @@ optional arguments:
   -t, --timeline        Search for tweets in the bot and user's timeline.
   -k KEYWORD, --keyword KEYWORD
                         Search for tweets with defined keyword(s). If more than one, comma separated enclosed in double quotes.
+  -p PORT, --port PORT  Set the port to be used (default 5555).
   -nu, --no-user        Don't like and retweet user tweets.
   -nl, --no-like        Don't like tweets, just retweet.
   -nr, --no-retweet     Don't retweet tweets, just like.
@@ -74,7 +75,7 @@ Useful notes/links 🔗
 
 - [Getting access to the Twitter api](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api)
 - [Twitter api rate limits](https://developer.twitter.com/en/docs/twitter-api/v1/rate-limits)
-- This app uses a Flask webserver (port 5555). Expose it on public Internet at your own risk (I use it behind NAT/firewall).
+- This app uses a Flask webserver (default port 5555). Expose it on public Internet at your own risk (I use it behind NAT/firewall).
 - [ValueError: Unrecognised argument(s): encoding](https://github.com/edoardottt/twitterbot2/issues/47)
 - [twitterbot2 Api documentation](https://github.com/edoardottt/twitterbot2/wiki/Api)
 
