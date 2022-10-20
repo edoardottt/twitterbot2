@@ -608,9 +608,11 @@ def main():
     if not args.port:
         port = 5555
     else:
-        if port.isnumeric():
-            if not (0 < int(port) < 65536):
+        if args.port.isnumeric():
+            if not (0 < int(args.port) < 65536):
                 print("invalid port.")
+            else:
+                port = int(args.port)
         else:
             print("invalid port.")
 
