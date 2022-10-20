@@ -35,10 +35,6 @@ def get_args():
     )
 
     group.add_argument(
-        "-p", "--port", type=str, help="Set the port to be used (default 5555)."
-    )
-
-    group.add_argument(
         "-t",
         "--timeline",
         action="store_true",
@@ -50,6 +46,10 @@ def get_args():
         "--keyword",
         type=str,
         help="Search for tweets with defined keyword(s). If more than one, comma separated enclosed in double quotes.",
+    )
+
+    parser.add_argument(
+        "-p", "--port", type=str, help="Set the port to be used (default 5555)."
     )
 
     parser.add_argument(
