@@ -604,6 +604,16 @@ def main():
         at_least_one_option = True
         output.print_version()
 
+    # -- PORT --
+    if not args.port:
+        port = 5555
+    else:
+        if port.isnumeric():
+            if not (0 < int(port) < 65536):
+                print("invalid port.")
+        else:
+            print("invalid port.")
+
     # -- TIMELINE --
     if args.timeline:
         at_least_one_option = True
@@ -619,7 +629,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 5555})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": port})
         t1.start()
         t2.start()
 
@@ -639,7 +649,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 5555})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": port})
         t1.start()
         t2.start()
 

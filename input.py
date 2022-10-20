@@ -35,6 +35,10 @@ def get_args():
     )
 
     group.add_argument(
+        "-p", "--port", type=str, help="Set the port to be used (default 5555)."
+    )
+
+    group.add_argument(
         "-t",
         "--timeline",
         action="store_true",
