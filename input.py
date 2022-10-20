@@ -49,6 +49,10 @@ def get_args():
     )
 
     parser.add_argument(
+        "-p", "--port", type=str, help="Set the port to be used (default 5555)."
+    )
+
+    parser.add_argument(
         "-nu",
         "--no-user",
         action="store_true",
