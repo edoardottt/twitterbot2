@@ -619,7 +619,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 3000})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 5555})
         t1.start()
         t2.start()
 
@@ -639,7 +639,7 @@ def main():
                 args.no_retweet,
             ),
         )
-        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 3000})
+        t2 = Thread(name="server", target=server.app.run, kwargs={"host": "0.0.0.0", "port": 5555})
         t1.start()
         t2.start()
 
