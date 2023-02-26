@@ -68,7 +68,7 @@ optional arguments:
                         Produce a html file containing the stats for the inputted used (ALL for anyone).
 ```
 
-See here [some examples](https://github.com/edoardottt/twitterbot2/wiki/Examples) to get started.
+See [some examples](https://github.com/edoardottt/twitterbot2/wiki/Examples) to get started.
 
 Useful notes/links 🔗
 --------
