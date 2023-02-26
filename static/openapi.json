@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "twitterbot2 - OpenAPI 3.0",
-    "description": "Like and retweet your tweets, or search tweets by topic. It stores and serves data with a Flask webapp. Live demo running on <a href=\"https://twitter.com/ai_testing\">@ai_testing</a>. Open source on <a href=\"https://github.com.com/edoardottt/twitterbot2\">GitHub</a>.",
+    "description": "Like and retweet your tweets, or search tweets by topic. It stores and serves data with a Flask webapp. Live demo running on <a target=\"_blank\" href=\"https://twitter.com/ai_testing\">@ai_testing</a>. Open source on <a target=\"_blank\" href=\"https://github.com.com/edoardottt/twitterbot2\">GitHub</a>.",
     "contact": {
       "email": "edoardott@gmail.com"
     },
