@@ -125,6 +125,11 @@ def user_dashboard():
     )
 
 
+@app.route('/api/docs')
+def get_docs():
+    return render_template('swaggerui.html')
+
+
 # ---------------------------------------------------------
 # ------------------------ API ----------------------------
 # ---------------------------------------------------------
@@ -137,7 +142,7 @@ def api_health():
     """
     for thread in threading.enumerate():
         if thread.getName() == "bot" and not thread.is_alive():
-            return "error"
+            return "error", 500
     return "ok"
 
 
@@ -147,13 +152,13 @@ def api_user_tweets(user):
     Total tweets for user <user>.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
 
     # if user ok ->
     conn = db.conn_db()
     values = db.user_stats(conn, user)
     if values is None:
-        return "ERROR: No data for this user."
+        return "ERROR: No data for this user.", 404
     else:
         result = 0
         for i in range(0, len(values)):
@@ -167,13 +172,13 @@ def api_user_likes(user):
     Total likes for user <user>.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
 
     # if user ok ->
     conn = db.conn_db()
     values = db.user_stats(conn, user)
     if values is None:
-        return "ERROR: No data for this user."
+        return "ERROR: No data for this user.", 404
     else:
         result = 0
         for i in range(0, len(values)):
@@ -187,13 +192,13 @@ def api_user_retweets(user):
     Total retweets for user <user>.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
 
     # if user ok ->
     conn = db.conn_db()
     values = db.user_stats(conn, user)
     if values is None:
-        return "ERROR: No data for this user."
+        return "ERROR: No data for this user.", 404
     else:
         result = 0
         for i in range(0, len(values)):
@@ -207,13 +212,13 @@ def api_user_followers(user):
     Latest follower count for user <user>.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
 
     # if user ok ->
     conn = db.conn_db()
     values = db.user_stats(conn, user)
     if values is None:
-        return "ERROR: No data for this user."
+        return "ERROR: No data for this user.", 404
     else:
         result = values[len(values) - 1][5]
         return str(result)
@@ -240,14 +245,14 @@ def api_user_date_tweets(user, date):
     Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
     if string_to_date(date) == "":
-        return "ERROR: Invalid date."
+        return "ERROR: Invalid date.", 400
     # if checks ok ->
     conn = db.conn_db()
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
-        return "ERROR: No data for this user on this day."
+        return "ERROR: No data for this user on this day.", 404
     else:
         result = values[0][2]
         return str(result)
@@ -260,14 +265,14 @@ def api_user_date_likes(user, date):
     Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
     if string_to_date(date) == "":
-        return "ERROR: Invalid date."
+        return "ERROR: Invalid date.", 400
     # if checks ok ->
     conn = db.conn_db()
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
-        return "ERROR: No data for this user on this day."
+        return "ERROR: No data for this user on this day.", 404
     else:
         result = values[0][3]
         return str(result)
@@ -280,14 +285,14 @@ def api_user_date_retweets(user, date):
     Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
     if string_to_date(date) == "":
-        return "ERROR: Invalid date."
+        return "ERROR: Invalid date.", 400
     # if checks ok ->
     conn = db.conn_db()
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
-        return "ERROR: No data for this user on this day."
+        return "ERROR: No data for this user on this day.", 404
     else:
         result = values[0][4]
         return str(result)
@@ -300,14 +305,14 @@ def api_user_date_followers(user, date):
     Date format: YYYY-MM-DD.
     """
     if not user_ok(user):
-        return "ERROR: Invalid username."
+        return "ERROR: Invalid username.", 404
     if string_to_date(date) == "":
-        return "ERROR: Invalid date."
+        return "ERROR: Invalid date.", 400
     # if checks ok ->
     conn = db.conn_db()
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
-        return "ERROR: No data for this user on this day."
+        return "ERROR: No data for this user on this day.", 404
     else:
         result = values[0][5]
         return str(result)
