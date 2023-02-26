@@ -1,0 +1,415 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "twitterbot2 - OpenAPI 3.0",
+    "description": "Like and retweet your tweets, or search tweets by topic. It stores and serves data with a Flask webapp. Live demo running on <a target=\"_blank\" href=\"https://twitter.com/ai_testing\">@ai_testing</a>. Open source on <a target=\"_blank\" href=\"https://github.com.com/edoardottt/twitterbot2\">GitHub</a>.",
+    "contact": {
+      "email": "edoardott@gmail.com"
+    },
+    "license": {
+      "name": "GPL-3.0 license",
+      "url": "https://github.com/edoardottt/twitterbot2/blob/main/LICENSE"
+    },
+    "version": "0.2"
+  },
+  "externalDocs": {
+    "description": "Find out more about twitterbot2",
+    "url": "https://github.com/edoardottt/twitterbot2/wiki"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "General"
+    },
+    {
+      "name": "Tweets",
+      "description": "Get info about tweets"
+    },
+    {
+      "name": "Likes",
+      "description": "Get info about likes"
+    },
+    {
+      "name": "Retweets",
+      "description": "Get info about retweets"
+    },
+    {
+      "name": "Followers",
+      "description": "Get info about followers"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "General"
+        ],
+        "summary": "Get API health info",
+        "description": "Get API health info",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "ok"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/tweets/{user}": {
+      "get": {
+        "tags": [
+          "Tweets"
+        ],
+        "summary": "Returns the count of all tweets collected by that user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 1003195
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/tweets/{user}/{date}": {
+      "get": {
+        "tags": [
+          "Tweets"
+        ],
+        "summary": "Returns the count of tweets collected by that user in the inputted day",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "description": "date",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 1609
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid date"
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/likes/{user}": {
+      "get": {
+        "tags": [
+          "Likes"
+        ],
+        "summary": "Returns the count of all likes for that user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 557611
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/likes/{user}/{date}": {
+      "get": {
+        "tags": [
+          "Likes"
+        ],
+        "summary": "Returns the count of likes for that user in the inputted day",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "description": "date",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 988
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid date"
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/retweets/{user}": {
+      "get": {
+        "tags": [
+          "Retweets"
+        ],
+        "summary": "Returns the count of all retweets for that user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 560155
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/retweets/{user}/{date}": {
+      "get": {
+        "tags": [
+          "Retweets"
+        ],
+        "summary": "Returns the count of retweets collected by that user in the inputted day",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "description": "date",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 981
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid date"
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/followers/{user}": {
+      "get": {
+        "tags": [
+          "Followers"
+        ],
+        "summary": "Returns the count of followers (latest observation) for that user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 17951
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    },
+    "/followers/{user}/{date}": {
+      "get": {
+        "tags": [
+          "Followers"
+        ],
+        "summary": "Returns the count of followers for that user in the inputted day",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "username",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "path",
+            "description": "date",
+            "required": true,
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": 17617
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid date"
+          },
+          "404": {
+            "description": "User or data not found"
+          }
+        }
+      }
+    }
+  }
+}

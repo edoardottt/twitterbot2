@@ -25,7 +25,7 @@ import json
 import sys
 import datetime
 
-version_str = "0.1.8"
+version_str = "0.2"
 
 
 def version():
