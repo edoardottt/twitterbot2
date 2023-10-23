@@ -21,7 +21,7 @@ import logging
 try:
     import matplotlib.pyplot as plt
 
-    plt.figure(num="Twitterbot2 - " + globals.bot_user + " stats")
+    plt.figure(num=f"Twitterbot2 - {globals.bot_user} stats")
 except Exception:
     logger = logging.getLogger("__main__")
     logger.error("Execute: pip install -r requirements.txt")
@@ -39,11 +39,11 @@ def check_stat(username):
     logger = logging.getLogger("matplotlib")
     logger.setLevel(logging.CRITICAL)
     logger = logging.getLogger("__main__")
-    dates = []  # contains all the dates stored in the database
     tweets = []  # contains all the tweets stored in the database
     likes = []  # contains all the likes stored in the records
     retweets = []  # contains all the retweets stored in the records
     followers = []  # contains all the followers stored in the records
+    dates = []
     if db_is_new:
         logger = logging.getLogger("__main__")
         logger.error("No database detected.")
@@ -84,14 +84,13 @@ def check_stat(username):
                 plt.legend(loc="upper left")
             # Print the results
             logger = logging.getLogger("__main__")
-            logger.info("Total tweets: " + str(sum(tweets)))
-            logger.info("Total likes: " + str(sum(likes)))
-            logger.info("Total retweets: " + str(sum(retweets)))
+            logger.info(f"Total tweets: {str(sum(tweets))}")
+            logger.info(f"Total likes: {str(sum(likes))}")
+            logger.info(f"Total retweets: {str(sum(retweets))}")
             logger.info(
-                "Followers (latest available data): "
-                + str(followers[len(followers) - 1])
+                f"Followers (latest available data): {str(followers[len(followers) - 1])}"
             )
-            plt.title("Statistics for " + username)
+            plt.title(f"Statistics for {username}")
             plt.subplots_adjust(
                 left=None,
                 bottom=0.13,

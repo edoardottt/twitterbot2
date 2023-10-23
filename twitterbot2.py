@@ -43,10 +43,9 @@ def auth(token, token_secret, consumer_key, consumer_secret):
     consumer_key = Api key
     consumer_secret = Api Secret key
     """
-    t = twitter.Twitter(
+    return twitter.Twitter(
         auth=twitter.OAuth(token, token_secret, consumer_key, consumer_secret)
     )
-    return t
 
 
 def get_home(t):
@@ -75,7 +74,7 @@ def followers(t, username):
 def put_like(t, status, logger, count):
     # Favorite/like a status
     if not status["favorited"]:
-        logger.info("Liked a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info(f'Liked a tweet by {status["user"]["screen_name"]}')
         t.favorites.create(_id=status["id"])
         count += 1
     return count
@@ -84,7 +83,7 @@ def put_like(t, status, logger, count):
 def retweet_tweet(t, status, logger, count):
     # Retweet a status
     if not status["retweeted"]:
-        logger.info("Retweeted a tweet by {}".format(status["user"]["screen_name"]))
+        logger.info(f'Retweeted a tweet by {status["user"]["screen_name"]}')
         t.statuses.retweet._id(_id=status["id"])
         count += 1
     return count
@@ -105,13 +104,12 @@ def create_bot(logger):
         logger.error("You must modify properly the config.yaml file.")
         sys.exit(1)
 
-    bot = auth(
+    return auth(
         secretss["access_token"],
         secretss["access_token_secret"],
         secretss["api_key"],
         secretss["api_secret_key"],
     )
-    return bot
 
 
 def likes_rt_home(
@@ -170,10 +168,10 @@ def likes_rt_home_no_user(
         tweet_count += len(home)
 
         for tweet_home in home:
-            if (
-                tweet_home["user"]["screen_name"] != globals.bot_user
-                and tweet_home["user"]["screen_name"] != globals.user
-            ):
+            if tweet_home["user"]["screen_name"] not in [
+                globals.bot_user,
+                globals.user,
+            ]:
 
                 if not no_like:
                     try:
@@ -245,7 +243,7 @@ def crawl_timeline(bot, logger, no_user, no_like, no_retweet):
     conn = db.conn_db()
     username = globals.bot_user
     values = db.today_stats(conn, username)
-    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # if there aren't data, creates a record in the statistics table
     if values is None:
@@ -263,10 +261,10 @@ def crawl_timeline(bot, logger, no_user, no_like, no_retweet):
 
     while True:
 
-        logger.info("Today tweets count: " + str(tweet_count))
-        logger.info("Today likes count: " + str(likes_count))
-        logger.info("Today retweets count: " + str(retweet_count))
-        logger.info("Followers count: " + str(followers_count))
+        logger.info(f"Today tweets count: {str(tweet_count)}")
+        logger.info(f"Today likes count: {str(likes_count)}")
+        logger.info(f"Today retweets count: {str(retweet_count)}")
+        logger.info(f"Followers count: {str(followers_count)}")
 
         if no_user:
             tweet_count, likes_count, retweet_count = likes_rt_home_no_user(
@@ -314,7 +312,7 @@ def crawl_timeline(bot, logger, no_user, no_like, no_retweet):
             )
 
         # update the values in the database
-        today = datetime.datetime.today().strftime("%Y-%m-%d")
+        today = datetime.datetime.now().strftime("%Y-%m-%d")
         values = db.today_stats(conn, username)
 
         # retrieve the up-to-date followers count
@@ -397,10 +395,10 @@ def likes_rt_search_no_user(
     if statuses is not None:
         tweet_count += len(statuses)
         for tweet_ts in statuses:
-            if (
-                tweet_ts["user"]["screen_name"] != globals.bot_user
-                and tweet_ts["user"]["screen_name"] != globals.user
-            ):
+            if tweet_ts["user"]["screen_name"] not in [
+                globals.bot_user,
+                globals.user,
+            ]:
                 if not no_like:
                     likes_count = put_like(bot, tweet_ts, logger, likes_count)
                 if not no_retweet:
@@ -417,8 +415,7 @@ def clean_keywords(keywords):
     This function returns an array of inputted keywords.
     """
     splitted_keywords = keywords.split(",")
-    cleaned_keywords = [elem.strip() for elem in splitted_keywords]
-    return cleaned_keywords
+    return [elem.strip() for elem in splitted_keywords]
 
 
 def crawl_keyword(bot, logger, keyword, no_user, no_like, no_retweet):
@@ -434,7 +431,7 @@ def crawl_keyword(bot, logger, keyword, no_user, no_like, no_retweet):
     conn = db.conn_db()
     username = globals.bot_user
     values = db.today_stats(conn, username)
-    today = datetime.datetime.today().strftime("%Y-%m-%d")
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
 
     # if there aren't data, creates a record in the statistics table
     if values is None:
@@ -453,10 +450,10 @@ def crawl_keyword(bot, logger, keyword, no_user, no_like, no_retweet):
     while True:
 
         try:
-            logger.info("Today tweets count: " + str(tweet_count))
-            logger.info("Today likes count: " + str(likes_count))
-            logger.info("Today retweets count: " + str(retweet_count))
-            logger.info("Followers count: " + str(followers_count))
+            logger.info(f"Today tweets count: {str(tweet_count)}")
+            logger.info(f"Today likes count: {str(likes_count)}")
+            logger.info(f"Today retweets count: {str(retweet_count)}")
+            logger.info(f"Followers count: {str(followers_count)}")
 
             for key in keyword:
                 if no_user:
@@ -509,7 +506,7 @@ def crawl_keyword(bot, logger, keyword, no_user, no_like, no_retweet):
                     )
 
             # update the values in the database
-            today = datetime.datetime.today().strftime("%Y-%m-%d")
+            today = datetime.datetime.now().strftime("%Y-%m-%d")
             values = db.today_stats(conn, username)
             # retrieve the up-to-date followers count
             followers_count = followers(bot, globals.bot_user)
@@ -579,7 +576,7 @@ def main():
         level=logging.INFO,
         filename="twitterbot2.log",
         filemode="a",
-        format=globals.bot_user + ": %(levelname)s:%(asctime)s | %(message)s",
+        format=f"{globals.bot_user}: %(levelname)s:%(asctime)s | %(message)s",
     )
     console = logging.StreamHandler()
     console.setLevel(logging.INFO)
@@ -607,16 +604,15 @@ def main():
     # -- PORT --
     if not args.port:
         port = 5555
-    else:
-        if args.port.isnumeric():
-            if not (0 < int(args.port) < 65536):
-                print("invalid port.")
-                sys.exit()
-            else:
-                port = int(args.port)
+    elif args.port.isnumeric():
+        if 0 < int(args.port) < 65536:
+            port = int(args.port)
         else:
             print("invalid port.")
             sys.exit()
+    else:
+        print("invalid port.")
+        sys.exit()
 
     # -- TIMELINE --
     if args.timeline:

@@ -41,8 +41,7 @@ def conn_db():
         logger = logging.getLogger("__main__")
         logger.error("You must execute: python init_db.py")
         sys.exit()
-    conn = sqlite3.connect(db_filename)
-    return conn
+    return sqlite3.connect(db_filename)
 
 
 def create_stat(conn, data):
@@ -72,15 +71,8 @@ def today_stats(conn, username):
     """
     sql = """ SELECT * FROM statistics WHERE username = ? AND date = ? """
     cur = conn.cursor()
-    cur.execute(
-        sql,
-        (
-            username,
-            datetime.datetime.today().strftime("%Y-%m-%d"),
-        ),
-    )
-    values = cur.fetchone()
-    return values
+    cur.execute(sql, (username, datetime.datetime.now().strftime("%Y-%m-%d")))
+    return cur.fetchone()
 
 
 def user_stats(conn, username):
@@ -90,8 +82,7 @@ def user_stats(conn, username):
     sql = """ SELECT * FROM statistics WHERE username = ? """
     cur = conn.cursor()
     cur.execute(sql, (username,))
-    values = cur.fetchall()
-    return values
+    return cur.fetchall()
 
 
 def user_date_stats(conn, username, date):
@@ -107,8 +98,7 @@ def user_date_stats(conn, username, date):
             date,
         ),
     )
-    values = cur.fetchall()
-    return values
+    return cur.fetchall()
 
 
 def all_stats(conn):
@@ -118,8 +108,7 @@ def all_stats(conn):
     sql = """ SELECT * FROM statistics """
     cur = conn.cursor()
     cur.execute(sql)
-    values = cur.fetchall()
-    return values
+    return cur.fetchall()
 
 
 def month_stats(conn, username):
@@ -130,9 +119,9 @@ def month_stats(conn, username):
     sql = """ SELECT sum(tweets), sum(likes), sum(retweets) FROM statistics \
         WHERE username = ? AND date >= ? AND date <= ? GROUP BY username """
     cur = conn.cursor()
-    current_year = datetime.datetime.today().strftime("%Y")
-    current_month = datetime.datetime.today().strftime("%m")
-    starting_day = datetime.datetime.today().replace(day=1).strftime("%Y-%m-%d")
+    current_year = datetime.datetime.now().strftime("%Y")
+    current_month = datetime.datetime.now().strftime("%m")
+    starting_day = datetime.datetime.now().replace(day=1).strftime("%Y-%m-%d")
     february_days = 28
     if (
         int(current_year) % 4 == 0
@@ -155,7 +144,7 @@ def month_stats(conn, username):
         12: 31,
     }
     ending_day = (
-        datetime.datetime.today()
+        datetime.datetime.now()
         .replace(day=months[int(current_month)])
         .strftime("%Y-%m-%d")
     )
@@ -178,5 +167,4 @@ def all_users(conn):
     sql = """ SELECT DISTINCT username FROM statistics"""
     cur = conn.cursor()
     cur.execute(sql)
-    values = cur.fetchall()
-    return values
+    return cur.fetchall()
