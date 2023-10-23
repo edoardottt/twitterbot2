@@ -56,7 +56,7 @@ def tweet_banner(message):
     This is a standard tweet to spread info about the bot.
     """
     tweet = str(datetime.datetime.now()) + "\n"
-    tweet += "This is a bot at the service of @" + globals.user + ".\n"
+    tweet += f"This is a bot at the service of @{globals.user}" + ".\n"
     tweet += "https://github.com/edoardottt/twitterbot2\n"
     tweet += message + "\n"
     return tweet
@@ -81,15 +81,13 @@ def create_output_file(filename):
     output file in the `twitterbot2-output` folder.
     """
     directory = "twitterbot2-output"
-    if not os.path.exists(directory + "/" + filename):
-        _ = open(directory + "/" + filename, "w+")
+    if not os.path.exists(f"{directory}/{filename}"):
+        _ = open(f"{directory}/{filename}", "w+")
+    elif answer := ask_confirmation():
+        _ = open(f"{directory}/{filename}", "w+")
     else:
-        answer = ask_confirmation()
-        if not answer:
-            sys.exit()
-        else:
-            _ = open(directory + "/" + filename, "w+")
-    return directory + "/" + filename
+        sys.exit()
+    return f"{directory}/{filename}"
 
 
 def ask_confirmation():
@@ -98,9 +96,7 @@ def ask_confirmation():
     existing output file.
     """
     answer = str(input("The file already exists. Do you want to override? (Y/n)"))
-    if answer.lower() == "y" or answer.lower() == "yes" or answer.lower() == "":
-        return True
-    return False
+    return answer.lower() in {"y", "yes", ""}
 
 
 def output_csv(user):
@@ -110,21 +106,18 @@ def output_csv(user):
     (if ALL is inputted).
     """
     conn = db.conn_db()
-    if user == "ALL":
-        values = db.all_stats(conn)
-    else:
-        values = db.user_stats(conn, user)
+    values = db.all_stats(conn) if user == "ALL" else db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
         sys.exit()
     else:
         create_output_folder()
-        filename = create_output_file(user + ".csv")
+        filename = create_output_file(f"{user}.csv")
         with open(filename, "w", newline="") as myfile:
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             for elem in values:
                 wr.writerow(elem)
-    logger.info("All data has been written into " + filename)
+    logger.info(f"All data has been written into {filename}")
 
 
 def output_json(user):
@@ -134,20 +127,17 @@ def output_json(user):
     (if ALL is inputted).
     """
     conn = db.conn_db()
-    if user == "ALL":
-        values = db.all_stats(conn)
-    else:
-        values = db.user_stats(conn, user)
+    values = db.all_stats(conn) if user == "ALL" else db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
         sys.exit()
     else:
         create_output_folder()
-        filename = create_output_file(user + ".json")
+        filename = create_output_file(f"{user}.json")
 
         dict = {}
         for elem in values:
-            if not elem[0] in dict.keys():
+            if elem[0] not in dict:
                 dict[elem[0]] = {}
             dict[elem[0]][elem[1]] = {
                 "tweets": elem[2],
@@ -157,11 +147,11 @@ def output_json(user):
             }
         with open(filename, "w") as f:
             json.dump(dict, f)
-    logger.info("All data has been written into " + filename)
+    logger.info(f"All data has been written into {filename}")
 
 
 def banner_html():
-    banner = """<html>
+    return """<html>
     <head>
         <title>Twitterbot2 output</title>
     <style>
@@ -223,18 +213,16 @@ body {
     <a href="https://github.com/edoardottt/twitterbot2/blob/main/LICENSE">License</a>
     </div>
     """
-    return banner
 
 
 def footer_html():
-    footer = """<div class="footer">
+    return """<div class="footer">
         <p>twitterbot2 by <a href='https://github.com/edoardottt'>@edoardottt</a></p>
     </div>
     <br><br><br><br><br><br><br><br>
     </body>
     </html>
     """
-    return footer
 
 
 def html_table(lol):
@@ -259,21 +247,18 @@ def output_html(user):
     (if ALL is inputted).
     """
     conn = db.conn_db()
-    if user == "ALL":
-        values = db.all_stats(conn)
-    else:
-        values = db.user_stats(conn, user)
+    values = db.all_stats(conn) if user == "ALL" else db.user_stats(conn, user)
     if len(values) == 0:
         logger.warning("There aren't data for this user.")
         sys.exit()
     else:
         create_output_folder()
-        filename = create_output_file(user + ".html")
+        filename = create_output_file(f"{user}.html")
         with open(filename, "w") as f:
             f.write(banner_html())
             f.write(html_table(values))
             f.write(footer_html())
-    logger.info("All data has been written into " + filename)
+    logger.info(f"All data has been written into {filename}")
 
 
 def data_json(values):
@@ -283,7 +268,7 @@ def data_json(values):
     """
     dict = {}
     for elem in values:
-        if not elem[0] in dict.keys():
+        if elem[0] not in dict:
             dict[elem[0]] = {}
         dict[elem[0]][elem[1]] = {
             "tweets": elem[2],
