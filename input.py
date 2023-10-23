@@ -101,9 +101,7 @@ def get_args():
         help="Produce a html file containing the stats for the inputted used (ALL for anyone).",
     )
 
-    args = parser.parse_args()
-
-    return args
+    return parser.parse_args()
 
 
 def read_secrets():

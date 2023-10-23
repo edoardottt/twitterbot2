@@ -28,7 +28,7 @@ def error_handler(e):
 
     logger = logging.getLogger("__main__")
     if e.__class__ == twitter.api.TwitterHTTPError:
-        logger.error(str(e.e) + " on " + e.uri)
+        logger.error(f"{str(e.e)} on {e.uri}")
 
         # == 429 TOO MANY REQUESTS -> Sleep for one hour
         if str(e.e.code) == "429":
@@ -46,9 +46,6 @@ def error_handler(e):
         logger.info("Sleeping for five minutes.")
         time.sleep(5 * 60)
 
-    # for other types of issues with specific behaviour
-    # add here an additional handler
-    # == DEFAULT ==
     else:
         logger.info("Sleeping for ten seconds.")
         time.sleep(10)
