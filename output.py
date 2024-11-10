@@ -2,7 +2,7 @@
 # twitterbot2
 #
 #   edoardottt
-#   edoardoottavianelli.it
+#   edoardottt.com
 #   https://github.com/edoardottt/twitterbot2
 #
 #   This repository is under GPL-3 License.
@@ -46,7 +46,7 @@ def print_banner():
         + version()
     )
     print("")
-    print("       > edoardottt, https://www.edoardoottavianelli.it")
+    print("       > edoardottt, https://edoardottt.com")
     print("       > https://github.com/edoardottt/twitterbot2")
     print("")
 
