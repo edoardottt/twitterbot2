@@ -2,9 +2,9 @@
   <img src="https://github.com/edoardottt/images/blob/main/twitterbot2/twitterbot2.png"><br>
   <b>Simple bot for twitter.</b><br>
   <!--badges-->
-  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg"/></a>
-  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg"/></a>
-  <a href="https://www.edoardoottavianelli.it"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg"/></a>
+  <a href="https://edoardottt.com"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/python-version.svg"/></a>
+  <a href="https://edoardottt.com"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/linux-build-success-badge.svg"/></a>
+  <a href="https://edoardottt.com"><img src="https://github.com/edoardottt/images/blob/main/twitterbot2/win-build-success-badge.svg"/></a>
   <a href="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml"><img src="https://github.com/edoardottt/twitterbot2/actions/workflows/python-app.yml/badge.svg"/></a>
   <br>
   <sub>
@@ -92,4 +92,4 @@ License 📝
 --------
 
 This repository is under [GPLv3 License](https://github.com/edoardottt/twitterbot2/blob/main/LICENSE).  
-[edoardoottavianelli.it](https://www.edoardoottavianelli.it) to contact me.
+[edoardottt.com](https://edoardottt.com) to contact me.
