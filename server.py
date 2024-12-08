@@ -44,10 +44,7 @@ def user_ok(user):
         return False
     conn = db.conn_db()
     users = db.all_users(conn)
-    for param in users:
-        if user == param[0]:
-            return True
-    return False
+    return any(user == param[0] for param in users)
 
 
 @app.route("/dashboard")
@@ -83,13 +80,8 @@ def user_dashboard():
     try:
         with open("twitterbot2.log", "r") as f:
             text = f.read().split("\n")
-        if len(text) > logs_line:
-            start = len(text) - logs_line - 1
-        else:
-            start = 0
-        for line in text[start:]:
-            if line.strip() != "":
-                logs.append(line)
+        start = len(text) - logs_line - 1 if len(text) > logs_line else 0
+        logs.extend(line for line in text[start:] if line.strip() != "")
     except Exception:
         render_logs = 0
 
@@ -101,7 +93,7 @@ def user_dashboard():
             followers_count,
         ) = ("", "", "", "")
 
-    uptime = "🟢Uptime: " + str(datetime.datetime.now() - starting_time)
+    uptime = f"🟢Uptime: {str(datetime.datetime.now() - starting_time)}"
     for thread in threading.enumerate():
         if thread.name == "bot":
             if not thread.is_alive():
@@ -140,10 +132,14 @@ def api_health():
     """
     Server health endpoint.
     """
-    for thread in threading.enumerate():
-        if thread.getName() == "bot" and not thread.is_alive():
-            return "error", 500
-    return "ok"
+    return next(
+        (
+            ("error", 500)
+            for thread in threading.enumerate()
+            if thread.getName() == "bot" and not thread.is_alive()
+        ),
+        "ok",
+    )
 
 
 @app.route("/api/tweets/<user>")
@@ -159,11 +155,8 @@ def api_user_tweets(user):
     values = db.user_stats(conn, user)
     if values is None:
         return "ERROR: No data for this user.", 404
-    else:
-        result = 0
-        for i in range(0, len(values)):
-            result += values[i][2]
-        return str(result)
+    result = sum(values[i][2] for i in range(0, len(values)))
+    return str(result)
 
 
 @app.route("/api/likes/<user>")
@@ -179,11 +172,8 @@ def api_user_likes(user):
     values = db.user_stats(conn, user)
     if values is None:
         return "ERROR: No data for this user.", 404
-    else:
-        result = 0
-        for i in range(0, len(values)):
-            result += values[i][3]
-        return str(result)
+    result = sum(values[i][3] for i in range(0, len(values)))
+    return str(result)
 
 
 @app.route("/api/retweets/<user>")
@@ -199,11 +189,8 @@ def api_user_retweets(user):
     values = db.user_stats(conn, user)
     if values is None:
         return "ERROR: No data for this user.", 404
-    else:
-        result = 0
-        for i in range(0, len(values)):
-            result += values[i][4]
-        return str(result)
+    result = sum(values[i][4] for i in range(0, len(values)))
+    return str(result)
 
 
 @app.route("/api/followers/<user>")
@@ -219,9 +206,8 @@ def api_user_followers(user):
     values = db.user_stats(conn, user)
     if values is None:
         return "ERROR: No data for this user.", 404
-    else:
-        result = values[len(values) - 1][5]
-        return str(result)
+    result = values[len(values) - 1][5]
+    return str(result)
 
 
 def string_to_date(date):
@@ -232,8 +218,7 @@ def string_to_date(date):
     if it's not possible return an empty string.
     """
     try:
-        converted = parse(date)
-        return converted
+        return parse(date)
     except Exception:
         return ""
 
@@ -253,9 +238,8 @@ def api_user_date_tweets(user, date):
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
         return "ERROR: No data for this user on this day.", 404
-    else:
-        result = values[0][2]
-        return str(result)
+    result = values[0][2]
+    return str(result)
 
 
 @app.route("/api/likes/<user>/<date>")
@@ -273,9 +257,8 @@ def api_user_date_likes(user, date):
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
         return "ERROR: No data for this user on this day.", 404
-    else:
-        result = values[0][3]
-        return str(result)
+    result = values[0][3]
+    return str(result)
 
 
 @app.route("/api/retweets/<user>/<date>")
@@ -293,9 +276,8 @@ def api_user_date_retweets(user, date):
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
         return "ERROR: No data for this user on this day.", 404
-    else:
-        result = values[0][4]
-        return str(result)
+    result = values[0][4]
+    return str(result)
 
 
 @app.route("/api/followers/<user>/<date>")
@@ -313,9 +295,8 @@ def api_user_date_followers(user, date):
     values = db.user_date_stats(conn, user, date)
     if values is None or len(values) == 0:
         return "ERROR: No data for this user on this day.", 404
-    else:
-        result = values[0][5]
-        return str(result)
+    result = values[0][5]
+    return str(result)
 
 
 if __name__ == "__main__":
