@@ -1,3 +1,6 @@
+> [!WARNING]  
+> Archived Project.
+
 <p align="center">
   <img src="https://github.com/edoardottt/images/blob/main/twitterbot2/twitterbot2.png"><br>
   <b>Simple bot for twitter.</b><br>
